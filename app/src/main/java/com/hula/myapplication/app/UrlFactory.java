@@ -1,6 +1,6 @@
-package com.p47_70.myapplication.app;
+package com.hula.myapplication.app;
 
-import com.p47_70.myapplication.config.AppConfig;
+import com.hula.myapplication.config.AppConfig;
 
 public class UrlFactory {
     public static final String host = AppConfig.BASE_URL;

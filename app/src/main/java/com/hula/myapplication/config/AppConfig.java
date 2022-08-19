@@ -1,4 +1,4 @@
-package com.p47_70.myapplication.config;
+package com.hula.myapplication.config;
 
 /**
  * ${description}

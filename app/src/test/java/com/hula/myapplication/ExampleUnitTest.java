@@ -1,4 +1,4 @@
-package com.p47_70.myapplication;
+package com.hula.myapplication;
 
 import org.junit.Test;
 

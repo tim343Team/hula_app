@@ -1,4 +1,4 @@
-package com.p47_70.myapplication.app;
+package com.hula.myapplication.app;
 
 import android.content.Context;
 

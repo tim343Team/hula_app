@@ -1,4 +1,4 @@
-package com.p47_70.myapplication.data;
+package com.hula.myapplication.data;
 
 public class DataRepository implements DataSource {
     private static DataRepository INSTANCE = null;

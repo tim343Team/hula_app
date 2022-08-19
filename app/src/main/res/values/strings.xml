@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Hula</string>
+    <string name="permissions_sdcard">无法读取内存卡！</string>
+    <string name="permissions_camera">无法使用相机！</string>
+    <string name="permissions_audio">无法录制音频！</string>
+
+    <!--主页-->
+    <string name="for_you">For You</string>
+
+    <!--搜索-->
+    <string name="search">Search</string>
+
+    <!--消息-->
+    <string name="messages">Messages</string>
+
+    <!--邀请-->
+    <string name="invites">Invites</string>
+
+    <!--我的-->
+    <string name="settings">Settings</string>
+
 </resources>
