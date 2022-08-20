@@ -1,10 +1,10 @@
-package com.hula.myapplication.widget;
+package com.hula.myapplication.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-public class UtilScreen {
+public class HUtilScreen {
 
     public static DisplayMetrics getScreenWH(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

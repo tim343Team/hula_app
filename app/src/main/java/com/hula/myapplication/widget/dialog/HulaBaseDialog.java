@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatDialog;
 
-import com.hula.myapplication.widget.UtilScreen;
+import com.hula.myapplication.util.HUtilScreen;
 
 
 public class HulaBaseDialog extends AppCompatDialog {
@@ -31,7 +31,7 @@ public class HulaBaseDialog extends AppCompatDialog {
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             WindowManager.LayoutParams params = window.getAttributes();
-            params.width = UtilScreen.getScreenWH(getContext()).widthPixels - UtilScreen.dp2px(getContext(),50F);
+            params.width = HUtilScreen.getScreenWH(getContext()).widthPixels - HUtilScreen.dp2px(getContext(),50F);
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;
             params.gravity = Gravity.CENTER;
             window.setAttributes(params);

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import com.hula.myapplication.R;
+import com.hula.myapplication.util.HUtilScreen;
 
 public class HulaSwitch extends SwitchCompat {
     private final Paint paint = new Paint();
@@ -27,7 +28,7 @@ public class HulaSwitch extends SwitchCompat {
         super(context, attrs, defStyleAttr);
         setThumbResource(R.drawable.ios_switch_thumb);
         setTrackResource(R.drawable.ios_switch_track_selector);
-        paint.setTextSize(UtilScreen.sp2px(getContext(), 7));
+        paint.setTextSize(HUtilScreen.sp2px(getContext(), 7));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setColor(Color.WHITE);
     }

@@ -3,6 +3,7 @@ package com.hula.myapplication.view.home;
 import android.os.Bundle;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import tim.com.libnetwork.base.BaseTransFragment;
 

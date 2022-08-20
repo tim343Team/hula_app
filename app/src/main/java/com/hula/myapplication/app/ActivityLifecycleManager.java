@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hula.myapplication.widget.HuCallBack1;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +27,7 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
     }
 
     private final List<Activity> activitieRefrece = new ArrayList<>();
+    private WeakReference<Activity> curActivityRef;
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
             activitieRefrece.remove(activity);
         }
         activitieRefrece.add(activity);
+        curActivityRef = new WeakReference<>(activity);
     }
 
     @Override
@@ -40,7 +45,7 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
 
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
-
+        curActivityRef = new WeakReference<>(activity);
     }
 
     @Override
@@ -80,6 +85,21 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
                     activity.finish();
                 }
             }
+        }
+    }
+
+    @Nullable
+    public Activity curActivity() {
+        if (curActivityRef != null) {
+            return curActivityRef.get();
+        }
+        return null;
+    }
+
+    public void safeCurActivity(HuCallBack1<Activity> back1) {
+        Activity activity = curActivity();
+        if (activity != null) {
+            back1.call(activity);
         }
     }
 

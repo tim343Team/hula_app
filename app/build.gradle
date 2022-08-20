@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -45,16 +48,24 @@ dependencies {
     implementation 'com.github.tim343Team:base:2.38'
     //butterknife
     api 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    kapt 'com.github.bumptech.glide:compiler:4.6.1'
     //下拉刷新
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     //布局
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     //屏幕适配
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+
+    // Utils
+    implementation 'com.blankj:utilcodex:1.31.0'
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.10"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+
 
 
 }

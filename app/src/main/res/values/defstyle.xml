@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="LDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog">
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="LDialogStyle.LoadingStyle" parent="LDialogStyle">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
     <style name="defActionBarStyle">
         <item name="android:background">@drawable/shape_radius_bottom20_fff</item>
         <item name="android:elevation">5dp</item>
@@ -25,4 +42,8 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+
+
+
 </resources>
