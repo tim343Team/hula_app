@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="HSCheckBox">
+        <attr name="buttonPadding" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="HuLaTextView">
+        <attr name="tv_hintStartDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HuLaEditText">
+        <attr name="edit_hintStartDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HuLaActionBar">
+        <attr name="acb_enableBack" format="boolean" />
+        <attr name="acb_title" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HuLaActionBarMenu">
+        <attr name="menu_text" format="string|reference" />
+        <attr name="menu_src" format="reference" />
+    </declare-styleable>
+
+
+</resources>

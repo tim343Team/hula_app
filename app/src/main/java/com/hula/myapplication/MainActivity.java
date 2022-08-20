@@ -1,8 +1,6 @@
 package com.hula.myapplication;
 
-import android.app.Activity;
 import android.os.Bundle;
-
 
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.view.HomeActivity;

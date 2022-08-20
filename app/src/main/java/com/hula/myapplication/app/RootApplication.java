@@ -23,6 +23,7 @@ public class RootApplication extends MyApplication {
         super.onCreate();
         mContext = this;
         initApplication();
+
         /*二维码识别*///
 //        ZXingLibrary.initDisplayOpinion(this);
     }

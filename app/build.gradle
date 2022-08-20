@@ -18,6 +18,9 @@ android {
     dataBinding {
         enabled = true
     }
+    viewBinding{
+        enabled = true
+    }
 
     buildTypes {
         release {
@@ -50,4 +53,8 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     //布局
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    //屏幕适配
+    implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+
+
 }

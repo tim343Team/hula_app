@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_def_windowbg"
     android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:acb_enableBack="false"
+        app:acb_title="">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:elevation="5dp"
+                android:src="@mipmap/icon_persion_null"
+                app:shapeAppearance="@style/CircleStyle" />
+
+
+            <com.hula.myapplication.widget.HuLaActionBarMenu
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/shape_oval_fff"
+                android:elevation="5dp"
+                android:padding="10dp"
+                app:menu_src="@mipmap/icon_unlove" />
+        </LinearLayout>
+
+        <com.hula.myapplication.widget.HuLaActionBarMenu
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_oval_fff"
+            android:elevation="5dp"
+            android:padding="10dp"
+            app:menu_src="@mipmap/icon_notice" />
+
+
+        <com.hula.myapplication.widget.HuLaActionBarMenu
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/shape_oval_fff"
+            android:backgroundTint="#8E73D3"
+            android:elevation="5dp"
+            android:padding="10dp"
+            app:menu_src="@mipmap/icon_add" />
+
+    </com.hula.myapplication.widget.HuLaActionBar>
 
 
 </LinearLayout>

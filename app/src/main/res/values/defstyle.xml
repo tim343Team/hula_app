@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="defActionBarStyle">
+        <item name="android:background">@drawable/shape_radius_bottom20_fff</item>
+        <item name="android:elevation">5dp</item>
+    </style>
+
+    <style name="defButtonStyle">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/select_button_bg</item>
+    </style>
+
+    <!--ShapeableImageView 圆角10dp-->
+    <style name="RoundedStyle10">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+
+    <!--ShapeableImageView 圆 -->
+    <style name="CircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
