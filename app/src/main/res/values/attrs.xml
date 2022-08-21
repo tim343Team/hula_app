@@ -21,6 +21,7 @@
 
     <declare-styleable name="HuLaActionBarMenu">
         <attr name="menu_text" format="string|reference" />
+        <attr name="menu_textColor" format="color" />
         <attr name="menu_src" format="reference" />
     </declare-styleable>
 

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_def_windowbg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/huLaActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:acb_enableBack="false"
+        app:acb_title=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Back"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/icon_step_2" />
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="25dp"
+        android:text="Email" />
+
+    <com.hula.myapplication.widget.HuLaEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/select_edit_bg"
+        android:gravity="center"
+        android:hint="email@example.com"
+        android:padding="20dp"
+        app:edit_hintStartDrawable="@mipmap/icon_email" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="12dp"
+        android:text="Name" />
+
+    <com.hula.myapplication.widget.HuLaEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/select_edit_bg"
+        android:gravity="center"
+        android:hint="First name"
+        android:padding="20dp"
+        app:edit_hintStartDrawable="@mipmap/icon_persion_hint" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="25dp"
+        android:text="Pronoun" />
+
+    <com.hula.myapplication.widget.HuLaEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/select_edit_bg"
+        android:gravity="center"
+        android:hint="She/Her"
+        android:padding="20dp"
+        app:edit_hintStartDrawable="@mipmap/icon_persion_hint_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="25dp"
+        android:text="Birthday" />
+
+    <com.hula.myapplication.widget.HuLaTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/select_edit_bg"
+        android:gravity="center"
+        android:hint="MM / DD / YYYY"
+        android:padding="20dp"
+        app:tv_hintStartDrawable="@mipmap/icon_rili" />
+
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/defButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:paddingHorizontal="71dp"
+        android:text="Continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+
+</LinearLayout>

@@ -15,10 +15,10 @@
     </style>
 
 
-
     <style name="AppTheme.HulaTheme" parent="AppTheme">
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">#C4C4C4</item>
         <item name="android:textSize">14sp</item>
+        <item name="colorAccent">#8E73D3</item>
     </style>
 </resources>

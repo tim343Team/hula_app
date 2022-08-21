@@ -31,6 +31,14 @@ public class HuLaActionBar extends FrameLayout {
     private OnItemClickListener menuClickListener;
 
 
+    public void setBackClickListener(OnClickListener backClickListener) {
+        this.backClickListener = backClickListener;
+    }
+
+    public void setMenuClickListener(OnItemClickListener menuClickListener) {
+        this.menuClickListener = menuClickListener;
+    }
+
     public HuLaActionBar(@NonNull Context context) {
         this(context, null);
     }

@@ -30,9 +30,6 @@ public class HuLaEditText extends androidx.appcompat.widget.AppCompatEditText {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HuLaEditText);
         startDrawble = typedArray.getDrawable(R.styleable.HuLaEditText_edit_hintStartDrawable);
         typedArray.recycle();
-        if (startDrawble != null) {
-            startDrawble.setBounds(0, 0, startDrawble.getIntrinsicWidth(), startDrawble.getIntrinsicHeight());
-        }
     }
 
 
@@ -44,6 +41,11 @@ public class HuLaEditText extends androidx.appcompat.widget.AppCompatEditText {
             if (hint == null) {
                 hint = "";
             }
+            int intrinsicWidth = startDrawble.getIntrinsicWidth();
+            int intrinsicHeight = startDrawble.getIntrinsicHeight();
+            int realh = (int) (getPaint().getFontMetrics().descent - getPaint().getFontMetrics().ascent);
+            int realw = realh * intrinsicWidth / intrinsicHeight;
+            startDrawble.setBounds(0, 0, realw, realh);
             SpannableString hintSpan = new SpannableString(" x  " + hint);
             hintSpan.setSpan(new CenterDynamicDrawableSpan(startDrawble), 1, 2, SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
             setHint(hintSpan);

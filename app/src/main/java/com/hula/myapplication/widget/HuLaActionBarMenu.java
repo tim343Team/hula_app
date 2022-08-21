@@ -29,6 +29,7 @@ public class HuLaActionBarMenu extends FrameLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.HuLaActionBarMenu);
         Drawable drawable = ta.getDrawable(R.styleable.HuLaActionBarMenu_menu_src);
         String string = ta.getString(R.styleable.HuLaActionBarMenu_menu_text);
+        int color = ta.getColor(R.styleable.HuLaActionBarMenu_menu_textColor,Color.BLACK);
         if (drawable != null) {
             ImageView imageView = new ImageView(context);
             imageView.setImageDrawable(drawable);
@@ -38,7 +39,7 @@ public class HuLaActionBarMenu extends FrameLayout {
         }
         if (string != null) {
             TextView textView = new TextView(context);
-            textView.setTextColor(Color.BLACK);
+            textView.setTextColor(color);
             textView.setText(string);
             LayoutParams layoutParams = new LayoutParams(-2, -2);
             layoutParams.gravity = Gravity.CENTER;

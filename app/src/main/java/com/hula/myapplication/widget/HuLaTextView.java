@@ -33,9 +33,6 @@ public class HuLaTextView extends androidx.appcompat.widget.AppCompatTextView {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HuLaTextView);
         startHintDrawble = typedArray.getDrawable(R.styleable.HuLaTextView_tv_hintStartDrawable);
         typedArray.recycle();
-        if (startHintDrawble != null) {
-            startHintDrawble.setBounds(0, 0, startHintDrawble.getIntrinsicWidth(), startHintDrawble.getIntrinsicHeight());
-        }
     }
 
 
@@ -47,14 +44,17 @@ public class HuLaTextView extends androidx.appcompat.widget.AppCompatTextView {
             if (hint == null) {
                 hint = "";
             }
+            int intrinsicWidth = startHintDrawble.getIntrinsicWidth();
+            int intrinsicHeight = startHintDrawble.getIntrinsicHeight();
+            int realh = (int) (getPaint().getFontMetrics().descent - getPaint().getFontMetrics().ascent);
+            int realw = realh * intrinsicWidth / intrinsicHeight;
+            startHintDrawble.setBounds(0, 0, realw, realh);
             SpannableString hintSpan = new SpannableString(" x  " + hint);
             hintSpan.setSpan(new CenterDynamicDrawableSpan(startHintDrawble), 1, 2, SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
             setHint(hintSpan);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
-
 
 
     public void setEndDrawableListener(OnClickListener endDrawableListener) {

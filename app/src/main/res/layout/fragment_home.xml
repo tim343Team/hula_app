@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/action_bar"
         style="@style/defActionBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +59,9 @@
             app:menu_src="@mipmap/icon_add" />
 
     </com.hula.myapplication.widget.HuLaActionBar>
+
+
+
 
 
 </LinearLayout>
