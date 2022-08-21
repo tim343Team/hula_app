@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="app_main_color">#8E73D3</color>
+    <color name="color_898989">#898989</color>
     <color name="start" tools:ignore="MissingDefaultResource">#2D3F51B5</color>
     <color name="end" tools:ignore="MissingDefaultResource">#073F51B5</color>
 

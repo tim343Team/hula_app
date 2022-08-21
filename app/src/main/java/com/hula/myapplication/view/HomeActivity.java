@@ -129,6 +129,11 @@ public class HomeActivity extends BaseTransFragmentActivity {
     }
 
     @Override
+    protected View getActivityLayoutView() {
+        return null;
+    }
+
+    @Override
     protected void initViews(Bundle savedInstanceState) {
         instance = this;
         lls = new LinearLayout[]{llOne, llTwo, llThree, llFour,llFive};

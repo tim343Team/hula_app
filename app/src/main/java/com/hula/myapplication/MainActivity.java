@@ -1,6 +1,7 @@
 package com.hula.myapplication;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.view.HomeActivity;
@@ -14,6 +15,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getActivityLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected View getActivityLayoutView() {
+        return null;
     }
 
     @Override

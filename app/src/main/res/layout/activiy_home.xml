@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/llTab"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="61dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -36,8 +36,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="@dimen/dimen_32"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/selector_home_tab_one" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:gravity="center"
                     android:text="@string/for_you"
                     android:textColor="@drawable/selector_home_tab_text_color"
-                    android:textSize="13dp" />
+                    android:textSize="10dp"  />
             </LinearLayout>
 
             <LinearLayout
@@ -60,8 +60,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="@dimen/dimen_32"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/selector_home_tab_two" />
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:text="@string/search"
                     android:textColor="@drawable/selector_home_tab_text_color"
-                    android:textSize="13dp" />
+                    android:textSize="10dp"  />
             </LinearLayout>
 
             <LinearLayout
@@ -85,8 +85,8 @@
                 android:visibility="visible">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="@dimen/dimen_32"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:background="@drawable/selector_home_tab_three" />
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:gravity="center"
                     android:text="@string/messages"
                     android:textColor="@drawable/selector_home_tab_text_color"
-                    android:textSize="13dp" />
+                    android:textSize="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -110,8 +110,8 @@
                 android:visibility="visible">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="@dimen/dimen_32"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/selector_home_tab_four" />
 
                 <TextView
@@ -121,7 +121,7 @@
                     android:gravity="center"
                     android:text="@string/invites"
                     android:textColor="@drawable/selector_home_tab_text_color"
-                    android:textSize="13dp" />
+                    android:textSize="10dp"  />
             </LinearLayout>
 
 
@@ -135,8 +135,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="@dimen/dimen_32"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/selector_home_tab_five" />
 
                 <TextView
@@ -146,7 +146,7 @@
                     android:gravity="center"
                     android:text="@string/settings"
                     android:textColor="@drawable/selector_home_tab_text_color"
-                    android:textSize="13dp" />
+                    android:textSize="10dp" />
             </LinearLayout>
 
         </LinearLayout>
