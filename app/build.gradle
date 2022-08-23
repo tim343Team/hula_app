@@ -45,7 +45,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //基础库
-    implementation 'com.github.tim343Team:base:2.41'
+    implementation 'com.github.tim343Team:base:2.42'
     //butterknife
     api 'com.jakewharton:butterknife:10.1.0'
     kapt 'com.jakewharton:butterknife-compiler:10.1.0'
@@ -67,5 +67,19 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
 
 
+
+    // PictureSelector basic (Necessary)
+    implementation 'io.github.lucksiege:pictureselector:v3.10.6'
+
+    // image compress library (Not necessary)
+    implementation 'io.github.lucksiege:compress:v3.10.6'
+
+    // uCrop library (Not necessary)
+    implementation 'io.github.lucksiege:ucrop:v3.10.6'
+
+    // simple camerax library (Not necessary)
+    implementation 'io.github.lucksiege:camerax:v3.10.6'
+
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
 }

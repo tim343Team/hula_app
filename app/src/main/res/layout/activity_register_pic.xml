@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_def_windowbg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/huLaActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:acb_enableBack="false"
+        app:acb_title="">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Back"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_step_3" />
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="70dp"
+                android:text="Add profile pics"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:text="More photos bring a stronger match! \nDrag photos to reorder." />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_header"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_pic_null"
+                app:shapeAppearance="@style/RoundedStyle10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.hula.myapplication.widget.WHImageView
+                    android:layout_width="0dp"
+                    android:layout_height="105dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_add_pic"
+                    app:shapeAppearance="@style/RoundedStyle10" />
+
+                <com.hula.myapplication.widget.WHImageView
+                    android:layout_width="0dp"
+                    android:layout_height="105dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_add_pic"
+                    app:shapeAppearance="@style/RoundedStyle10" />
+
+                <com.hula.myapplication.widget.WHImageView
+                    android:layout_width="0dp"
+                    android:layout_height="105dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_add_pic"
+                    app:shapeAppearance="@style/RoundedStyle10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/defButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:enabled="true"
+        android:paddingHorizontal="71dp"
+        android:text="Continue"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+</LinearLayout>

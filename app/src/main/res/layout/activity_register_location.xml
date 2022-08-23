@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_def_windowbg"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
 
     <com.hula.myapplication.widget.HuLaActionBar
         android:id="@+id/huLaActionBar"
@@ -14,57 +16,54 @@
         app:acb_enableBack="false"
         app:acb_title="">
 
-        <TextView
-            android:id="@+id/tv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="10dp"
-            android:text="Back"
-            android:textStyle="bold" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:src="@mipmap/icon_step_2" />
-
-        <com.hula.myapplication.widget.HuLaActionBarMenu
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            app:menu_text="Skip"
-            app:menu_textColor="#8E73D3" />
     </com.hula.myapplication.widget.HuLaActionBar>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="30dp"
-        android:text="School"
-        android:textColor="#5C5C5C" />
-
-    <com.hula.myapplication.widget.HuLaTextView
-        android:id="@+id/tv_school"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/shape_radius15_stroke1"
-        android:drawableEnd="@mipmap/icon_down"
-        android:hint="Select University"
-        android:padding="20dp"
-        app:tv_hintStartDrawable="@mipmap/icon_school" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:text="Enable Location"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="15dp"
+        android:lineSpacingMultiplier="1.6"
+        android:text="We will recommend events and buddies based on your location" />
+
+    <com.hula.myapplication.widget.HulaSwitch
+        android:id="@+id/image_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        app:showText="false" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_location_hint" />
+
+    <TextView
         android:layout_marginTop="10dp"
-        android:text="Hula will customize your event recommendation based on your school community." />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:gravity="center"
+        android:text="By clicking the button,\n I agree to the Terms  Conditions and Privacy Policy" />
 
     <TextView
         android:id="@+id/tv_confirm"
@@ -75,8 +74,10 @@
         android:layout_marginTop="60dp"
         android:enabled="true"
         android:paddingHorizontal="71dp"
-        android:text="Continue"
+        android:text="Done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+
 </LinearLayout>
