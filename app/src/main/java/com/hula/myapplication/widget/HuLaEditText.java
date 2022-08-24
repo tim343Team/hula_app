@@ -26,7 +26,7 @@ public class HuLaEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     public HuLaEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setGravity(Gravity.CENTER_VERTICAL);
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HuLaEditText);
         startDrawble = typedArray.getDrawable(R.styleable.HuLaEditText_edit_hintStartDrawable);
         typedArray.recycle();

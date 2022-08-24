@@ -89,6 +89,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.login.RegisterIntroActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.home.AddNewEventActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

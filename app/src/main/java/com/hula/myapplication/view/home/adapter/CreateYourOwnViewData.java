@@ -1,9 +1,11 @@
 package com.hula.myapplication.view.home.adapter;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.view.home.AddNewEventActivity;
 
 public class CreateYourOwnViewData extends AbsMultiItemViewData {
 
@@ -35,5 +37,14 @@ public class CreateYourOwnViewData extends AbsMultiItemViewData {
                 runnable.run();
             }
         });
+        helper.getView(R.id.tv_create_event).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddNewEventActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 }
