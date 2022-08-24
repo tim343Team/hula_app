@@ -1,10 +1,12 @@
 package com.hula.myapplication.view.home;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,12 +22,14 @@ import com.hula.myapplication.databinding.ActivityAddNewEventBinding;
 import com.hula.myapplication.view.home.vm.AddNewEventVM;
 import com.hula.myapplication.view.login.RegisterPicActivity;
 import com.hula.myapplication.widget.DelectImageView;
+import com.hula.myapplication.widget.dialog.PermissonDialog;
 import com.luck.picture.lib.basic.PictureSelector;
 import com.luck.picture.lib.config.SelectMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tim.com.libnetwork.base.BaseActivity;
 
@@ -61,19 +65,27 @@ public class AddNewEventActivity extends HBaseActivity {
             DelectImageView imageView = (DelectImageView) helper.itemView;
             imageView.setOnClickListener(v -> {
                 if (TextUtils.isEmpty(item)) {
-                    PictureSelector.create(AddNewEventActivity.this)
-                            .openGallery(SelectMimeType.ofImage())
-                            .setImageEngine(GlideImageEngine.engine)
-                            .setCompressEngine(LubanCompressFileEngine.engine)
-                            .forResult(new OnResultCallbackListener<LocalMedia>() {
+                    new PermissonDialog.Builder()
+                            .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .setTitle("“Hula” Would Like to Access Your Photos")
+                            .request(getSupportFragmentManager(), new PermissonDialog.Builder.StandardPermissionHand() {
                                 @Override
-                                public void onResult(ArrayList<LocalMedia> result) {
+                                public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {
+                                    PictureSelector.create(AddNewEventActivity.this)
+                                            .openGallery(SelectMimeType.ofImage())
+                                            .setImageEngine(GlideImageEngine.engine)
+                                            .setCompressEngine(LubanCompressFileEngine.engine)
+                                            .forResult(new OnResultCallbackListener<LocalMedia>() {
+                                                @Override
+                                                public void onResult(ArrayList<LocalMedia> result) {
 
-                                }
+                                                }
 
-                                @Override
-                                public void onCancel() {
+                                                @Override
+                                                public void onCancel() {
 
+                                                }
+                                            });
                                 }
                             });
                 }

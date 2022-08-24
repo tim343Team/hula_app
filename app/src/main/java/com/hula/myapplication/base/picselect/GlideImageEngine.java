@@ -4,6 +4,10 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.hula.myapplication.R;
 import com.luck.picture.lib.engine.ImageEngine;
 
 public class GlideImageEngine implements ImageEngine {
@@ -20,31 +24,41 @@ public class GlideImageEngine implements ImageEngine {
     @Override
     public void loadImage(Context context, ImageView imageView, String url, int maxWidth, int maxHeight) {
         Glide.with(context)
-                .load(url).into(imageView);
+                .load(url)
+                .apply(RequestOptions.overrideOf(maxWidth,maxHeight))
+                .into(imageView);
 
     }
 
     @Override
     public void loadAlbumCover(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).into(imageView);
-
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .apply(RequestOptions.overrideOf(180,180))
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.placeholderOf(R.drawable.ps_image_placeholder))
+                .into(imageView);
     }
 
     @Override
     public void loadGridImage(Context context, String url, ImageView imageView) {
         Glide.with(context)
-                .asGif()
-                .load(url).into(imageView);
+                .load(url)
+                .apply(RequestOptions.overrideOf(180,180))
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.placeholderOf(R.drawable.ps_image_placeholder))
+                .into(imageView);
 
     }
 
     @Override
     public void pauseRequests(Context context) {
-
+        Glide.with(context).pauseRequests();
     }
 
     @Override
     public void resumeRequests(Context context) {
-
+        Glide.with(context).resumeRequests();
     }
 }
