@@ -44,7 +44,6 @@ public class RegisterPicActivity extends BaseActivity {
                         .openGallery(SelectMimeType.ofImage())
                         .setImageEngine(GlideImageEngine.engine)
                         .setCompressEngine(LubanCompressFileEngine.engine)
-                        .isOriginalSkipCompress(false)
                         .forResult(new OnResultCallbackListener<LocalMedia>() {
                             @Override
                             public void onResult(ArrayList<LocalMedia> result) {
