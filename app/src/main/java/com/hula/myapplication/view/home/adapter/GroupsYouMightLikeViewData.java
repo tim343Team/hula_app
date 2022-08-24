@@ -11,40 +11,46 @@ import com.hula.myapplication.R;
 
 import java.util.ArrayList;
 
-public class GroupsYouMightLikeViewData extends AbsMultiItemViewData<Object>{
+public class GroupsYouMightLikeViewData extends AbsMultiItemViewData{
+    private final Object data;
+
     public GroupsYouMightLikeViewData(Object data) {
-        super(R.layout.home_item_groups_you_might_like, data);
+        super(R.layout.home_item_groups_you_might_like);
+        this.data = data;
     }
 
     @Override
     void convert(BaseViewHolder helper) {
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
-        BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_groups_you_might_like) {
-            @Override
-            protected void convert(BaseViewHolder helper, Object item) {
+        if (recyclerView.getAdapter()==null){
+            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_groups_you_might_like) {
+                @Override
+                protected void convert(BaseViewHolder helper, Object item) {
 
-            }
-        };
-        baseQuickAdapter.setNewData(new ArrayList<Object>(){
-            {
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
+                }
+            };
+            baseQuickAdapter.setNewData(new ArrayList<Object>(){
+                {
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
+                    add(new Object());
 
-            }
-        });
-        baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                }
+            });
+            baseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-            }
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(), RecyclerView.HORIZONTAL, false));
-        recyclerView.setAdapter(baseQuickAdapter);
+                }
+            });
+            recyclerView.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(), RecyclerView.HORIZONTAL, false));
+            recyclerView.setAdapter(baseQuickAdapter);
+        }
+
     }
 }

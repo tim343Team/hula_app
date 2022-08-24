@@ -2,13 +2,11 @@ package com.hula.myapplication.view.home.adapter;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 
-abstract class AbsMultiItemViewData<T> {
+abstract class AbsMultiItemViewData {
     private final int layoutID;
-    protected final T data;
 
-    public AbsMultiItemViewData(int layoutID, T data) {
+    public AbsMultiItemViewData(int layoutID) {
         this.layoutID = layoutID;
-        this.data = data;
     }
 
 

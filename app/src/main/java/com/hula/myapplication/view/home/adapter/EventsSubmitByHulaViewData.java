@@ -11,21 +11,20 @@ import com.hula.myapplication.R;
 
 import java.util.ArrayList;
 
-public class RecommendedBuddiesViewData extends AbsMultiItemViewData {
+public class EventsSubmitByHulaViewData extends AbsMultiItemViewData {
     private final Object data;
 
-    public RecommendedBuddiesViewData(Object data) {
-        super(R.layout.home_item_recommended);
+    public EventsSubmitByHulaViewData(Object data) {
+        super(R.layout.home_item_just_for_you);
         this.data = data;
     }
 
     @Override
     void convert(BaseViewHolder helper) {
+        helper.setText(R.id.tv_title, "Events submitted by HULA users");
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null) {
-
-
-            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_recommended) {
+            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_event_submit_by_hula) {
                 @Override
                 protected void convert(BaseViewHolder helper, Object item) {
 

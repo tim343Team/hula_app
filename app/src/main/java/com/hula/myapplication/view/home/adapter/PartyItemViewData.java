@@ -11,21 +11,22 @@ import com.hula.myapplication.R;
 
 import java.util.ArrayList;
 
-public class RecommendedBuddiesViewData extends AbsMultiItemViewData {
+public class PartyItemViewData extends AbsMultiItemViewData {
+    private final String title;
     private final Object data;
 
-    public RecommendedBuddiesViewData(Object data) {
-        super(R.layout.home_item_recommended);
+    public PartyItemViewData(String title, Object data) {
+        super(R.layout.home_item_just_for_you);
         this.data = data;
+        this.title = title;
     }
 
     @Override
     void convert(BaseViewHolder helper) {
+        helper.setText(R.id.tv_title, title);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null) {
-
-
-            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_recommended) {
+            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_just_for_you) {
                 @Override
                 protected void convert(BaseViewHolder helper, Object item) {
 

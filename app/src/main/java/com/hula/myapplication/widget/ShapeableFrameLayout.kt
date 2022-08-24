@@ -10,7 +10,7 @@ import com.google.android.material.shape.ShapeAppearancePathProvider
 /**
  * 将子View 的 样式 扣一个 ShapeAppearanceModel 样式出来
  */
-class ShapeableFrameLayout @JvmOverloads constructor(
+open class ShapeableFrameLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleRes: Int = 0

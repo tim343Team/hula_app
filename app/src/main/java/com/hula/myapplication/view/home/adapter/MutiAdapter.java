@@ -10,12 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-public class HomeAdapter extends BaseQuickAdapter<AbsMultiItemViewData<?>, BaseViewHolder> {
-    @NonNull
-    @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return super.onCreateViewHolder(parent, viewType);
-    }
+public class MutiAdapter extends BaseQuickAdapter<AbsMultiItemViewData, BaseViewHolder> {
 
 
     @Override
@@ -28,12 +23,12 @@ public class HomeAdapter extends BaseQuickAdapter<AbsMultiItemViewData<?>, BaseV
         return new BaseViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType,parent,false));
     }
 
-    public HomeAdapter() {
+    public MutiAdapter() {
         super(0);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AbsMultiItemViewData<?> item) {
+    protected void convert(BaseViewHolder helper, AbsMultiItemViewData item) {
         item.convert(helper);
     }
 
