@@ -48,6 +48,7 @@
         android:textColor="#5C5C5C" />
 
     <com.hula.myapplication.widget.HuLaTextView
+        android:id="@+id/tv_school"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        android:enabled="false"
+        android:enabled="true"
         android:paddingHorizontal="71dp"
         android:text="Continue"
         app:layout_constraintEnd_toEndOf="parent"

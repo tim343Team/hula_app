@@ -14,9 +14,9 @@ open class HBaseActivity : AppCompatActivity() {
         //WINDOW_COLOR 保持一致
         const val STATUSBAR_WINDOW_COLOR_STYLE = 0X0002
 
-
+        //图标暗色
         const val STATUSBAR_DARK = 0X0004
-
+        //图标亮色
         const val STATUSBAR_NO_DARK = 0X0010
 
     }

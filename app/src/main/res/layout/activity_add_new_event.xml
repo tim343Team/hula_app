@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:acb_enableBack="false"
+        app:acb_title="Add a new event/activity">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:padding="5dp"
+            android:text="Cancel" />
+
+
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Name" />
+
+            <com.hula.myapplication.widget.HuLaEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="Set a name for your event/activity"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:edit_hintStartDrawable="@mipmap/icon_name_hint" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Location" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="Enter your event/activity address"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:tv_hintStartDrawable="@mipmap/icon_location_hint_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Category" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:drawableEnd="@mipmap/icon_right_1"
+                android:hint="Select your event/activity category"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:tv_hintStartDrawable="@mipmap/icon_category_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Time" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:drawableEnd="@mipmap/icon_right_1"
+                android:hint="Select your event/activity category"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:tv_hintStartDrawable="@mipmap/icon_time_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:orientation="vertical">
+
+                <com.hula.myapplication.widget.HuLaEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="start|top"
+                    android:hint="Describe your event/activity."
+                    android:maxLines="4"
+                    android:minLines="4"
+                    android:padding="15dp"
+                    app:edit_hintStartDrawable="@mipmap/icon_description_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="0/160"
+                    android:textColor="#8E73D3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_image_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Photos: 0/10"
+                android:textColor="#8E73D3"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Website Link" />
+
+            <com.hula.myapplication.widget.HuLaEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="Add the website link"
+                android:minLines="3"
+                android:padding="15dp"
+                app:edit_hintStartDrawable="@mipmap/icon_link_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Ticket Price" />
+
+            <com.hula.myapplication.widget.HuLaEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="Select a time"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:edit_hintStartDrawable="@mipmap/icon_price_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="What do you create this event/activity for?" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_check_box"
+                    android:paddingVertical="5dp"
+                    android:text="  Find buddies to go together"
+                    android:textColor="@drawable/selector_check_text_color" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_check_box"
+                    android:paddingVertical="5dp"
+                    android:text="  Recommend event information"
+                    android:textColor="@drawable/selector_check_text_color" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="18dp"
+                android:background="#B7B7B7" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Hula will trigger a email to the admin team to view and approve." />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        style="@style/defButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginVertical="15dp"
+        android:gravity="center"
+        android:text="Submit"
+        android:textColor="@color/white" />
+
+</LinearLayout>

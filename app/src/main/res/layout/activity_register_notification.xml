@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_def_windowbg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/huLaActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:acb_enableBack="false"
+        app:acb_title="">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:src="@mipmap/icon_step_2" />
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:text="Turn on Notifications"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="15dp"
+        android:lineSpacingMultiplier="1.6"
+        android:text="• Get notified when you receive new buddy invites\n• Stay updated on all your buddies and shared events\n• Receive exclusive event promotions" />
+
+    <com.hula.myapplication.widget.HulaSwitch
+        android:id="@+id/image_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        app:showText="false" />
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_notification_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/defButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:enabled="true"
+        android:paddingHorizontal="71dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+</LinearLayout>

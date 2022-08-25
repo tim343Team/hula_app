@@ -29,7 +29,6 @@ public class HuLaTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public HuLaTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setGravity(Gravity.CENTER_VERTICAL);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HuLaTextView);
         startHintDrawble = typedArray.getDrawable(R.styleable.HuLaTextView_tv_hintStartDrawable);
         typedArray.recycle();

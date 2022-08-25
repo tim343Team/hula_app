@@ -8,6 +8,11 @@ import androidx.annotation.Nullable;
 
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.databinding.ActivityRegisterSchoolBinding;
+import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.dialog.BottomSelectDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterSchoolActivity extends HBaseActivity {
     ActivityRegisterSchoolBinding binding;
@@ -33,7 +38,36 @@ public class RegisterSchoolActivity extends HBaseActivity {
             }
         });
 
+        binding.tvSchool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Test> list = new ArrayList<>();
+                list.add(new Test());
+                list.add(new Test());
+                list.add(new Test());
+
+                BottomSelectDialog<Test> dialog = new BottomSelectDialog<>();
+                dialog.callBack = new HuCallBack1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+
+                    }
+                };
+                dialog.transfor = new HuCallBack1.HuCallBackR<Test, String>() {
+                    @Override
+                    public String call(Test test) {
+                        return test.toString();
+                    }
+                };
+                dialog.title = "Select School";
+                dialog.data = list;
+                dialog.show(getSupportFragmentManager(),"");
+            }
+        });
+
     }
+    static class Test{}
+
 
     @Override
     protected int statusBarStyle() {

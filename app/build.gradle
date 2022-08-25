@@ -68,4 +68,18 @@ dependencies {
 
 
 
+    // PictureSelector basic (Necessary)
+    implementation 'io.github.lucksiege:pictureselector:v3.10.6'
+
+    // image compress library (Not necessary)
+    implementation 'io.github.lucksiege:compress:v3.10.6'
+
+    // uCrop library (Not necessary)
+    implementation 'io.github.lucksiege:ucrop:v3.10.6'
+
+    // simple camerax library (Not necessary)
+    implementation 'io.github.lucksiege:camerax:v3.10.6'
+
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
+
 }

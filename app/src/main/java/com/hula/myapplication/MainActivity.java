@@ -22,6 +22,7 @@ public class MainActivity extends BaseActivity {
         return null;
     }
 
+
     @Override
     protected void initViews(Bundle savedInstanceState) {
         if (!isTaskRoot()) {

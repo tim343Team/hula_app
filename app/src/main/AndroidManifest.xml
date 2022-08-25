@@ -14,9 +14,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!--    关闭省电权限-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -25,6 +25,12 @@
     <uses-feature android:name="android.hardware.autofocus" />
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".app.RootApplication"
@@ -35,6 +41,19 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.HulaTheme">
+
+<!--        <queries package="com.hula.myapplication">-->
+<!--            <intent>-->
+<!--                <action android:name="android.media.action.IMAGE_CAPTURE">-->
+
+<!--                </action>-->
+<!--            </intent>-->
+<!--            <intent>-->
+<!--                <action android:name="android.media.action.ACTION_VIDEO_CAPTURE">-->
+
+<!--                </action>-->
+<!--            </intent>-->
+<!--        </queries>-->
 
         <meta-data
             android:name="design_width_in_dp"
@@ -78,6 +97,18 @@
         <activity android:name=".view.login.RegisterEmailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.login.RegisterSchoolActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterFavoriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterPicActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterNotificationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterIntroActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.home.AddNewEventActivity"
             android:screenOrientation="portrait"/>
 
     </application>
