@@ -1,8 +1,8 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.widget.adapter;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 
-abstract class AbsMultiItemViewData {
+public abstract class AbsMultiItemViewData {
     private final int layoutID;
 
     public AbsMultiItemViewData(int layoutID) {
@@ -10,7 +10,7 @@ abstract class AbsMultiItemViewData {
     }
 
 
-    abstract void convert(BaseViewHolder helper);
+    public abstract void convert(BaseViewHolder helper);
 
     public final int getItemType() {
         return layoutID;

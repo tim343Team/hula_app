@@ -13,7 +13,7 @@ import com.hula.myapplication.view.home.adapter.CreateYourOwnViewData;
 import com.hula.myapplication.view.home.adapter.EventsSubmitByHulaViewData;
 import com.hula.myapplication.view.home.adapter.FeaturedEventViewData;
 import com.hula.myapplication.view.home.adapter.GroupsYouMightLikeViewData;
-import com.hula.myapplication.view.home.adapter.MutiAdapter;
+import com.hula.myapplication.widget.adapter.MutiAdapter;
 import com.hula.myapplication.view.home.adapter.PartyItemViewData;
 import com.hula.myapplication.view.home.adapter.RecommendedBuddiesViewData;
 import com.hula.myapplication.view.home.adapter.SpaceItemViewData;

@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
     }
 
     @Override
-    void convert(BaseViewHolder helper) {
+    public void convert(BaseViewHolder helper) {
         ViewPager2 viewPager2 = helper.getView(R.id.viewpager);
         if (viewPager2.getAdapter() == null) {
             BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_featured_event) {

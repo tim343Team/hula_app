@@ -6,6 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.view.home.AddNewEventActivity;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 public class CreateYourOwnViewData extends AbsMultiItemViewData {
 
@@ -16,7 +17,7 @@ public class CreateYourOwnViewData extends AbsMultiItemViewData {
     }
 
     @Override
-    void convert(BaseViewHolder helper) {
+    public void convert(BaseViewHolder helper) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

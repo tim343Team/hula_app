@@ -2,14 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shape_def_windowbg"
+    android:orientation="vertical">
 
     <com.hula.myapplication.widget.HuLaActionBar
+        style="@style/defActionBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:acb_enableBack="false"
         app:acb_title="">
 
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:background="@drawable/shape_radius100_stroke1_b6b6b6"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="Explore"
+            android:padding="10dp"
+            app:drawableStartCompat="@mipmap/icon_search" />
+
     </com.hula.myapplication.widget.HuLaActionBar>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_search_view"/>
 
 </LinearLayout>

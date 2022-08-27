@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
 
-public class GroupsYouMightLikeViewData extends AbsMultiItemViewData{
+public class GroupsYouMightLikeViewData extends AbsMultiItemViewData {
     private final Object data;
 
     public GroupsYouMightLikeViewData(Object data) {
@@ -20,7 +21,7 @@ public class GroupsYouMightLikeViewData extends AbsMultiItemViewData{
     }
 
     @Override
-    void convert(BaseViewHolder helper) {
+    public  void convert(BaseViewHolder helper) {
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter()==null){
             BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_groups_you_might_like) {

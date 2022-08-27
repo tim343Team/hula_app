@@ -14,11 +14,13 @@ public class SharedPrefsHelper {
     private static final String SP_KEY_FIRST = "FIRST";
     private static final String USER_TOKEN = "USER_TOKEN";
 
+    public static final String SEARCH_HISTORY ="SEARCH_HISTORY";
+
 
     private static SharedPrefsHelper instance;
     private static final Gson gson = new Gson();
 
-    private SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
 
     public static synchronized SharedPrefsHelper getInstance() {
         if (instance == null) {

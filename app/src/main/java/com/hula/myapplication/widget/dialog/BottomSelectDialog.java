@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.databinding.DialogSelectViewBinding;
+import com.hula.myapplication.widget.ColorItemDecoration;
 import com.hula.myapplication.widget.HuCallBack1;
 
 import java.util.ArrayList;

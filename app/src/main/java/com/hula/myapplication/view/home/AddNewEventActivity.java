@@ -68,6 +68,7 @@ public class AddNewEventActivity extends HBaseActivity {
                     new PermissonDialog.Builder()
                             .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             .setTitle("“Hula” Would Like to Access Your Photos")
+                            .setSubTitle("So you can add all your related photos to your event board.")
                             .request(getSupportFragmentManager(), new PermissonDialog.Builder.StandardPermissionHand() {
                                 @Override
                                 public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {

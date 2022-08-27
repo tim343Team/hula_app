@@ -1,4 +1,4 @@
-package com.hula.myapplication.widget.dialog;
+package com.hula.myapplication.widget;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

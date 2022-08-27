@@ -4,6 +4,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 public class SpaceItemViewData extends AbsMultiItemViewData {
     private final int height;
@@ -14,7 +15,7 @@ public class SpaceItemViewData extends AbsMultiItemViewData {
     }
 
     @Override
-    void convert(BaseViewHolder helper) {
+    public void convert(BaseViewHolder helper) {
         ViewGroup.LayoutParams layoutParams = helper.itemView.getLayoutParams();
         layoutParams.height = height;
         helper.itemView.setLayoutParams(layoutParams);

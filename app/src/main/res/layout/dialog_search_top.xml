@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
+
+        <com.hula.myapplication.widget.HuLaActionBar
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:acb_enableBack="false"
+            app:acb_title="">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/tv_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_radius100_stroke1_b6b6b6"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:hint="Explore"
+                    android:padding="10dp"
+                    app:drawableStartCompat="@mipmap/icon_search" />
+
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="Cancel"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.hula.myapplication.widget.HuLaActionBar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="13dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_radius100_strock1_8e73d3"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="Filter"
+                    android:textColor="#8E73D3"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_sort"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_radius100_strock1_8e73d3"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="Sort"
+                    android:textColor="#8E73D3"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_hostory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_simple_tab"
+                tools:itemCount="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:visibility="gone"
+                tools:itemCount="6"
+                tools:listitem="@layout/item_simple_select_text"
+                tools:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:visibility="gone"
+                tools:itemCount="6"
+                tools:listitem="@layout/item_simple_select_text" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                style="@style/defButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="34dp"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="55dp"
+                android:text="Show result"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/view_bottom"
+                android:layout_width="64dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/shape_radius100_8e73d3"
+                android:backgroundTint="#A1A1A1"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

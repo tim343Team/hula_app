@@ -87,7 +87,7 @@ object ToastUtil {
             val _activity = activity ?: ActivityLifecycleManager.get().curActivity() ?: return@runOnUi
             hideLoading()
             val iconView = LoadingView(_activity)
-            val dialog = Dialog(_activity,R.style.LDialogStyle_LoadingStyle)
+            val dialog = Dialog(_activity,R.style.LDialogStyle_NoDim)
             val bgView = FrameLayout(_activity)
             val contentView = createView(_activity, bgView, iconView, content)
             val layoutParams = contentView.layoutParams as FrameLayout.LayoutParams

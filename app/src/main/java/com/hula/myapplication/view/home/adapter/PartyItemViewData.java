@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class PartyItemViewData extends AbsMultiItemViewData {
     }
 
     @Override
-    void convert(BaseViewHolder helper) {
+    public void convert(BaseViewHolder helper) {
         helper.setText(R.id.tv_title, title);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null) {
