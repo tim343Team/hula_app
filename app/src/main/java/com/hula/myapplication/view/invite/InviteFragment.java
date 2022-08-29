@@ -1,6 +1,7 @@
 package com.hula.myapplication.view.invite;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.hula.myapplication.R;
 import com.hula.myapplication.view.message.MessageFragment;
@@ -18,6 +19,11 @@ public class InviteFragment extends BaseTransFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_invite;
+    }
+
+    @Override
+    protected View getLayoutView() {
+        return null;
     }
 
     @Override

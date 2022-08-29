@@ -36,6 +36,11 @@ public class SearchFragment extends BaseTransFragment {
     }
 
     @Override
+    protected View getLayoutView() {
+        return null;
+    }
+
+    @Override
     protected void init() {
 
     }
