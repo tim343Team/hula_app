@@ -65,9 +65,6 @@ public class MineFragment extends BaseTransFragment {
         tvTabs = new TextView[]{tvPreview, tvEdit};
         setView();
         showTab(1);
-//        llAboutMe = rootView.findViewById(R.id.ll_about_me);
-//        editAboutMe = rootView.findViewById(R.id.edit_about_me);
-//        tvEditLength = rootView.findViewById(R.id.tv_edit_length);
     }
 
     @Override

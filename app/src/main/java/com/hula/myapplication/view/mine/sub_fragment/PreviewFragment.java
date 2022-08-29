@@ -21,14 +21,13 @@ public class PreviewFragment extends BaseLazyFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_mine_preview;
+        return 0;
     }
 
     @Override
     protected View getLayoutView() {
-//        binding = FragmentMinePreviewBinding.inflate(getLayoutInflater());
-//        return binding.getRoot();
-        return null;
+        binding = FragmentMinePreviewBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override
