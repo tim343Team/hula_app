@@ -62,7 +62,7 @@ public class AddNewEventActivity extends HBaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            DelectImageView imageView = (DelectImageView) helper.itemView;
+            DelectImageView imageView =  helper.getView(R.id.iv);
             imageView.setOnClickListener(v -> {
                 if (TextUtils.isEmpty(item)) {
                     new PermissonDialog.Builder()

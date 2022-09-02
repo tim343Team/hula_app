@@ -3,27 +3,59 @@ package com.hula.myapplication.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.hula.myapplication.R;
-import com.hula.myapplication.util.HUtilScreen;
 
-public class DelectImageView extends ShapeableImageView {
+public class DelectImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     private final Drawable delectDrawable;
     private OnClickListener delectOnClick;
-    private boolean showDelect = false;
-    private int delectMargin = 0;
+    private boolean showDelect = true;
+    private Runnable showDelectIconRun = null;
+    private boolean handDrawableTouch = false;
+
 
     public void setShowDelect(boolean showDelect) {
         this.showDelect = showDelect;
-        invalidate();
+        if (!showDelect){
+            getOverlay().remove(delectDrawable);
+            return;
+        }
+        showDelectIconRun = () -> {
+            ViewParent parent = getParent();
+            if (parent instanceof ViewGroup) {
+                ((ViewGroup) parent).setClipChildren(false);
+                ((ViewGroup) parent).setClipToPadding(false);
+                int width = getWidth();
+                int height = getHeight();
+                int w = delectDrawable.getIntrinsicWidth();
+                int h = delectDrawable.getIntrinsicHeight();
+                Rect location = new Rect();
+                location.left = width - w / 2;
+                location.top = height - h / 2;
+                location.right = location.left + w;
+                location.bottom = location.top + h;
+                delectDrawable.setBounds(location.left, location.top, location.right, location.bottom);
+                getOverlay().add(delectDrawable);
+            }
+        };
+        if (getWidth() != 0) {
+            showDelectIconRun.run();
+            showDelectIconRun = null;
+        }
     }
 
     public void setDelectOnClick(OnClickListener delectOnClick) {
@@ -41,26 +73,17 @@ public class DelectImageView extends ShapeableImageView {
     public DelectImageView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         delectDrawable = ContextCompat.getDrawable(context, R.mipmap.icon_delect);
-        if (delectDrawable != null) {
-            delectDrawable.setBounds(0, 0, delectDrawable.getIntrinsicWidth(), delectDrawable.getIntrinsicHeight());
-            delectMargin = HUtilScreen.dp2px(context,1F);
-        }
     }
-
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (showDelect){
-            canvas.translate(getWidth() - delectDrawable.getIntrinsicWidth() - delectMargin, getHeight() - delectDrawable.getIntrinsicHeight() - delectMargin);
-            delectDrawable.draw(canvas);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (showDelectIconRun != null && changed) {
+            showDelectIconRun.run();
+            showDelectIconRun = null;
         }
-
     }
 
-
-
-    private boolean handDrawableTouch = false;
 
     private boolean endDrawableTouchHand(MotionEvent event) {
         if (!showDelect) {
@@ -69,9 +92,9 @@ public class DelectImageView extends ShapeableImageView {
         }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             float x = event.getX();
-            int w = getWidth() - delectDrawable.getIntrinsicWidth() - delectMargin;
+            int w = getWidth() - delectDrawable.getIntrinsicWidth();
             float y = event.getY();
-            int h = getHeight() - delectDrawable.getIntrinsicHeight() - delectMargin;
+            int h = getHeight() - delectDrawable.getIntrinsicHeight();
             if (x >= w && y >= h) {
                 handDrawableTouch = true;
                 getParent().requestDisallowInterceptTouchEvent(false);

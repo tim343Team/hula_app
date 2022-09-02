@@ -24,6 +24,7 @@ open class ShapeableFrameLayout @JvmOverloads constructor(
     private val maskRect: RectF = RectF()
     private var clearPaint: Paint = Paint()
     private val maskPath = Path()
+
     private val path = Path()
 
     private var shapeAppearanceModel: ShapeAppearanceModel =
