@@ -1,10 +1,8 @@
-package com.hula.myapplication.view.mine.sub_fragment;
+package com.hula.myapplication.view.mine.profile;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.hula.myapplication.R;
-import com.hula.myapplication.databinding.FragmentMineEditBinding;
 import com.hula.myapplication.databinding.FragmentMinePreviewBinding;
 
 import tim.com.libnetwork.base.BaseLazyFragment;

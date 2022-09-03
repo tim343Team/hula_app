@@ -1,4 +1,4 @@
-package com.hula.myapplication.view.mine.sub_fragment;
+package com.hula.myapplication.view.mine.profile;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hula.myapplication.R;
-import com.hula.myapplication.databinding.ActivityRegisterIntroBinding;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
 
 import tim.com.libnetwork.base.BaseLazyFragment;
