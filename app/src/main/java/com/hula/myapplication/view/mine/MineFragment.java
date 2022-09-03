@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.view.mine.preferences.PreferenceActivity;
 import com.hula.myapplication.view.mine.profile.ProfileActivity;
 
 import tim.com.libnetwork.base.BaseTransFragment;
@@ -42,7 +43,7 @@ public class MineFragment extends BaseTransFragment {
         rootView.findViewById(R.id.ll_preference).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PreferenceActivity.actionStart(getmActivity());
             }
         });
         rootView.findViewById(R.id.ll_invite_friend).setOnClickListener(new View.OnClickListener() {
