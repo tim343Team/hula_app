@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.dao.CategoriesDao;
+import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityRegisterFavoriteBinding;
 import com.hula.myapplication.databinding.ItemFavoriteGroupBinding;
@@ -29,6 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class RegisterFavoriteActivity extends HBaseActivity {
     private ActivityRegisterFavoriteBinding binding;
@@ -75,7 +80,17 @@ public class RegisterFavoriteActivity extends HBaseActivity {
     }
 
     private void request() {
-
+        WonderfulOkhttpUtils.post()
+                .url(UrlFactory.getSubCategories())
+                .build()
+                .getCall()
+                .bindLifecycle(this)
+                .enqueue(new GsonWalkDogCallBack<RemoteData<List<SubCategoriesDao>>>() {
+                    @Override
+                    protected void onRes(RemoteData<List<SubCategoriesDao>> data) throws Exception {
+                        categoriesDaoAdapter.setCategoriesDaoData(data.getNotNullData());
+                    }
+                });
     }
 
     @Override

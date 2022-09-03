@@ -24,4 +24,11 @@ public class RemoteData<T> {
     public boolean isSuccess() {
         return success;
     }
+
+    public T getNotNullData() {
+        if (data == null) {
+            throw new NullPointerException("data is null");
+        }
+        return data;
+    }
 }

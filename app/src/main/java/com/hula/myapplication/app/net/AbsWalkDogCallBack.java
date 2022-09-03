@@ -60,5 +60,5 @@ public abstract class AbsWalkDogCallBack<T> implements okhttp3.Callback {
 
     protected abstract void onFail(Exception e);
 
-    protected abstract void onRes(T t) throws Exception;
+    protected abstract void onRes(T data) throws Exception;
 }
