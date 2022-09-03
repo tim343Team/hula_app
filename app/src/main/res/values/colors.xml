@@ -13,6 +13,7 @@
     <color name="color_878787">#878787</color>
     <color name="color_2e2e2e">#2E2E2E</color>
     <color name="color_5C5C5C">#5C5C5C</color>
+    <color name="color_b7b7b7">#b7b7b7</color>
     <color name="start" tools:ignore="MissingDefaultResource">#2D3F51B5</color>
     <color name="end" tools:ignore="MissingDefaultResource">#073F51B5</color>
 

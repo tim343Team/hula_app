@@ -52,6 +52,12 @@ public class ProfileActivity extends BaseActivity {
         tvPreview = binding.tvPreview;
         tvEdit = binding.tvEdit;
         tvTabs = new TextView[]{tvPreview, tvEdit};
+        binding.tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         setView();
         showTab(1);
     }
