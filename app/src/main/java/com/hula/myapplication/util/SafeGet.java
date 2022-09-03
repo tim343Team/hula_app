@@ -1,4 +1,4 @@
-package com.hula.myapplication.app.service;
+package com.hula.myapplication.util;
 
 public class SafeGet<T> {
     T t;

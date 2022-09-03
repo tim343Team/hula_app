@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.GsonUtils;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.util.HUtils;
+import com.hula.myapplication.util.SafeGet;
 
 public class ServiceProfile {
 

@@ -17,6 +17,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.app.UrlFactory;
 import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.PageDataHoldService;
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.dao.CategoriesDao;
 import com.hula.myapplication.dao.RemoteData;
@@ -24,6 +26,8 @@ import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityRegisterFavoriteBinding;
 import com.hula.myapplication.databinding.ItemFavoriteGroupBinding;
 import com.hula.myapplication.util.CollectionUtils;
+import com.hula.myapplication.widget.ColorItemDecoration;
+import com.hula.myapplication.widget.GrapItemDecoration;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.library.flowlayout.FlowLayoutManager;
 
@@ -70,10 +74,12 @@ public class RegisterFavoriteActivity extends HBaseActivity {
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HService.getService(PageDataHoldService.class).add("RegisterFavoriteActivity",categoriesDaoAdapter.select);
                 Intent intent = new Intent(RegisterFavoriteActivity.this, RegisterPicActivity.class);
                 startActivity(intent);
             }
         });
+        binding.recyclerView.addItemDecoration(new ColorItemDecoration());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(categoriesDaoAdapter);
         request();
@@ -196,32 +202,36 @@ public class RegisterFavoriteActivity extends HBaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, SubCategoriesDao item) {
-            final boolean isSelect = selectCollection.contains(item);
+            final boolean[] isSelect = {selectCollection.contains(item)};
             TextView tv = helper.getView(R.id.tv);
-            ImageView iv = helper.getView(R.id.iv);
-            View itemView = helper.itemView;
-            helper.itemView.setOnClickListener(new View.OnClickListener() {
+            View itemView = helper.getView(R.id.layout);
+            tv.setText(item.getName());
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isSelect) {
-                        selectCollection.remove(item);
-                    } else {
+                    isSelect[0] = !isSelect[0];
+                    if (isSelect[0]) {
                         selectCollection.add(item);
+                        itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_8e73d3));
+                        tv.setTextColor(Color.WHITE);
+                    } else {
+                        selectCollection.remove(item);
+                        tv.setTextColor(Color.BLACK);
+                        itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_strock1_8e73d3));
                     }
                     selectCall.call(new Object());
+
                 }
             });
-            if (isSelect) {
-                selectCollection.add(item);
+            if (isSelect[0]) {
                 itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_8e73d3));
                 tv.setTextColor(Color.WHITE);
             } else {
-                selectCollection.remove(item);
                 tv.setTextColor(Color.BLACK);
                 itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_strock1_8e73d3));
             }
 
-            Integer integer = idToDrawableId.get(item.getName());
+            Integer integer = idToDrawableId.get(item.getCategory().getName());
             if (integer != null) {
                 helper.setImageResource(R.id.iv, integer);
             }

@@ -72,6 +72,7 @@
                 android:orientation="horizontal">
 
                 <com.hula.myapplication.widget.WHImageView
+                    android:id="@+id/iv_1"
                     android:layout_width="0dp"
                     android:layout_height="105dp"
                     android:layout_gravity="center_horizontal"
@@ -81,6 +82,7 @@
                     app:shapeAppearance="@style/RoundedStyle10" />
 
                 <com.hula.myapplication.widget.WHImageView
+                    android:id="@+id/iv_2"
                     android:layout_width="0dp"
                     android:layout_height="105dp"
                     android:layout_gravity="center_horizontal"
@@ -91,6 +93,7 @@
                     app:shapeAppearance="@style/RoundedStyle10" />
 
                 <com.hula.myapplication.widget.WHImageView
+                    android:id="@+id/iv_3"
                     android:layout_width="0dp"
                     android:layout_height="105dp"
                     android:layout_gravity="center_horizontal"

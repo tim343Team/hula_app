@@ -57,6 +57,7 @@
         tools:listitem="@layout/item_favorite_group"/>
 
     <TextView
+        android:enabled="false"
         android:id="@+id/tv_confirm"
         style="@style/defButtonStyle"
         android:layout_width="wrap_content"

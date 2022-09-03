@@ -79,9 +79,11 @@ dependencies {
 
     // simple camerax library (Not necessary)
     implementation 'io.github.lucksiege:camerax:v3.10.6'
-
+    //郭林权限请求
     implementation 'com.guolindev.permissionx:permissionx:1.6.4'
-
+    //FlowLayout
     implementation 'com.github.1002326270xc:LayoutManager-FlowLayout:v1.8'
+    //时间选择
+    implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
 
 }

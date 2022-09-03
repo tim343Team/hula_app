@@ -43,12 +43,13 @@
         android:text="Email" />
 
     <com.hula.myapplication.widget.HuLaEditText
+        android:textColor="#8e73d3"
+        android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/select_edit_bg"
-        android:gravity="center"
         android:hint="email@example.com"
         android:padding="20dp"
         app:edit_hintStartDrawable="@mipmap/icon_email" />
@@ -62,12 +63,13 @@
         android:text="Name" />
 
     <com.hula.myapplication.widget.HuLaEditText
+        android:textColor="#8e73d3"
+        android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/select_edit_bg"
-        android:gravity="center"
         android:hint="First name"
         android:padding="20dp"
         app:edit_hintStartDrawable="@mipmap/icon_persion_hint" />
@@ -79,16 +81,17 @@
         android:layout_marginTop="25dp"
         android:text="Pronoun" />
 
-    <com.hula.myapplication.widget.HuLaEditText
+    <com.hula.myapplication.widget.HuLaTextView
+        android:textColor="#8e73d3"
+        android:id="@+id/tv_pron"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/select_edit_bg"
-        android:gravity="center"
         android:hint="She/Her"
         android:padding="20dp"
-        app:edit_hintStartDrawable="@mipmap/icon_persion_hint_1" />
+        app:tv_hintStartDrawable="@mipmap/icon_persion_hint_1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,12 +101,13 @@
         android:text="Birthday" />
 
     <com.hula.myapplication.widget.HuLaTextView
+        android:textColor="#8e73d3"
+        android:id="@+id/tv_bir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/select_edit_bg"
-        android:gravity="center"
         android:hint="MM / DD / YYYY"
         android:padding="20dp"
         app:tv_hintStartDrawable="@mipmap/icon_rili" />
