@@ -80,7 +80,8 @@ public class RegisterFavoriteActivity extends HBaseActivity {
     }
 
     private void request() {
-        WonderfulOkhttpUtils.post()
+        WonderfulOkhttpUtils.postJson()
+                .body("{}")
                 .url(UrlFactory.getSubCategories())
                 .build()
                 .getCall()

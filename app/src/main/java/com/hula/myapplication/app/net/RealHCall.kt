@@ -15,18 +15,9 @@ import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 
 class RealHCall(val call: Call) : JHCall, LifecycleEventObserver {
-    companion object {
-        val mainCallBackExecutor by lazy {
-            Executor {
-                HUtils.runOnUi(it)
-            }
-        }
-    }
 
     private var reference: WeakReference<Lifecycle>? = null
 
-    //默认callBack是在主线程执行
-    private var callBackExecutor = mainCallBackExecutor
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {
@@ -64,18 +55,14 @@ class RealHCall(val call: Call) : JHCall, LifecycleEventObserver {
     override fun enqueue(responseCallback: Callback) {
         call.enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                callBackExecutor.execute {
-                    responseCallback.onResponse(call, response)
-                    release()
-                }
+                responseCallback.onResponse(call, response)
+                release()
 
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                callBackExecutor.execute {
-                    responseCallback.onFailure(call, e)
-                    release()
-                }
+                responseCallback.onFailure(call, e)
+                release()
             }
 
         })
@@ -103,7 +90,7 @@ class RealHCall(val call: Call) : JHCall, LifecycleEventObserver {
     }
 
     override fun callbackExecutor(mExecutor: Executor): JHCall {
-        callBackExecutor = mExecutor
+        //can not imp
         return this
     }
 
