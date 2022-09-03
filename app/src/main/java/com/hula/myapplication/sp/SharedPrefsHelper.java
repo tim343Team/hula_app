@@ -16,6 +16,8 @@ public class SharedPrefsHelper {
 
     public static final String SEARCH_HISTORY ="SEARCH_HISTORY";
 
+    public static final String USER_INFO_KEY = "USER_INFO_KEY";
+
 
     private static SharedPrefsHelper instance;
     private static final Gson gson = new Gson();
