@@ -36,6 +36,14 @@
     <string name="mine_notice_3">What types of events are you into? Choose a minimum of 3 categories</string>
     <string name="buck_list">My event bucket list </string>
     <string name="mine_notice_4">What are you dream events you’d like to attend?</string>
+    <string name="profile">Profile</string>
+    <string name="preference">Preference</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="account_privacy">Account &amp; Privacy</string>
+    <string name="what_new">What\'s New</string>
+    <string name="help_center">Help Center</string>
+    <string name="log_out">Log Out</string>
+
 
 
 </resources>
