@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:text="@string/age"
+                android:text="@string/distance"
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"/>
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/age_notice_1"
+            android:text="@string/distance_notice_1"
             android:textColor="@color/black"
             android:textSize="24dp"
             android:textStyle="bold"/>
@@ -67,17 +67,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/age_notice_2"
+            android:text="@string/distance_notice_2"
             android:textColor="@color/black"
             android:textSize="13dp"/>
 
         <TextView
-            android:id="@+id/tv_age_range"
+            android:id="@+id/tv_distance_range"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/dimen_29"
-            android:text="@string/age_range"
+            android:text="@string/distance_range"
             android:textColor="@color/black"
             android:textSize="24dp"
             android:textStyle="bold"/>
@@ -106,7 +106,85 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="16"
+                        android:text="1"
+                        android:textColor="@color/color_5C5C5C"
+                        android:textSize="@dimen/dimen_13" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="9dp"
+                        android:background="@color/color_5C5C5C" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="-16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25"
+                        android:textColor="@color/color_5C5C5C"
+                        android:textSize="@dimen/dimen_13" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="9dp"
+                        android:background="@color/color_5C5C5C" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="-16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textColor="@color/color_5C5C5C"
+                        android:textSize="@dimen/dimen_13" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="9dp"
+                        android:background="@color/color_5C5C5C" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="-16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="75"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="@dimen/dimen_13" />
 
@@ -131,7 +209,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="60"
+                        android:text="100"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="@dimen/dimen_13" />
 
@@ -146,7 +224,6 @@
                 android:id="@+id/seek_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:start_drawable="@drawable/seekview_thumb"
                 app:end_drawable="@drawable/seekview_thumb"
                 app:not_scroll_bg="@drawable/seekview_not_bar_bg"
                 app:has_scroll_bg="@drawable/seekview_has_bar_bg"

@@ -8,22 +8,19 @@ import android.widget.TextView;
 
 import com.hula.myapplication.R;
 import com.hula.myapplication.databinding.ActivityAgeBinding;
-import com.hula.myapplication.databinding.ActivityPreferenceBinding;
+import com.hula.myapplication.databinding.ActivityDistanceBinding;
 import com.hula.myapplication.widget.SeekBarView;
 
 import tim.com.libnetwork.base.BaseActivity;
 
-public class AgeActivity extends BaseActivity {
-    private ActivityAgeBinding binding;
+public class DistanceActivity extends BaseActivity {
+    private ActivityDistanceBinding binding;
     private SeekBarView seekBarView;
-    private TextView tvAgeRange;
-    private double minAge = 16;
-    private double maxAge = 60;
-    private int lowAge = 16;
-    private int heightAge = 60;
+    private TextView tvDistanceRange;
+    private int distance = 100;
 
     public static void actionStart(Activity activity) {
-        Intent intent = new Intent(activity, AgeActivity.class);
+        Intent intent = new Intent(activity, DistanceActivity.class);
         activity.startActivity(intent);
     }
 
@@ -34,15 +31,15 @@ public class AgeActivity extends BaseActivity {
 
     @Override
     protected View getActivityLayoutView() {
-        binding = ActivityAgeBinding.inflate(getLayoutInflater());
+        binding = ActivityDistanceBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         seekBarView = binding.seekBar;
-        tvAgeRange = binding.tvAgeRange;
-        tvAgeRange.setText(getString(R.string.age_range, minAge + "", maxAge + ""));
+        tvDistanceRange = binding.tvDistanceRange;
+        tvDistanceRange.setText(getString(R.string.distance_range, distance + ""));
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,9 +54,8 @@ public class AgeActivity extends BaseActivity {
 
             @Override
             public void onProgressChanged(SeekBarView seekBar, double progressLow, double progressHigh) {
-                lowAge = (int) (minAge + Math.ceil((maxAge - minAge) / 100 * progressLow));
-                heightAge =  (int) (minAge +Math.ceil((maxAge - minAge) / 100 * progressHigh));
-                tvAgeRange.setText(getString(R.string.age_range, lowAge + "", heightAge + ""));
+                distance= (int) Math.ceil(progressHigh);
+                tvDistanceRange.setText(getString(R.string.distance_range, distance + ""));
             }
 
             @Override

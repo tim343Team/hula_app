@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/action_bar"
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:acb_enableBack="false"
+        app:acb_title="">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/tv_back"
+                android:layout_width="@dimen/dimen_36"
+                android:layout_height="@dimen/dimen_36"
+                android:layout_marginStart="8dp"
+                android:background="@mipmap/icon_finish" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pronouns"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/tv_more"
+                android:layout_width="@dimen/dimen_36"
+                android:layout_height="@dimen/dimen_36"
+                android:layout_marginStart="8dp"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pronouns_notice_1"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pronouns_notice_2"
+            android:textColor="@color/black"
+            android:textSize="13dp"/>
+
+        <TextView
+            android:id="@+id/tv_he"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:gravity="center"
+            android:text="@string/he_him"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_setting_switch"
+            android:background="@drawable/selector_item_white_main"/>
+
+        <TextView
+            android:id="@+id/tv_she"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:gravity="center"
+            android:text="@string/she_her"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_setting_switch"
+            android:background="@drawable/selector_item_white_main"/>
+
+        <TextView
+            android:id="@+id/tv_they"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:gravity="center"
+            android:text="@string/they_them"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_setting_switch"
+            android:background="@drawable/selector_item_white_main"/>
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:gravity="center"
+            android:text="@string/open_to_all"
+            android:textSize="13dp"
+            android:textColor="@drawable/selector_setting_switch"
+            android:background="@drawable/selector_item_white_main"/>
+
+    </LinearLayout>
+
+</LinearLayout>

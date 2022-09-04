@@ -30,22 +30,28 @@ public class PreferenceActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         binding.llAge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AgeActivity.actionStart(PreferenceActivity.this);
             }
         });
         binding.llPronouns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PronounsActivity.actionStart(PreferenceActivity.this);
             }
         });
         binding.llDistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DistanceActivity.actionStart(PreferenceActivity.this);
             }
         });
     }
