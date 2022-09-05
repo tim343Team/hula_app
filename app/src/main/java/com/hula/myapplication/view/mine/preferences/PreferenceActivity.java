@@ -5,9 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityPreferenceBinding;
 
+import java.util.List;
+
 import tim.com.libnetwork.base.BaseActivity;
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class PreferenceActivity extends BaseActivity {
     private ActivityPreferenceBinding binding;
