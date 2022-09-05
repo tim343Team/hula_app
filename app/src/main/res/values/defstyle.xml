@@ -49,7 +49,13 @@
         <item name="cornerSize">50%</item>
     </style>
 
-
+    <!--ShapeableImageView 叶子 -->
+    <style name="LeafStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
+    </style>
 
 
 </resources>

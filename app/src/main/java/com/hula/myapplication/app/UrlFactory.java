@@ -17,4 +17,8 @@ public class UrlFactory {
     public static String getAllHomeEventsV3() {
         return host + "/events/all_home_events_v3";
     }
+
+    public static String findBuddyV2() {
+        return host + "/events/find_buddy_v2";
+    }
 }

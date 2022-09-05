@@ -131,6 +131,8 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity android:name=".view.home.EventsDetailActivity" />
+
         <activity
             android:name=".view.mine.preferences.PreferenceActivity"
             android:configChanges="orientation|screenSize"

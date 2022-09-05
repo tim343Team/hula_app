@@ -17,7 +17,7 @@ public class CollectionUtils {
         return result;
     }
 
-    public static boolean equals(@Nullable Collection<?> collection,@Nullable Collection<?> collection1) {
+    public static boolean equals(@Nullable Collection<?> collection, @Nullable Collection<?> collection1) {
         if (collection == null && collection1 == null) {
             return true;
         }

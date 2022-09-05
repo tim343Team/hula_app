@@ -1,114 +1,141 @@
-<com.hula.myapplication.widget.ShapeableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="8dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView13"
-    app:shapeAppearance="@style/RoundedStyle20">
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/iv_love"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|top"
+        android:layout_margin="12dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/shape_oval_9c9c9c"
+        android:padding="7dp"
+        android:src="@mipmap/icon_unlove_fff" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@mipmap/icon_persion_null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/imageView21"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="12dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/shape_oval_9c9c9c"
-            android:padding="7dp"
-            android:src="@mipmap/icon_unlove_fff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#55000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#88000000"
+        android:paddingVertical="10dp">
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tv_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Music"
-            android:textColor="#FFFFFFFF"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:drawableStartCompat="@mipmap/icon_bookmark"
+            app:layout_constraintBottom_toTopOf="@+id/tv_2"
+            app:layout_constraintStart_toStartOf="@+id/tv_2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tv_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Candle Light Concert"
-            android:textColor="#FFFFFFFF"
-            android:textSize="12sp"
+            android:layout_marginTop="3dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView17"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_3"
+            app:layout_constraintEnd_toStartOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="@+id/tv_3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_1"
+            tools:text="TextView" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/tv_3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="Dec 19, 8:00pm\n102 interested"
-            android:textColor="#FFFFFFFF"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="3dp"
-            android:src="@mipmap/icon_time"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:drawableStartCompat="@mipmap/icon_time"
+            app:layout_constraintBottom_toTopOf="@id/tv_4"
+            app:layout_constraintEnd_toStartOf="@+id/imageView8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView17" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_2"
+            tools:text="TextView" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_3"
+            tools:text="TextView" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView8"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearance="@style/CircleStyle"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="@+id/tv_4"
+            tools:text="Recommended by Mark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</com.hula.myapplication.widget.ShapeableFrameLayout>
+    <TextView
+        android:id="@+id/tv_find_buddy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_info"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-15dp"
+        android:background="@drawable/shape_radius100_gra"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="9dp"
+        android:text="Find buddy"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</merge>
