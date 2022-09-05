@@ -65,6 +65,27 @@
     <string name="distance_notice_1">Set distance preference</string>
     <string name="distance_notice_2">Select distance … interested</string>
     <string name="distance_range">%s Miles</string>
-
+    <!--Invite-->
+    <string name="invite_share_text">Join Hula with me to find event buddies! Download at</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="permissione">Permissione</string>
+    <string name="push_notification">Push Notification</string>
+    <string name="location_services">Location Services</string>
+    <string name="location_services_notice">If enabled,Hula will ollect,store,and use your device\'s precise location, such as GPS information,This allows Hula to improve your experience showing you local events happening around you.</string>
+    <string name="linked_accounts">Linked Accounts</string>
+    <string name="facebook">Facebook</string>
+    <string name="apple">Apple</string>
+    <string name="data">Data</string>
+    <string name="delete_account">Delete Account</string>
+    <!--what is new-->
+    <string name="what_new_notice">[Welcome message]. Below is a list of what we shipped in each recent iOS release.</string>
+    <!--help-->
+    <string name="help_notice_1">Let us know!</string>
+    <string name="help_notice_2">Have any questions or inquires?Wanna see any \nother events?</string>
+    <string name="help_notice_3">Type something here</string>
+    <string name="help_notice_4">Please enter content</string>
+    <string name="send">Send</string>
 
 </resources>
