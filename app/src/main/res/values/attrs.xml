@@ -25,5 +25,11 @@
         <attr name="menu_src" format="reference" />
     </declare-styleable>
 
-
+    <declare-styleable name="SeekBarView">
+        <attr name="start_drawable" format="reference" />
+        <attr name="end_drawable" format="reference" />
+        <attr name="not_scroll_bg" format="reference" />
+        <attr name="has_scroll_bg" format="reference" />
+        <attr name="scroll_bg_height" format="dimension" />
+    </declare-styleable>
 </resources>

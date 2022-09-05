@@ -3,6 +3,7 @@
     <string name="permissions_sdcard">无法读取内存卡！</string>
     <string name="permissions_camera">无法使用相机！</string>
     <string name="permissions_audio">无法录制音频！</string>
+    <string name="text_null">-----</string>
 
     <!--主页-->
     <string name="for_you">For You</string>
@@ -44,6 +45,26 @@
     <string name="help_center">Help Center</string>
     <string name="log_out">Log Out</string>
 
+    <!--Preference-->
+    <string name="preference_notice_1">To edit, just select choice below</string>
+    <string name="preference_notice_2">FIll in the below to help us better match you to new buddies</string>
+    <string name="pronouns">Pronouns</string>
+    <string name="distance">Distance</string>
+    <!--Age-->
+    <string name="age_notice_1">Select an age range</string>
+    <string name="age_notice_2">Buddies in this range will show up on your \nsearches</string>
+    <string name="age_range">%s - %s years old</string>
+    <!--Pronouns-->
+    <string name="pronouns_notice_1">Attend events with</string>
+    <string name="pronouns_notice_2">Select all pronouns that match your vibe</string>
+    <string name="he_him">He/Him</string>
+    <string name="she_her">She/Her</string>
+    <string name="they_them">They/Them</string>
+    <string name="open_to_all">Open to all</string>
+    <!--Distance-->
+    <string name="distance_notice_1">Set distance preference</string>
+    <string name="distance_notice_2">Select distance … interested</string>
+    <string name="distance_range">%s Miles</string>
 
 
 </resources>
