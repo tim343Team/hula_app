@@ -6,6 +6,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
+import java.util.Objects;
+
 public class SpaceItemViewData extends AbsMultiItemViewData {
     private final int height;
 
@@ -19,5 +21,18 @@ public class SpaceItemViewData extends AbsMultiItemViewData {
         ViewGroup.LayoutParams layoutParams = helper.itemView.getLayoutParams();
         layoutParams.height = height;
         helper.itemView.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SpaceItemViewData)) return false;
+        SpaceItemViewData that = (SpaceItemViewData) o;
+        return height == that.height;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(height);
     }
 }

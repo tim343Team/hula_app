@@ -9,4 +9,12 @@ public class UrlFactory {
     public static String getSubCategories() {
         return host + "/user/get_sub_categories";
     }
+
+    public static String getProfile() {
+        return host + "/user/get_profile";
+    }
+
+    public static String getAllHomeEventsV3() {
+        return host + "/events/all_home_events_v3";
+    }
 }

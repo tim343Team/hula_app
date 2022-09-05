@@ -8,14 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RecommendedBuddiesViewData extends AbsMultiItemViewData {
-    private final Object data;
+    private final DataItemDao data;
 
-    public RecommendedBuddiesViewData(Object data) {
+    public RecommendedBuddiesViewData(DataItemDao data) {
         super(R.layout.home_item_recommended);
         this.data = data;
     }
@@ -54,5 +56,18 @@ public class RecommendedBuddiesViewData extends AbsMultiItemViewData {
             recyclerView.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(), RecyclerView.HORIZONTAL, false));
             recyclerView.setAdapter(baseQuickAdapter);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RecommendedBuddiesViewData)) return false;
+        RecommendedBuddiesViewData that = (RecommendedBuddiesViewData) o;
+        return Objects.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 }

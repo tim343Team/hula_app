@@ -8,9 +8,12 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.hula.myapplication.base.picselect.GlideImageEngine;
 import com.hula.myapplication.base.picselect.LubanCompressFileEngine;
+import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.view.home.AddNewEventActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.PermissonDialog;
@@ -19,8 +22,12 @@ import com.luck.picture.lib.config.SelectMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.interfaces.OnResultCallbackListener;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,6 +55,29 @@ public class HUtils {
             return false;
         }
         return content.matches(emailregex);
+    }
+
+    public static <T> String toGetUri(Map<String, T> hashMap) {
+        StringBuilder result = new StringBuilder();
+        Set<String> strings = hashMap.keySet();
+        try {
+            for (String next : strings) {
+                Object value = hashMap.get(next);
+                if (value == null) {
+                    continue;
+                }
+                result.append(URLEncoder.encode(next, "UTF-8"))
+                        .append("=")
+                        .append(URLEncoder.encode(value.toString(), "UTF-8"))
+                        .append("&");
+            }
+            if (result.length() == 0) {
+                return "";
+            }
+            return "?" + result.replace(result.length() - 1, result.length(), "").toString();
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
     }
 
     public static void selectPic(FragmentActivity activity, int maxPic, HuCallBack1<List<String>> callBack) {
@@ -87,4 +117,15 @@ public class HUtils {
                 });
     }
 
+    public static <T> void notifyLiveData(MutableLiveData<List<T>> ld, @Nullable List<T> data) {
+        if (data == null) {
+            return;
+        }
+        List<T> value = ld.getValue();
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        value.addAll(data);
+        ld.setValue(value);
+    }
 }

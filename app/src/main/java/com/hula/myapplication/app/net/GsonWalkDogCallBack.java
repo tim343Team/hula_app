@@ -26,7 +26,8 @@ public abstract class GsonWalkDogCallBack<T> extends AbsWalkDogCallBack<T> {
     @Override
     T conver(String string) throws ApiException {
         Type type = getSuperclassTypeParameter(this.getClass());
-        T o = gson.fromJson(string, type);
+        T o;
+        o = gson.fromJson(string, type);
         if (o instanceof RemoteData) {
             int code = ((RemoteData<?>) o).getCode();
             boolean success = ((RemoteData<?>) o).isSuccess();
@@ -41,6 +42,7 @@ public abstract class GsonWalkDogCallBack<T> extends AbsWalkDogCallBack<T> {
 
     @Override
     protected void onFail(Exception e) {
+        e.printStackTrace();
         String message = e.getMessage();
         if (TextUtils.isEmpty(message)) {
             message = UNKNOWERR;

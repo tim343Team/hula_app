@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!--    关闭省电权限-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -28,7 +28,8 @@
 
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -42,18 +43,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.HulaTheme">
 
-<!--        <queries package="com.hula.myapplication">-->
-<!--            <intent>-->
-<!--                <action android:name="android.media.action.IMAGE_CAPTURE">-->
+        <!--        <queries package="com.hula.myapplication">-->
+        <!--            <intent>-->
+        <!--                <action android:name="android.media.action.IMAGE_CAPTURE">-->
 
-<!--                </action>-->
-<!--            </intent>-->
-<!--            <intent>-->
-<!--                <action android:name="android.media.action.ACTION_VIDEO_CAPTURE">-->
+        <!--                </action>-->
+        <!--            </intent>-->
+        <!--            <intent>-->
+        <!--                <action android:name="android.media.action.ACTION_VIDEO_CAPTURE">-->
 
-<!--                </action>-->
-<!--            </intent>-->
-<!--        </queries>-->
+        <!--                </action>-->
+        <!--            </intent>-->
+        <!--        </queries>-->
 
         <meta-data
             android:name="design_width_in_dp"
@@ -74,13 +75,20 @@
         </provider>
 
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".HSplashActivity"
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
         </activity>
 
         <activity
@@ -94,27 +102,36 @@
         <activity
             android:name=".view.login.RegisterPhoneActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.login.RegisterEmailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterSchoolActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterFavoriteActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterPicActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterLocationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterNotificationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterIntroActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.home.AddNewEventActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.login.RegisterEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterSchoolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterFavoriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterPicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterLocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterNotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterIntroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.AddNewEventActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.mine.profile.ProfileActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -8,15 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PartyItemViewData extends AbsMultiItemViewData {
     private final String title;
-    private final Object data;
+    private final DataItemDao data;
 
-    public PartyItemViewData(String title, Object data) {
+    public PartyItemViewData(String title, DataItemDao data) {
         super(R.layout.home_item_just_for_you);
         this.data = data;
         this.title = title;
@@ -55,5 +57,18 @@ public class PartyItemViewData extends AbsMultiItemViewData {
             recyclerView.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(), RecyclerView.HORIZONTAL, false));
             recyclerView.setAdapter(baseQuickAdapter);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PartyItemViewData)) return false;
+        PartyItemViewData that = (PartyItemViewData) o;
+        return Objects.equals(title, that.title) && Objects.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, data);
     }
 }

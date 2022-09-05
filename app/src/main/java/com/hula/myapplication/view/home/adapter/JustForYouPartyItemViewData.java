@@ -14,20 +14,22 @@ import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EventsSubmitByHulaViewData extends AbsMultiItemViewData {
+public class JustForYouPartyItemViewData extends AbsMultiItemViewData {
+    private final String title;
     private final DataItemDao data;
 
-    public EventsSubmitByHulaViewData(DataItemDao data) {
+    public JustForYouPartyItemViewData(DataItemDao data) {
         super(R.layout.home_item_just_for_you);
         this.data = data;
+        this.title = "Just For You";
     }
 
     @Override
     public void convert(BaseViewHolder helper) {
-        helper.setText(R.id.tv_title, "Events submitted by HULA users");
+        helper.setText(R.id.tv_title, title);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null) {
-            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_event_submit_by_hula) {
+            BaseQuickAdapter<Object, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_just_for_you) {
                 @Override
                 protected void convert(BaseViewHolder helper, Object item) {
 
@@ -60,13 +62,13 @@ public class EventsSubmitByHulaViewData extends AbsMultiItemViewData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EventsSubmitByHulaViewData)) return false;
-        EventsSubmitByHulaViewData that = (EventsSubmitByHulaViewData) o;
-        return Objects.equals(data, that.data);
+        if (!(o instanceof JustForYouPartyItemViewData)) return false;
+        JustForYouPartyItemViewData that = (JustForYouPartyItemViewData) o;
+        return Objects.equals(title, that.title) && Objects.equals(data, that.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data);
+        return Objects.hash(title, data);
     }
 }

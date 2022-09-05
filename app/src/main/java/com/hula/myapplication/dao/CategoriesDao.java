@@ -1,12 +1,17 @@
 package com.hula.myapplication.dao;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 public class CategoriesDao{
 	private String name;
+	@SerializedName("created_at")
 	private String createdAt;
+	@SerializedName("small_icon")
 	private String smallIcon;
 	private int id;
+	@SerializedName("bg_image")
 	private String bgImage;
 
 	public String getName(){

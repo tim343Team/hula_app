@@ -4,27 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hula.myapplication.R;
-import com.hula.myapplication.util.HUtilScreen;
-import com.hula.myapplication.view.home.adapter.CreateYourOwnViewData;
-import com.hula.myapplication.view.home.adapter.EventsSubmitByHulaViewData;
-import com.hula.myapplication.view.home.adapter.FeaturedEventViewData;
-import com.hula.myapplication.view.home.adapter.GroupsYouMightLikeViewData;
-import com.hula.myapplication.widget.adapter.MutiAdapter;
-import com.hula.myapplication.view.home.adapter.PartyItemViewData;
-import com.hula.myapplication.view.home.adapter.RecommendedBuddiesViewData;
-import com.hula.myapplication.view.home.adapter.SpaceItemViewData;
+import com.hula.myapplication.dao.home.DataItemDao;
+import com.hula.myapplication.view.home.adapter.DiffMutiAdapter;
+import com.hula.myapplication.view.home.adapter.HomeViewDataAdapterData;
+import com.hula.myapplication.view.home.vm.HomeVm;
 import com.hula.myapplication.view.login.RegisterActivity;
 import com.hula.myapplication.widget.HuLaActionBar;
+
+import java.util.List;
 
 import tim.com.libnetwork.base.BaseTransFragment;
 
 public class HomeFragment extends BaseTransFragment {
     public static final String TAG = HomeFragment.class.getSimpleName();
-    private MutiAdapter homeAdapter = new MutiAdapter();
+    private DiffMutiAdapter homeAdapter;
+    private HomeVm homeVm;
+    private HomeViewDataAdapterData adapterData;
 
     @Override
     protected String getmTag() {
@@ -43,7 +45,7 @@ public class HomeFragment extends BaseTransFragment {
 
     @Override
     protected void init() {
-
+        homeVm = new ViewModelProvider(this).get(HomeVm.class);
     }
 
     @Override
@@ -56,24 +58,18 @@ public class HomeFragment extends BaseTransFragment {
                 startActivity(intent);
             }
         });
-        homeAdapter = new MutiAdapter();
-        homeAdapter.addData(new RecommendedBuddiesViewData(new Object()));
-        homeAdapter.addData(new PartyItemViewData("Just For You",new Object()));
-        homeAdapter.addData(new FeaturedEventViewData(new Object()));
-        homeAdapter.addData(new GroupsYouMightLikeViewData(new Object()));
 
-        homeAdapter.addData(new CreateYourOwnViewData());
-        homeAdapter.addData(new PartyItemViewData("You joined the matching pool for... ",new Object()));
-        homeAdapter.addData(new EventsSubmitByHulaViewData(new Object()));
-        homeAdapter.addData(new PartyItemViewData("College events",new Object()));
-        homeAdapter.addData(new PartyItemViewData("Happening soon",new Object()));
-        homeAdapter.addData(new PartyItemViewData("Newly posted",new Object()));
-        homeAdapter.addData(new PartyItemViewData("Trending events",new Object()));
-        homeAdapter.addData(new SpaceItemViewData(HUtilScreen.dp2px(requireActivity(),38)));
-
+        homeAdapter = new DiffMutiAdapter();
+        adapterData = new HomeViewDataAdapterData(homeAdapter);
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.setAdapter(homeAdapter);
+        homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                loadEvents();
+            }
+        },recyclerView);
 
     }
 
@@ -89,7 +85,24 @@ public class HomeFragment extends BaseTransFragment {
 
     @Override
     protected void loadData() {
+        homeVm.page = 0;
+        loadEvents();
+        homeVm.allEventLD.observe(this, new Observer<List<DataItemDao>>() {
+            @Override
+            public void onChanged(List<DataItemDao> dataItemDaos) {
+                adapterData.setDataItemDaos(dataItemDaos);
+            }
+        });
+    }
 
+    private void loadEvents() {
+        homeVm.loadEvents().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                homeAdapter.loadMoreEnd();
+                homeAdapter.setEnableLoadMore(aBoolean);
+            }
+        });
     }
 
     @Override

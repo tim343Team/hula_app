@@ -8,6 +8,8 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.view.home.AddNewEventActivity;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
+import java.util.Objects;
+
 public class CreateYourOwnViewData extends AbsMultiItemViewData {
 
     private boolean showtext = true;
@@ -47,5 +49,18 @@ public class CreateYourOwnViewData extends AbsMultiItemViewData {
         });
 
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreateYourOwnViewData)) return false;
+        CreateYourOwnViewData that = (CreateYourOwnViewData) o;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash("CreateYourOwnViewData");
     }
 }

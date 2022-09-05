@@ -8,14 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GroupsYouMightLikeViewData extends AbsMultiItemViewData {
-    private final Object data;
+    private final DataItemDao data;
 
-    public GroupsYouMightLikeViewData(Object data) {
+    public GroupsYouMightLikeViewData(DataItemDao data) {
         super(R.layout.home_item_groups_you_might_like);
         this.data = data;
     }
@@ -53,5 +55,18 @@ public class GroupsYouMightLikeViewData extends AbsMultiItemViewData {
             recyclerView.setAdapter(baseQuickAdapter);
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GroupsYouMightLikeViewData)) return false;
+        GroupsYouMightLikeViewData that = (GroupsYouMightLikeViewData) o;
+        return Objects.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 }
