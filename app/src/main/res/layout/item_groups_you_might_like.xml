@@ -2,69 +2,71 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="122dp"
-    android:layout_height="match_parent"
-    android:layout_marginEnd="8dp"
-    tools:layout_height="135dp">
+    android:layout_width="130dp"
+    android:layout_height="wrap_content"
+    android:paddingEnd="8dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:ignore="RtlSymmetry"
+    tools:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_1"
+        android:layout_margin="5dp"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/shape_oval_solid_8e73d3"
+        android:background="@drawable/shape_oval_fff"
+        android:elevation="5dp"
         android:padding="2dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/icon_persion_null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
+        android:id="@+id/iv_2"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/shape_oval_solid_8e73d3"
+        android:background="@drawable/shape_oval_fff"
+        android:elevation="5dp"
         android:padding="2dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/icon_persion_null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_radius5_fff"
+        android:gravity="center"
+        android:minLines="2"
+        android:maxLines="2"
         android:orientation="vertical"
-        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Group Title"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Group Title"
-            android:textColor="#CECECE"
-            android:textSize="12sp" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_2"
+        tools:text="fasdfa\nsdfaasdf" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/tv_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/shape_radius100_8e73d3"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_radius5_835ee2"
+        android:backgroundTint="#835EE2"
+        android:elevation="5dp"
         android:gravity="center"
-        android:paddingHorizontal="5dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="3dp"
         android:text="9 people"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

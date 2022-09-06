@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DataItemDao{
+public class DataItemDao implements Anthing{
 	private String sectionType;
 	private String title;
 	private List<EventsItem> events;

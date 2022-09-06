@@ -2,6 +2,7 @@ package com.hula.myapplication.util;
 
 import androidx.annotation.Nullable;
 
+import com.hula.myapplication.dao.home.UsersItem;
 import com.hula.myapplication.widget.HuCallBack1;
 
 import java.util.ArrayList;
@@ -37,4 +38,15 @@ public class CollectionUtils {
         return true;
     }
 
+    @Nullable
+    public static <T> T getOrNull(List<T> data, int index) {
+        if (data == null) {
+            return null;
+        }
+        try {
+            return data.get(index);
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
 }

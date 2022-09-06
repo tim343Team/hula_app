@@ -13,29 +13,40 @@ import java.util.Objects;
 
 public abstract class GsonWalkDogCallBack<T> extends AbsWalkDogCallBack<T> {
     final public static String UNKNOWERR = "Unknow Err";
-    final static Gson gson = new Gson();
-    final static HuLaNetCodeHand huLaBusinessHand = new HuLaNetCodeHand();
+    final static Gson defGson = new Gson();
+    public final static HuLaNetCodeHand huLaBusinessHand = new HuLaNetCodeHand();
 
     private HuLaNetCodeHand hand = huLaBusinessHand;
+    private Gson gson = defGson;
+
+    public static void safeCheck(RemoteData<?> remoteData, HuLaNetCodeHand hand) throws Exception {
+        int code = remoteData.getCode();
+        boolean success = remoteData.isSuccess();
+        if (code != 200 || !success) {
+            if (!hand.Hand(code)) {
+                throw new ApiException(remoteData.getMessage());
+            }
+        }
+    }
+
 
     public GsonWalkDogCallBack<T> setHand(HuLaNetCodeHand hand) {
         this.hand = hand;
         return this;
     }
 
+    public GsonWalkDogCallBack<T> setGson(Gson gson) {
+        this.gson = gson;
+        return this;
+    }
+
     @Override
-    T conver(String string) throws ApiException {
+    T conver(String string) throws Exception {
         Type type = getSuperclassTypeParameter(this.getClass());
         T o;
         o = gson.fromJson(string, type);
         if (o instanceof RemoteData) {
-            int code = ((RemoteData<?>) o).getCode();
-            boolean success = ((RemoteData<?>) o).isSuccess();
-            if (code != 200 || !success) {
-                if (!hand.Hand(code)) {
-                    throw new ApiException(((RemoteData<?>) o).getMessage());
-                }
-            }
+            safeCheck((RemoteData<?>) o, hand);
         }
         return o;
     }

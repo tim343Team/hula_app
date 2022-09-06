@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hula.myapplication.R;
+import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.view.home.adapter.DiffMutiAdapter;
 import com.hula.myapplication.view.home.adapter.HomeViewDataAdapterData;
@@ -98,9 +99,9 @@ public class HomeFragment extends BaseTransFragment {
         homeVm.page = 0;
         viewSkeleton.showLoading();
         loadEvents();
-        homeVm.allEventLD.observe(this, new Observer<List<DataItemDao>>() {
+        homeVm.allEventLD.observe(this, new Observer<List<Anthing>>() {
             @Override
-            public void onChanged(List<DataItemDao> dataItemDaos) {
+            public void onChanged(List<Anthing> dataItemDaos) {
                 adapterData.setDataItemDaos(dataItemDaos);
                 viewSkeleton.hint();
             }
