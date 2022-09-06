@@ -86,4 +86,5 @@ dependencies {
     //时间选择
     implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
 
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

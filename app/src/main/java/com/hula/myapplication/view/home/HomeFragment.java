@@ -17,6 +17,9 @@ import com.hula.myapplication.view.home.adapter.HomeViewDataAdapterData;
 import com.hula.myapplication.view.home.vm.HomeVm;
 import com.hula.myapplication.view.login.RegisterActivity;
 import com.hula.myapplication.widget.HuLaActionBar;
+import com.hula.myapplication.widget.skeleton.ErrSkeletonElement;
+import com.hula.myapplication.widget.skeleton.ListLoadingSkeletonElement;
+import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class HomeFragment extends BaseTransFragment {
     private DiffMutiAdapter homeAdapter;
     private HomeVm homeVm;
     private HomeViewDataAdapterData adapterData;
+    private ViewSkeleton viewSkeleton;
 
     @Override
     protected String getmTag() {
@@ -62,6 +66,12 @@ public class HomeFragment extends BaseTransFragment {
         homeAdapter = new DiffMutiAdapter();
         adapterData = new HomeViewDataAdapterData(homeAdapter);
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+        viewSkeleton = new ViewSkeleton(rootView.findViewById(R.id.holdView), new ListLoadingSkeletonElement(), ErrSkeletonElement.getInstance(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadEvents();
+            }
+        }));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -69,7 +79,7 @@ public class HomeFragment extends BaseTransFragment {
             public void onLoadMoreRequested() {
                 loadEvents();
             }
-        },recyclerView);
+        }, recyclerView);
 
     }
 
@@ -86,11 +96,13 @@ public class HomeFragment extends BaseTransFragment {
     @Override
     protected void loadData() {
         homeVm.page = 0;
+        viewSkeleton.showLoading();
         loadEvents();
         homeVm.allEventLD.observe(this, new Observer<List<DataItemDao>>() {
             @Override
             public void onChanged(List<DataItemDao> dataItemDaos) {
                 adapterData.setDataItemDaos(dataItemDaos);
+                viewSkeleton.hint();
             }
         });
     }
