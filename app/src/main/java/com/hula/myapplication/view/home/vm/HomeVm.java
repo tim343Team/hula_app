@@ -105,10 +105,11 @@ public class HomeVm extends ViewModel {
                     notNullData.addAll(notNullData1);
 
                     allEventLD.postValue(notNullData);
-
                     page = 2;
+                    result.postValue(!notNullData.isEmpty());
                 } catch (Exception e) {
                     ToastUtil.showFailToast(e.getMessage());
+                    result.postValue(true);
                 }
             }
         });
@@ -136,7 +137,7 @@ public class HomeVm extends ViewModel {
                     @Override
                     protected void onRes(RemoteData<List<Anthing>> data) throws Exception {
                         HUtils.notifyLiveData(allEventLD, data.getNotNullData());
-                        result.setValue(data.getNotNullData().isEmpty());
+                        result.setValue(!data.getNotNullData().isEmpty());
                         page += 1;
                     }
 

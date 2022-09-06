@@ -112,8 +112,10 @@ public class HomeFragment extends BaseTransFragment {
         homeVm.loadEvents().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                homeAdapter.loadMoreEnd();
-                homeAdapter.setEnableLoadMore(aBoolean);
+                homeAdapter.loadMoreComplete();
+                if (!aBoolean) {
+                    homeAdapter.loadMoreEnd();
+                }
             }
         });
     }

@@ -2,25 +2,19 @@ package com.hula.myapplication.view.home.adapter;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.HulaPartyItemLayout;
 import com.hula.myapplication.R;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.dao.home.EventsItem;
-import com.hula.myapplication.util.BusinessUtils;
-import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.view.home.EventsDetailActivity;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class JustForYouPartyItemViewData extends AbsMultiItemViewData {
@@ -28,7 +22,7 @@ public class JustForYouPartyItemViewData extends AbsMultiItemViewData {
     private final DataItemDao data;
 
     public JustForYouPartyItemViewData(DataItemDao data) {
-        super(R.layout.home_item_just_for_you);
+        super(R.layout.home_item_just_for_view);
         this.data = data;
         this.title = "Just For You";
     }
