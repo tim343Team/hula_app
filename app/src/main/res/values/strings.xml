@@ -45,6 +45,9 @@
     <string name="help_center">Help Center</string>
     <string name="log_out">Log Out</string>
 
+    <!--Profile-->
+    <string name="add_more">Add more</string>
+
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>
     <string name="preference_notice_2">FIll in the below to help us better match you to new buddies</string>
