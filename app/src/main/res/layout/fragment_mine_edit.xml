@@ -299,9 +299,9 @@
                 android:textColor="@color/color_2e2e2e"
                 android:textSize="13dp" />
 
-            <!--TODO 自定义显示控件-->
-            <View
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_profile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -371,9 +371,9 @@
                 android:textColor="@color/color_2e2e2e"
                 android:textSize="13dp" />
 
-            <!--TODO 自定义显示控件-->
-            <View
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_categorie"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <View
