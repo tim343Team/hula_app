@@ -1,4 +1,4 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.view.home.adapter.home;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.hula.myapplication.HulaPartyItemLayout;
+import com.hula.myapplication.widget.HulaPartyItemLayout;
 import com.hula.myapplication.R;
 import com.hula.myapplication.app.RootApplication;
-import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.util.HUtilScreen;

@@ -48,6 +48,10 @@ public abstract class AbsWalkDogCallBack<T> implements okhttp3.Callback {
             fail(converException(new Exception("net err")));
             return;
         }
+        if (!response.isSuccessful()){
+            fail(converException(new IOException("net err")));
+            return;
+        }
         String string = body.string();
         try {
             success(conver(string));

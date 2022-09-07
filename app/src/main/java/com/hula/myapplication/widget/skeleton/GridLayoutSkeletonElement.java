@@ -16,7 +16,7 @@ import com.hula.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListLoadingSkeletonElement extends SkeletonElement {
+public class GridLayoutSkeletonElement extends SkeletonElement {
     private BaseQuickAdapter<String, BaseViewHolder> adapter;
     private boolean isadd = false;
 

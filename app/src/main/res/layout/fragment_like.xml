@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_def_windowbg"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/action_bar"
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:acb_title="Liked Events" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_party" />
+    </FrameLayout>
+
+
+</LinearLayout>

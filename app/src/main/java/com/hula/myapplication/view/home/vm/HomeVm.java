@@ -20,19 +20,14 @@ import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
-import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.dao.home.GroupDao;
-import com.hula.myapplication.dao.home.GroupItemDao;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.ThreadUtils;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
@@ -152,4 +147,25 @@ public class HomeVm extends ViewModel {
     }
 
 
+    public MutableLiveData<Boolean> loadLike() {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        WonderfulOkhttpUtils.get()
+                .url(UrlFactory.specificEventsList())
+                .addParams("isLike", "True")
+                .build()
+                .getCall()
+                .enqueue(new GsonWalkDogCallBack<RemoteData<List<Object>>>() {
+                    @Override
+                    protected void onRes(RemoteData<List<Object>> data) throws Exception {
+                        result.setValue(!data.getNotNullData().isEmpty());
+                    }
+
+                    @Override
+                    protected void onFail(Exception e) {
+                        super.onFail(e);
+                        result.setValue(false);
+                    }
+                });
+        return result;
+    }
 }

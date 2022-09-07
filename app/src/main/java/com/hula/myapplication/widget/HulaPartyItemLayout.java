@@ -1,11 +1,10 @@
-package com.hula.myapplication;
+package com.hula.myapplication.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,17 +12,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.bumptech.glide.Glide;
+import com.hula.myapplication.R;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.dao.home.SubEventsItem;
 import com.hula.myapplication.util.BusinessUtils;
+import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.util.HUtils;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class HulaPartyItemLayout extends RelativeLayout {
     private boolean showFindBuddy;
     private boolean showPersion;
+    private ServiceProfile profile = HService.getService(ServiceProfile.class);
 
     public HulaPartyItemLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleRes) {
         super(context, attrs, defStyleRes);
@@ -73,11 +86,59 @@ public class HulaPartyItemLayout extends RelativeLayout {
         TextView tv3 = childView.findViewById(R.id.tv_3);
         TextView tv4 = childView.findViewById(R.id.tv_4);
         ImageView iv = childView.findViewById(R.id.iv);
+        ImageView iv_love = childView.findViewById(R.id.iv_love);
+        Runnable runnable = () -> {
+            boolean liked = data.isLiked();
+            if (liked) {
+                iv_love.setImageResource(R.mipmap.icon_like);
+            } else {
+                iv_love.setImageResource(R.mipmap.icon_unlove_fff);
+            }
+        };
+        runnable.run();
+        iv_love.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean liked = data.isLiked();
+                String url = UrlFactory.getLike();
+                if (liked) {
+                    url = UrlFactory.getUnLike();
+                }
+                SubEventsItem subEventsItem = CollectionUtils.getOrNull(data.getSubEvents(), 0);
+                if (subEventsItem == null) {
+                    return;
+                }
+                ToastUtil.showLoading("");
+                Map<String, Object> hashbody = new HashMap<>();
+                hashbody.put("user_id", profile.getUserId());
+                hashbody.put("event_id", subEventsItem.getId());
+                WonderfulOkhttpUtils.postJson()
+                        .url(url)
+                        .body(GsonUtils.toJson(hashbody))
+                        .addHeader("Content-Type","application/json")
+                        .build()
+                        .getCall()
+                        .enqueue(new GsonWalkDogCallBack<RemoteData<Object>>() {
+                            @Override
+                            protected void onRes(RemoteData<Object> d) throws Exception {
+                                data.setLiked(!data.isLiked());
+                                runnable.run();
+                                ToastUtil.hideLoading();
+                            }
+
+                            @Override
+                            protected void onFail(Exception e) {
+                                super.onFail(e);
+                                ToastUtil.hideLoading();
+                            }
+                        });
+            }
+        });
 
         HUtils.runCatch(() -> tv1.setText(data.getSubEvents().get(0).getSubCategory().get(0).getCategory().getName()));
         tv2.setText(data.getName());
         tv3.setText(data.getCreatedAt());
-        tv4.setText(data.getSearchCount() + " interested");
+        HUtils.runCatch(() -> tv4.setText(data.getSubEvents().get(0).getInterestedCount() + " interested"));
         HUtils.runCatch(() -> Glide.with(iv)
                 .load(BusinessUtils.getFirst(data.getSubEvents().get(0).getImageLink()))
                 .into(iv));
@@ -86,7 +147,7 @@ public class HulaPartyItemLayout extends RelativeLayout {
         ImageView viewById1 = findViewById(R.id.iv_persion);
         TextView viewById2 = findViewById(R.id.tv_persion_info);
 
-        if (showPersion){
+        if (showPersion) {
             HUtils.runCatch(() -> {
                 List<SubEventsItem> subEvents = data.getSubEvents();
                 if (subEvents == null || subEvents.isEmpty()) {
@@ -99,7 +160,7 @@ public class HulaPartyItemLayout extends RelativeLayout {
             });
         }
 
-        if (showFindBuddy){
+        if (showFindBuddy) {
             viewById.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -107,5 +168,6 @@ public class HulaPartyItemLayout extends RelativeLayout {
                 }
             });
         }
+
     }
 }

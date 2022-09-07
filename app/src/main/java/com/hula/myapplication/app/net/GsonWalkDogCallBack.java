@@ -58,7 +58,7 @@ public abstract class GsonWalkDogCallBack<T> extends AbsWalkDogCallBack<T> {
         if (TextUtils.isEmpty(message)) {
             message = UNKNOWERR;
         }
-        if (Objects.equals(message, "cancel")) {
+        if (Objects.equals(message, "Canceled") || Objects.equals("Socket closed",message)) {
             return;
         }
         if (message != null) {

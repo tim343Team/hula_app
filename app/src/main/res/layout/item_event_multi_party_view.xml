@@ -5,7 +5,7 @@
     android:layout_marginEnd="8dp"
     app:shapeAppearance="@style/RoundedStyle20">
 
-    <com.hula.myapplication.HulaPartyItemLayout
+    <com.hula.myapplication.widget.HulaPartyItemLayout
         android:id="@+id/partylayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,19 +1,14 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.view.home.adapter.home;
 
 import androidx.annotation.Nullable;
 
-import com.hula.myapplication.app.RootApplication;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
-import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.dao.home.GroupDao;
-import com.hula.myapplication.util.HUtilScreen;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class HomeViewDataAdapterData {

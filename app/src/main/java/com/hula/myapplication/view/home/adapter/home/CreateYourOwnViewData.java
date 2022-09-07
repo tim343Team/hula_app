@@ -1,4 +1,4 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.view.home.adapter.home;
 
 import android.content.Intent;
 import android.view.View;

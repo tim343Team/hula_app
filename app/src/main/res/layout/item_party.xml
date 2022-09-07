@@ -1,11 +1,12 @@
 <com.hula.myapplication.widget.ShapeableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="160dp"
-    android:layout_height="200dp"
-    android:layout_marginEnd="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="137dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginHorizontal="16dp"
     app:shapeAppearance="@style/RoundedStyle20">
 
-    <com.hula.myapplication.widget.HulaPartyItemLayout
+    <com.hula.myapplication.widget.HulaPartyItemLayout1
         android:id="@+id/partylayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

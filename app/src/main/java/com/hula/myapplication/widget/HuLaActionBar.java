@@ -83,7 +83,7 @@ public class HuLaActionBar extends FrameLayout {
             tvTitle.setText(title);
             tvTitle.setVisibility(View.VISIBLE);
         } else {
-            ivBack.setVisibility(View.GONE);
+            tvTitle.setVisibility(View.GONE);
         }
         typedArray.recycle();
     }

@@ -21,4 +21,16 @@ public class UrlFactory {
     public static String findBuddyV2() {
         return host + "/events/find_buddy_v2";
     }
+
+
+    public static String getLike() {
+        return host + "/events/like_event";
+    }
+
+    public static String getUnLike() {
+        return host + "/events/unlike_event";
+    }
+    public static String specificEventsList() {
+        return host + "/events/specific_events_list";
+    }
 }

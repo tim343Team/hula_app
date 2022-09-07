@@ -80,6 +80,10 @@ public class SubEventsItem {
         return liked;
     }
 
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     public boolean isApproved() {
         return approved;
     }

@@ -1,4 +1,4 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.view.home.adapter.home;
 
 import android.content.Intent;
 import android.view.View;
@@ -25,7 +25,6 @@ import com.hula.myapplication.view.home.EventsDetailActivity;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;

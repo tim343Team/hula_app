@@ -1,4 +1,4 @@
-package com.hula.myapplication.view.home.adapter;
+package com.hula.myapplication.view.home.adapter.home;
 
 import android.content.Intent;
 import android.view.View;
@@ -12,8 +12,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
-import com.hula.myapplication.dao.home.DataItemDao;
-import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.dao.home.GroupDao;
 import com.hula.myapplication.dao.home.GroupItemDao;
 import com.hula.myapplication.dao.home.UsersItem;
@@ -21,7 +19,6 @@ import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.view.home.EventsDetailActivity;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class GroupsYouMightLikeViewData extends AbsMultiItemViewData {

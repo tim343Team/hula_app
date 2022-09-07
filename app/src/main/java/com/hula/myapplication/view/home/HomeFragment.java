@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hula.myapplication.R;
 import com.hula.myapplication.dao.home.Anthing;
-import com.hula.myapplication.dao.home.DataItemDao;
-import com.hula.myapplication.view.home.adapter.DiffMutiAdapter;
-import com.hula.myapplication.view.home.adapter.HomeViewDataAdapterData;
+import com.hula.myapplication.view.home.adapter.home.DiffMutiAdapter;
+import com.hula.myapplication.view.home.adapter.home.HomeViewDataAdapterData;
 import com.hula.myapplication.view.home.vm.HomeVm;
 import com.hula.myapplication.view.login.RegisterActivity;
 import com.hula.myapplication.widget.HuLaActionBar;
+import com.hula.myapplication.widget.HuLaActionBarMenu;
 import com.hula.myapplication.widget.skeleton.ErrSkeletonElement;
-import com.hula.myapplication.widget.skeleton.ListLoadingSkeletonElement;
+import com.hula.myapplication.widget.skeleton.GridLayoutSkeletonElement;
 import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
 import java.util.List;
@@ -32,6 +32,7 @@ public class HomeFragment extends BaseTransFragment {
     private HomeVm homeVm;
     private HomeViewDataAdapterData adapterData;
     private ViewSkeleton viewSkeleton;
+    private HuLaActionBarMenu lickMenu;
 
     @Override
     protected String getmTag() {
@@ -56,6 +57,7 @@ public class HomeFragment extends BaseTransFragment {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         HuLaActionBar actionBar = rootView.findViewById(R.id.action_bar);
+        lickMenu = rootView.findViewById(R.id.icon_lick);
         actionBar.setMenuClickListener(new HuLaActionBar.OnItemClickListener() {
             @Override
             public void onClick(int position, View view) {
@@ -67,7 +69,7 @@ public class HomeFragment extends BaseTransFragment {
         homeAdapter = new DiffMutiAdapter();
         adapterData = new HomeViewDataAdapterData(homeAdapter);
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
-        viewSkeleton = new ViewSkeleton(rootView.findViewById(R.id.holdView), new ListLoadingSkeletonElement(), ErrSkeletonElement.getInstance(new View.OnClickListener() {
+        viewSkeleton = new ViewSkeleton(rootView.findViewById(R.id.holdView), new GridLayoutSkeletonElement(), ErrSkeletonElement.getInstance(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadEvents();
@@ -81,6 +83,16 @@ public class HomeFragment extends BaseTransFragment {
                 loadEvents();
             }
         }, recyclerView);
+
+        lickMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getChildFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right_enter,R.anim.slide_left_out)
+                        .add(R.id.layout_next_page, new LikeFragment(), "xx")
+                        .commit();
+            }
+        });
 
     }
 
@@ -104,6 +116,19 @@ public class HomeFragment extends BaseTransFragment {
             public void onChanged(List<Anthing> dataItemDaos) {
                 adapterData.setDataItemDaos(dataItemDaos);
                 viewSkeleton.hint();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeVm.loadLike().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+
+                }
             }
         });
     }

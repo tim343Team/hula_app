@@ -62,6 +62,10 @@ public class EventsItem{
 		return liked;
 	}
 
+	public void setLiked(boolean liked) {
+		this.liked = liked;
+	}
+
 	public List<SubEventsItem> getSubEvents(){
 		return sub_events;
 	}
