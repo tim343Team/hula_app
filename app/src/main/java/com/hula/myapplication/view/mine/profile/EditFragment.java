@@ -22,9 +22,11 @@ import com.hula.myapplication.dao.PronounDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.SubProfileDao;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
+import com.hula.myapplication.view.mine.profile.sub.ChooseInterActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
+import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 import com.library.flowlayout.FlowLayoutManager;
@@ -224,6 +226,12 @@ public class EditFragment extends BaseLazyFragment {
                 EditSchoolActivity.actionStart(getmActivity());
             }
         });
+        binding.llJobTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditWorkActivity.actionStart(getmActivity());
+            }
+        });
         binding.llDrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -283,5 +291,11 @@ public class EditFragment extends BaseLazyFragment {
         categoriesAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, subCategoriesDaos);
         categoriesAdapter.bindToRecyclerView(recyclerCategorie);
         categoriesAdapter.setEnableLoadMore(false);
+        categoriesAdapter.AddListenerItem(new CategoriesSettingAdapter.AddListenerItem() {
+            @Override
+            public void click() {
+                ChooseInterActivity.actionStart(getmActivity());
+            }
+        });
     }
 }

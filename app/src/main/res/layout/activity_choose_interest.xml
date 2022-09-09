@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.hula.myapplication.widget.HuLaActionBar
+        android:id="@+id/action_bar"
+        style="@style/defActionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:acb_enableBack="false"
+        app:acb_title="">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/tv_back"
+                android:layout_width="@dimen/dimen_36"
+                android:layout_height="@dimen/dimen_36"
+                android:layout_marginStart="8dp"
+                android:background="@mipmap/icon_finish" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/choose_interests"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:paddingEnd="@dimen/dimen_8"
+                android:text="@string/done"
+                android:textColor="@color/app_main_color"
+                android:textSize="13dp"
+                android:visibility="invisible"/>
+
+
+        </LinearLayout>
+
+    </com.hula.myapplication.widget.HuLaActionBar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="231dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@drawable/shape_radius100_gra"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="13dp"/>
+</LinearLayout>
+

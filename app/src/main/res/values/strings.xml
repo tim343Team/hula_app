@@ -4,6 +4,7 @@
     <string name="permissions_camera">无法使用相机！</string>
     <string name="permissions_audio">无法录制音频！</string>
     <string name="text_null">-----</string>
+    <string name="save">Save</string>
 
     <!--主页-->
     <string name="for_you">For You</string>
@@ -28,6 +29,7 @@
     <string name="name">Name</string>
     <string name="age">Age</string>
     <string name="school">School</string>
+    <string name="work">Work</string>
     <string name="job_time">Job Title</string>
     <string name="drink">Drink</string>
     <string name="profile_tag">Profile Tag</string>
@@ -60,6 +62,10 @@
     <string name="my_drink_of_choice">My drink of choice</string>
     <string name="my_drink_of_choice_notice">Any favorite libations?</string>
     <string name="my_drink_of_choice_hint">ex. Espresso Martini</string>
+    <string name="my_occupation">My Occupation</string>
+    <string name="my_occupation_notice_1">What i do for work</string>
+    <string name="my_occupation_hint">ex.Unicorn Trainer</string>
+    <string name="choose_interests">Choose Interests</string>
 
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>

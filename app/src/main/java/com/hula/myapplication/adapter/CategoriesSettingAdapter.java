@@ -33,10 +33,26 @@ public class CategoriesSettingAdapter extends BaseQuickAdapter<SubCategoriesDao,
             tv.setText(R.string.add_more);
             tv.setTextColor(Color.BLACK);
             itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_strock1_8e73d3));
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemClick.click();
+                }
+            });
         }else {
             itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_8e73d3));
             tv.setTextColor(Color.WHITE);
             tv.setText(item.getName());
         }
+    }
+
+    AddListenerItem itemClick;
+
+    public void AddListenerItem(AddListenerItem itemClick) {
+        this.itemClick = itemClick;
+    }
+
+    public interface AddListenerItem {
+        void click();
     }
 }
