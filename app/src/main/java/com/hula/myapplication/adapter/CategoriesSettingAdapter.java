@@ -16,9 +16,9 @@ import com.hula.myapplication.dao.SubCategoriesDao;
 
 import java.util.List;
 
-public class CategoriesAdapter extends BaseQuickAdapter<SubCategoriesDao, BaseViewHolder> {
+public class CategoriesSettingAdapter extends BaseQuickAdapter<SubCategoriesDao, BaseViewHolder> {
 
-    public CategoriesAdapter(int layoutResId, @Nullable List<SubCategoriesDao> data) {
+    public CategoriesSettingAdapter(int layoutResId, @Nullable List<SubCategoriesDao> data) {
         super(layoutResId, data);
     }
 
@@ -36,6 +36,7 @@ public class CategoriesAdapter extends BaseQuickAdapter<SubCategoriesDao, BaseVi
         }else {
             itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_8e73d3));
             tv.setTextColor(Color.WHITE);
+            tv.setText(item.getName());
         }
     }
 }

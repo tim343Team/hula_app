@@ -28,7 +28,7 @@
     <string name="name">Name</string>
     <string name="age">Age</string>
     <string name="school">School</string>
-    <string name="job_time">Job Time</string>
+    <string name="job_time">Job Title</string>
     <string name="drink">Drink</string>
     <string name="profile_tag">Profile Tag</string>
     <string name="mine_notice_2">Select a tag to add to your profile</string>
@@ -46,7 +46,20 @@
     <string name="log_out">Log Out</string>
 
     <!--Profile-->
+    <string name="custom">Custom</string>
     <string name="add_more">Add more</string>
+    <string name="profile_event_hint_1">Run the NY Marathon</string>
+    <string name="profile_event_hint_2">Go to NYFW</string>
+    <string name="profile_event_hint_3">See Bruce Springstein at Madison Square Garden</string>
+    <string name="display_name">Display Name</string>
+    <string name="display_my_name">Display My Name</string>
+    <string name="my_email">My Email</string>
+    <string name="my_email_notice">You will receive buddy invites on this email</string>
+    <string name="my_school_name">My School Name</string>
+    <string name="do_not_show">Don\'t show on profile</string>
+    <string name="my_drink_of_choice">My drink of choice</string>
+    <string name="my_drink_of_choice_notice">Any favorite libations?</string>
+    <string name="my_drink_of_choice_hint">ex. Espresso Martini</string>
 
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>
