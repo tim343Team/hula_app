@@ -1,6 +1,7 @@
 package com.hula.myapplication.view.mine.profile;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,30 +10,47 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.TimeUtils;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.hula.myapplication.R;
-import com.hula.myapplication.adapter.CategoriesAdapter;
+import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.NewAdapter;
+import com.hula.myapplication.adapter.ProfileSettingAdapter;
+import com.hula.myapplication.dao.PronounDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
+import com.hula.myapplication.dao.SubProfileDao;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
+import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
+import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
+import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
+import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 import com.library.flowlayout.FlowLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import tim.com.libnetwork.base.BaseLazyFragment;
+import tim.com.libnetwork.utils.DateTimeUtil;
+import tim.com.libnetwork.utils.WonderfulStringUtils;
 
 public class EditFragment extends BaseLazyFragment {
     private FragmentMineEditBinding binding;
     private View llAboutMe;
     private EditText editAboutMe;
     private TextView tvEditLength;
+    private TextView tvAge;
     private RecyclerView recyclerProfile;
     private RecyclerView recyclerCategorie;
-    private CategoriesAdapter categoriesAdapter;
-    private List<SubCategoriesDao> subCategoriesDaos=new ArrayList<>();
+    private CategoriesSettingAdapter categoriesAdapter;
+    private ProfileSettingAdapter profileSettingAdapter;
+    private List<SubCategoriesDao> subCategoriesDaos = new ArrayList<>();
+    private List<SubProfileDao> subProfileDaos = new ArrayList<>();
+    private Date selectDate;
 
     public static EditFragment getInstance() {
         EditFragment fragment = new EditFragment();
@@ -62,8 +80,12 @@ public class EditFragment extends BaseLazyFragment {
         llAboutMe = binding.llAboutMe;
         editAboutMe = binding.editAboutMe;
         tvEditLength = binding.tvEditLength;
+        tvAge = binding.tvAge;
         recyclerProfile = binding.recyclerProfile;
         recyclerCategorie = binding.recyclerCategorie;
+        View llEvent1 = binding.llEvent1;
+        View llEvent2 = binding.llEvent2;
+        View llEvent3 = binding.llEvent3;
         llAboutMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +118,118 @@ public class EditFragment extends BaseLazyFragment {
                 tvEditLength.setText((160 - content.length()) + "");
             }
         });
+        binding.editEvent1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty()) {
+                    llEvent1.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
+                } else {
+                    llEvent1.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                }
+            }
+        });
+        binding.editEvent2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty()) {
+                    llEvent2.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
+                } else {
+                    llEvent2.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                }
+            }
+        });
+        binding.editEvent3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty()) {
+                    llEvent3.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
+                } else {
+                    llEvent3.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                }
+            }
+        });
+        binding.llName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditNameActivity.actionStart(getmActivity());
+            }
+        });
+        binding.llAge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 17);
+                SingleDateAndTimePickerDialog.Builder builder = new SingleDateAndTimePickerDialog.Builder(view.getContext())
+                        .backgroundColor(Color.WHITE)
+                        .title("Select DOB")
+                        .displayHours(false)
+                        .displayDays(false)
+                        .displayMinutes(false)
+                        .displayDaysOfMonth(true)
+                        .displayYears(true)
+                        .displayMonth(true);
+                if (selectDate != null) {
+                    builder.defaultDate(selectDate);
+                } else {
+                    builder.defaultDate(calendar.getTime());
+                }
+                builder.maxDateRange(calendar.getTime())
+                        .bottomSheet()
+                        .mainColor(Color.parseColor("#8E73D3"))
+                        .titleTextColor(Color.parseColor("#8E73D3"))
+                        .build()
+                        .setListener(new SingleDateAndTimePickerDialog.Listener() {
+                            @Override
+                            public void onDateSelected(Date date) {
+                                selectDate = date;
+                                onSelectDate();
+                            }
+                        })
+                        .display();
+            }
+        });
+        binding.llSchool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditSchoolActivity.actionStart(getmActivity());
+            }
+        });
+        binding.llDrink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditDrinkActivity.actionStart(getmActivity());
+            }
+        });
         initRecyclerViewProfile();
         initRecyclerViewCategorie();
     }
@@ -125,17 +259,28 @@ public class EditFragment extends BaseLazyFragment {
 
     }
 
+    private void onSelectDate() {
+        if (selectDate == null) {
+            binding.tvAge.setText("");
+            return;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(selectDate);
+        binding.tvAge.setText(DateTimeUtil.getAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)) + "");
+    }
+
     private void initRecyclerViewProfile() {
-//        recyclerProfile.setLayoutManager(new FlowLayoutManager());
-//        adapter = new NewAdapter(R.layout.adapter_what_new, data);
-//        adapter.bindToRecyclerView(recyclerView);
-//        adapter.setEnableLoadMore(false);
+        subProfileDaos.add(new SubProfileDao());
+        recyclerProfile.setLayoutManager(new FlowLayoutManager());
+        profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos);
+        profileSettingAdapter.bindToRecyclerView(recyclerProfile);
+        profileSettingAdapter.setEnableLoadMore(false);
     }
 
     private void initRecyclerViewCategorie() {
         subCategoriesDaos.add(new SubCategoriesDao());
         recyclerCategorie.setLayoutManager(new FlowLayoutManager());
-        categoriesAdapter = new CategoriesAdapter(R.layout.adapter_categorie, subCategoriesDaos);
+        categoriesAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, subCategoriesDaos);
         categoriesAdapter.bindToRecyclerView(recyclerCategorie);
         categoriesAdapter.setEnableLoadMore(false);
     }

@@ -9,6 +9,13 @@ public class SubCategoriesDao{
 	private CategoriesDao category;
 	private Object createdBy;
 
+	public SubCategoriesDao() {
+	}
+
+	public SubCategoriesDao(String name) {
+		this.name = name;
+	}
+
 	public String getImage(){
 		return image;
 	}
