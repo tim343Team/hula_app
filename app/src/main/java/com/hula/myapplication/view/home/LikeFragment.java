@@ -47,7 +47,7 @@ public class LikeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewSkeleton = new ViewSkeleton(binding.recyclerView, new LinearLayoutSkeletonElement(), null);
         binding.actionBar.setBackClickListener(v -> getParentFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_right_enter,R.anim.slide_left_out)
+                .setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_left_out)
                 .remove(LikeFragment.this)
                 .commit());
         partyAdapter = new PartyAdapter();
@@ -80,10 +80,10 @@ public class LikeFragment extends Fragment {
                         if (offset == 0) {
                             viewSkeleton.hint();
                         }
-                        offset++;
+                        offset += 10;
                         partyAdapter.addData(data.getNotNullData());
                         partyAdapter.loadMoreComplete();
-                        if (data.getNotNullData().isEmpty()) {
+                        if (data.getNotNullData().size() < 10) {
                             partyAdapter.loadMoreEnd();
                         }
                     }

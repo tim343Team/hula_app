@@ -30,7 +30,16 @@ public class UrlFactory {
     public static String getUnLike() {
         return host + "/events/unlike_event";
     }
+
     public static String specificEventsList() {
         return host + "/events/specific_events_list";
+    }
+
+    public static String eventSearch() {
+        return host + "/events/event_search";
+    }
+
+    public static String getAllSections(){
+        return host +"/events/get_all_sections";
     }
 }

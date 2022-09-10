@@ -1,34 +1,39 @@
 package com.hula.myapplication.view.search;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.databinding.FragmentSearchBinding;
-import com.hula.myapplication.view.home.HomeFragment;
+import com.hula.myapplication.view.home.adapter.PartyAdapter;
 import com.hula.myapplication.view.search.dialog.SearchTopDialog;
-import com.hula.myapplication.view.search.vm.SearchViewModel;
-import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.skeleton.LinearLayoutSkeletonElement;
+import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tim.com.libnetwork.base.BaseTransFragment;
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class SearchFragment extends BaseTransFragment {
     public static final String TAG = SearchFragment.class.getSimpleName();
     private FragmentSearchBinding binding;
-    private SearchAdapter adapter;
-
-    @Override
-    protected String getmTag() {
-        return TAG;
-    }
+    private PartyAdapter adapter;
+    private ViewSkeleton viewSkeleton;
+    private int offset = 0;
+    private int category = 0;
+    private int date = 0;
+    private int neighborhood = 0;
 
     @Override
     protected int getLayoutId() {
@@ -54,20 +59,17 @@ public class SearchFragment extends BaseTransFragment {
                 //request success
                 booleanHuCallBack1.call(true);
             };
-            searchTopDialog.show(getChildFragmentManager(),"");
+            searchTopDialog.show(getChildFragmentManager(), "searchTopDialog");
         });
-        adapter = new SearchAdapter();
-        adapter.setNewData(new ArrayList<Object>(){
-            {
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-                add(new Object());
-
-            }
-        });
+        viewSkeleton = new ViewSkeleton(binding.recyclerView, new LinearLayoutSkeletonElement(), null);
+        adapter = new PartyAdapter();
+        View emptryView = LayoutInflater.from(requireContext()).inflate(R.layout.view_emptry, null, false);
+        TextView tv = emptryView.findViewById(R.id.tv);
+        tv.setText("We are working to source you the best events,check back soon!");
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter.setEmptyView(emptryView);
+        adapter.setOnLoadMoreListener(this::onload, binding.recyclerView);
+        binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerView.setAdapter(adapter);
     }
@@ -84,7 +86,44 @@ public class SearchFragment extends BaseTransFragment {
 
     @Override
     protected void loadData() {
+        onload();
+    }
 
+    private void onload() {
+        if (offset == 0) {
+            viewSkeleton.showLoading();
+        }
+        WonderfulOkhttpUtils.get()
+                .url(UrlFactory.eventSearch())
+                .addParams("limit", String.valueOf(10))
+                .addParams("offset", String.valueOf(offset))
+                .addParams("category", String.valueOf(category))
+                .addParams("date", String.valueOf(date))
+                .addParams("user_id", HService.getService(ServiceProfile.class).getUserId())
+                .addParams("neighborhood", String.valueOf(neighborhood))
+                .build()
+                .getCall()
+                .bindLifecycle(this)
+                .enqueue(new GsonWalkDogCallBack<RemoteData<List<EventsItem>>>() {
+                    @Override
+                    protected void onRes(RemoteData<List<EventsItem>> data) {
+                        if (offset == 0) {
+                            viewSkeleton.hint();
+                        }
+                        offset += 10;
+                        adapter.addData(data.getNotNullData());
+                        adapter.loadMoreComplete();
+                        if (data.getNotNullData().size() < 10) {
+                            adapter.loadMoreEnd();
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(Exception e) {
+                        super.onFail(e);
+                        adapter.loadMoreFail();
+                    }
+                });
     }
 
     @Override
@@ -97,15 +136,9 @@ public class SearchFragment extends BaseTransFragment {
 
     }
 
-    class SearchAdapter extends BaseQuickAdapter<Object, BaseViewHolder>{
 
-        public SearchAdapter() {
-            super(R.layout.item_search_view);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, Object item) {
-
-        }
+    @Override
+    protected String getmTag() {
+        return null;
     }
 }

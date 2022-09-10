@@ -95,6 +95,7 @@
             android:name=".view.HomeActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.login.RegisterActivity"

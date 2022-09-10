@@ -1,14 +1,11 @@
 package com.hula.myapplication.view.search.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +19,15 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.android.material.internal.FlowLayout;
 import com.hula.myapplication.R;
 import com.hula.myapplication.dao.SearchItem;
+import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.databinding.DialogSearchTopBinding;
-import com.hula.myapplication.util.CollectionUtils;
-import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.SimTextWatcher;
 import com.hula.myapplication.view.search.vm.SearchViewModel;
 import com.hula.myapplication.widget.GrapItemDecoration;
@@ -39,15 +35,18 @@ import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.HulaBaseDialog;
 import com.library.flowlayout.FlowLayoutManager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 public class SearchTopDialog extends DialogFragment {
     private DialogSearchTopBinding binding;
     private SearchViewModel searchViewModel;
     private SortAdapter sortAdapter;
     private HistoryAdapter historyAdapter;
+    private SearchSectionsAdapter searchSectionsAdapter;
     public HuCallBack1.HuCallBack2<String, HuCallBack1<Boolean>> editCall;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable saveSearch = null;
@@ -55,7 +54,8 @@ public class SearchTopDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        assert getParentFragment() != null;
+        searchViewModel = new ViewModelProvider(getParentFragment()).get(SearchViewModel.class);
     }
 
     @Override
@@ -118,6 +118,13 @@ public class SearchTopDialog extends DialogFragment {
             @Override
             public void onChanged(List<SearchItem> searchItems) {
                 sortAdapter.setNewData(searchItems);
+            }
+        });
+        searchViewModel.searchSectionsDaoLD.observe(getViewLifecycleOwner(), new Observer<List<SearchSectionsDao>>() {
+            @Override
+            public void onChanged(List<SearchSectionsDao> searchSectionsDaos) {
+                searchSectionsAdapter.setNewData(searchSectionsDaos);
+
             }
         });
 
@@ -185,22 +192,27 @@ public class SearchTopDialog extends DialogFragment {
                 }
             }
         });
+        searchSectionsAdapter = new SearchSectionsAdapter();
         sortAdapter = new SortAdapter();
         historyAdapter = new HistoryAdapter();
+        binding.recyclerView1.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerView1.addItemDecoration(new GrapItemDecoration(8));
+        binding.recyclerView1.setAdapter(searchSectionsAdapter);
         binding.recyclerView2.addItemDecoration(new GrapItemDecoration(8));
         binding.recyclerView2.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerView2.setAdapter(sortAdapter);
         binding.recyclerviewHostory.setLayoutManager(new FlowLayoutManager());
         binding.recyclerviewHostory.setAdapter(historyAdapter);
         searchViewModel.refreshHistory();
+        searchViewModel.getAllSections();
     }
-
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void dismiss() {
         KeyboardUtils.hideSoftInput(binding.tvSearch);
+        super.dismiss();
     }
+
 
     private void onSelect(TextView select, TextView unselect) {
         select.setTextColor(Color.WHITE);
@@ -216,6 +228,78 @@ public class SearchTopDialog extends DialogFragment {
         hulaBaseDialog.marginHorizontal = 0;
         hulaBaseDialog.mGravity = Gravity.TOP;
         return hulaBaseDialog;
+    }
+
+
+    class SearchSectionsAdapter extends BaseQuickAdapter<SearchSectionsDao, BaseViewHolder> {
+
+        public Map<Integer, List<Integer>> selectIndexs = new HashMap<>();
+        public Map<String, Integer> map = new HashMap<>();
+
+
+        public SearchSectionsAdapter() {
+            super(R.layout.item_search_sections);
+            map.put("DATE", R.mipmap.icon_time_black);
+            map.put("CATEGORY", R.mipmap.icon_bookmark_black);
+            map.put("NEIGHBORHOOD", R.mipmap.icon_location_black);
+
+        }
+
+        @Override
+        protected void convert(BaseViewHolder grouphelper, SearchSectionsDao dao) {
+
+            grouphelper.setText(R.id.tv_title, dao.getTitle());
+            Integer integer = map.get(dao.getTitle());
+            if (integer != null) {
+                TextView view = grouphelper.getView(R.id.tv_title);
+                view.setCompoundDrawablesRelativeWithIntrinsicBounds(integer, 0, 0, 0);
+            }
+
+            BaseQuickAdapter<SearchSectionsDao.Item, BaseViewHolder> adapter = new BaseQuickAdapter<SearchSectionsDao.Item, BaseViewHolder>(R.layout.item_simple_text_1) {
+                @Override
+                protected void convert(BaseViewHolder helper, SearchSectionsDao.Item item) {
+                    TextView view = helper.getView(R.id.tv);
+                    view.setText(item.getTitle());
+                    List<Integer> list = selectIndexs.get(grouphelper.getAbsoluteAdapterPosition());
+                    if (list != null) {
+                        boolean contains = list.contains(helper.getAbsoluteAdapterPosition());
+                        int index = helper.getAbsoluteAdapterPosition();
+                        if (contains) {
+                            view.setTextColor(Color.parseColor("#835EE2"));
+                            view.setBackgroundResource(R.drawable.shape_radius100_strock2_8e73d3);
+                        } else {
+                            view.setTextColor(Color.parseColor("#B6B6B6"));
+                            view.setBackgroundResource(R.drawable.shape_radius100_stroke1_b6b6b6);
+                        }
+                        view.setOnClickListener(v -> {
+                            if (contains) {
+                                list.remove(Integer.valueOf(index));
+                            } else {
+                                if (index > 0) {
+                                    list.remove(Integer.valueOf(0));
+                                } else {
+                                    list.clear();
+                                }
+                                list.add(index);
+                            }
+                            if (list.isEmpty()) {
+                                list.add(0);
+                            }
+                            notifyItemRangeChanged(0, dao.getItems().size());
+                        });
+                    }
+                }
+            };
+            if (!selectIndexs.containsKey(grouphelper.getAbsoluteAdapterPosition())) {
+                List<Integer> selects = new ArrayList<>();
+                selectIndexs.put(grouphelper.getAbsoluteAdapterPosition(), selects);
+            }
+            adapter.setNewData(dao.getItems());
+            RecyclerView recyclerView = grouphelper.getView(R.id.recyclerView);
+            recyclerView.setLayoutManager(new FlowLayoutManager());
+            recyclerView.setItemAnimator(null);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     class SortAdapter extends BaseQuickAdapter<SearchItem, BaseViewHolder> {

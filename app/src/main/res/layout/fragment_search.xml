@@ -31,11 +31,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:paddingHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:itemCount="4"
-        tools:listitem="@layout/item_search_view"/>
+        tools:listitem="@layout/item_party"/>
 
 </LinearLayout>

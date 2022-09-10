@@ -7,16 +7,24 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.SearchItem;
+import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.util.HUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class SearchViewModel extends ViewModel {
 
@@ -27,7 +35,7 @@ public class SearchViewModel extends ViewModel {
 
     public MutableLiveData<Integer> sortSelectPosition = new MutableLiveData<>();
     private final Gson gson = new Gson();
-
+    public MutableLiveData<List<SearchSectionsDao>> searchSectionsDaoLD = new MutableLiveData<>();
 
     public MutableLiveData<List<String>> searchHistory = new MutableLiveData<>();
     private boolean isModify = false;
@@ -39,6 +47,42 @@ public class SearchViewModel extends ViewModel {
                 new SearchItem(0, "Popularity"),
                 new SearchItem(0, "Most buddies joined the matching pool")));
 
+    }
+
+
+    public void getAllSections() {
+        Map<String, String> firstAlltitle = new HashMap<>();
+        firstAlltitle.put("DATE", "Anytime");
+        firstAlltitle.put("CATEGORY", "All categories");
+        firstAlltitle.put("NEIGHBORHOOD", "All areas");
+        WonderfulOkhttpUtils.get()
+                .url(UrlFactory.getAllSections())
+                .addParams("limit", String.valueOf(10))
+                .addParams("user_id", HService.getService(ServiceProfile.class).getUserId())
+                .build()
+                .getCall()
+                .enqueue(new GsonWalkDogCallBack<RemoteData<List<SearchSectionsDao>>>() {
+                    @Override
+                    protected void onRes(RemoteData<List<SearchSectionsDao>> data) {
+                        List<SearchSectionsDao> notNullData = data.getNotNullData();
+                        for (SearchSectionsDao data1 : notNullData) {
+                            String s = firstAlltitle.get(data1.getTitle());
+                            if (s == null) {
+                                s = "All";
+                            }
+                            SearchSectionsDao.Item item = new SearchSectionsDao.Item();
+                            item.setTitle(s);
+                            item.setId(Integer.MAX_VALUE);
+                            data1.getItems().add(0, item);
+                        }
+                        searchSectionsDaoLD.setValue(notNullData);
+                    }
+
+                    @Override
+                    protected void onFail(Exception e) {
+                        super.onFail(e);
+                    }
+                });
     }
 
     public void refreshHistory() {

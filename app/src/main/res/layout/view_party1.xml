@@ -135,6 +135,7 @@
             tools:text="TextView" />
 
         <TextView
+            android:drawablePadding="5dp"
             android:id="@+id/tv_6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -145,7 +146,8 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_find_buddy"
             app:layout_constraintStart_toStartOf="@+id/tv_5"
             app:layout_constraintTop_toBottomOf="@+id/tv_5"
-            tools:text="TextView" />
+            tools:text="TextView"
+            app:drawableStartCompat="@mipmap/icon_fire_smart" />
 
         <TextView
             android:id="@+id/tv_7"
