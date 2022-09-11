@@ -7,6 +7,7 @@ import com.hula.myapplication.widget.HuCallBack1;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class CollectionUtils {
@@ -16,6 +17,19 @@ public class CollectionUtils {
             result.add(map.call(next));
         }
         return result;
+    }
+
+
+    public static <T> String joinToString(Iterable<T> iterable, CharSequence separator, HuCallBack1.HuCallBackR<T, String> callBackR) {
+        StringBuilder buffer = new StringBuilder();
+        int count = 0;
+        for (T next : iterable) {
+            if (++count > 1) {
+                buffer.append(separator);
+            }
+            buffer.append(next);
+        }
+        return buffer.toString();
     }
 
     public static boolean equals(@Nullable Collection<?> collection, @Nullable Collection<?> collection1) {

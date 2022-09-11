@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hula.myapplication.R;
@@ -13,17 +14,25 @@ import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.databinding.FragmentSearchBinding;
+import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.view.home.adapter.PartyAdapter;
 import com.hula.myapplication.view.search.dialog.SearchTopDialog;
+import com.hula.myapplication.view.search.vm.SearchViewModel;
+import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.skeleton.LinearLayoutSkeletonElement;
 import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import tim.com.libnetwork.base.BaseTransFragment;
 import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
+import tim.com.libnetwork.network.okhttp.get.GetBuilder;
 
 public class SearchFragment extends BaseTransFragment {
     public static final String TAG = SearchFragment.class.getSimpleName();
@@ -34,6 +43,7 @@ public class SearchFragment extends BaseTransFragment {
     private int category = 0;
     private int date = 0;
     private int neighborhood = 0;
+    private SearchViewModel viewModel;
 
     @Override
     protected int getLayoutId() {
@@ -47,7 +57,7 @@ public class SearchFragment extends BaseTransFragment {
 
     @Override
     protected void init() {
-
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
     }
 
     @Override
@@ -58,6 +68,14 @@ public class SearchFragment extends BaseTransFragment {
             searchTopDialog.editCall = (s, booleanHuCallBack1) -> {
                 //request success
                 booleanHuCallBack1.call(true);
+            };
+            searchTopDialog.huCallBack = s -> {
+                viewModel.editSearch = s;
+                if (!viewModel.editSearch.isEmpty()) {
+                    viewModel.selectIndexs.clear();
+                }
+                offset = 0;
+                onload();
             };
             searchTopDialog.show(getChildFragmentManager(), "searchTopDialog");
         });
@@ -93,15 +111,19 @@ public class SearchFragment extends BaseTransFragment {
         if (offset == 0) {
             viewSkeleton.showLoading();
         }
-        WonderfulOkhttpUtils.get()
+        GetBuilder builder = WonderfulOkhttpUtils.get()
                 .url(UrlFactory.eventSearch())
                 .addParams("limit", String.valueOf(10))
                 .addParams("offset", String.valueOf(offset))
-                .addParams("category", String.valueOf(category))
-                .addParams("date", String.valueOf(date))
-                .addParams("user_id", HService.getService(ServiceProfile.class).getUserId())
-                .addParams("neighborhood", String.valueOf(neighborhood))
-                .build()
+                .addParams("user_id", HService.getService(ServiceProfile.class).getUserId());
+        if (!viewModel.editSearch.isEmpty()) {
+            builder.addParams("search", viewModel.editSearch);
+        } else {
+            builder.addParams("category", getRequestValue("CATEGORY"))
+                    .addParams("date", getRequestValue("DATE"))
+                    .addParams("neighborhood", String.valueOf(neighborhood));
+        }
+        builder.build()
                 .getCall()
                 .bindLifecycle(this)
                 .enqueue(new GsonWalkDogCallBack<RemoteData<List<EventsItem>>>() {
@@ -110,12 +132,16 @@ public class SearchFragment extends BaseTransFragment {
                         if (offset == 0) {
                             viewSkeleton.hint();
                         }
-                        offset += 10;
-                        adapter.addData(data.getNotNullData());
+                        if (offset==0){
+                            adapter.setNewData(data.getNotNullData());
+                        }else {
+                            adapter.addData(data.getNotNullData());
+                        }
                         adapter.loadMoreComplete();
                         if (data.getNotNullData().size() < 10) {
                             adapter.loadMoreEnd();
                         }
+                        offset += 10;
                     }
 
                     @Override
@@ -124,6 +150,34 @@ public class SearchFragment extends BaseTransFragment {
                         adapter.loadMoreFail();
                     }
                 });
+    }
+
+    private String getRequestValue(String title) {
+        String value = "0";
+        List<SearchSectionsDao> searchSectionsDaos = viewModel.searchSectionsDaoLD.getValue();
+        if (searchSectionsDaos == null) {
+            return value;
+        }
+        Map<Integer, List<Integer>> selectIndexs = viewModel.selectIndexs;
+        if (selectIndexs == null) {
+            return value;
+        }
+
+        for (int i = 0; i < searchSectionsDaos.size(); i++) {
+            SearchSectionsDao searchSectionsDao = searchSectionsDaos.get(i);
+            if (searchSectionsDao.getTitle().equals(title)) {
+                List<Integer> list = selectIndexs.get(i);
+                if (list == null) {
+                    return value;
+                }
+                if (list.contains(0) || list.isEmpty()) {
+                    return value;
+                }
+                value = CollectionUtils.joinToString(list, ",", integer -> String.valueOf(searchSectionsDao.getItems().get(integer).getId()));
+                break;
+            }
+        }
+        return value;
     }
 
     @Override

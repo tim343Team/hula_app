@@ -33,11 +33,14 @@ public class SearchViewModel extends ViewModel {
 
     public MutableLiveData<List<SearchItem>> sortItemLD = new MutableLiveData<>();
 
+    public Map<Integer, List<Integer>> selectIndexs = new HashMap<>();
+
     public MutableLiveData<Integer> sortSelectPosition = new MutableLiveData<>();
     private final Gson gson = new Gson();
     public MutableLiveData<List<SearchSectionsDao>> searchSectionsDaoLD = new MutableLiveData<>();
 
     public MutableLiveData<List<String>> searchHistory = new MutableLiveData<>();
+    public String editSearch = "";
     private boolean isModify = false;
 
     public SearchViewModel() {
@@ -47,10 +50,13 @@ public class SearchViewModel extends ViewModel {
                 new SearchItem(0, "Popularity"),
                 new SearchItem(0, "Most buddies joined the matching pool")));
 
+        getAllSections();
+        refreshHistory();
     }
 
 
     public void getAllSections() {
+        selectIndexs.clear();
         Map<String, String> firstAlltitle = new HashMap<>();
         firstAlltitle.put("DATE", "Anytime");
         firstAlltitle.put("CATEGORY", "All categories");
@@ -65,7 +71,8 @@ public class SearchViewModel extends ViewModel {
                     @Override
                     protected void onRes(RemoteData<List<SearchSectionsDao>> data) {
                         List<SearchSectionsDao> notNullData = data.getNotNullData();
-                        for (SearchSectionsDao data1 : notNullData) {
+                        for (int i = 0; i < notNullData.size(); i++) {
+                            SearchSectionsDao data1 = notNullData.get(i);
                             String s = firstAlltitle.get(data1.getTitle());
                             if (s == null) {
                                 s = "All";
@@ -74,6 +81,9 @@ public class SearchViewModel extends ViewModel {
                             item.setTitle(s);
                             item.setId(Integer.MAX_VALUE);
                             data1.getItems().add(0, item);
+                            ArrayList<Integer> value = new ArrayList<>();
+                            value.add(0);
+                            selectIndexs.put(i, value);
                         }
                         searchSectionsDaoLD.setValue(notNullData);
                     }
@@ -109,6 +119,7 @@ public class SearchViewModel extends ViewModel {
         if (value == null) {
             value = new ArrayList<>();
         }
+        value.remove(s);
         value.add(0, s);
         if (value.size() > 10) {
             value.remove(10);

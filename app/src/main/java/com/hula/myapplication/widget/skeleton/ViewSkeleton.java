@@ -55,6 +55,9 @@ public class ViewSkeleton {
     }
 
     private void showElement(SkeletonElement element, Object obj) {
+        if (element == curSkeletonElement) {
+            return;
+        }
         if (curSkeletonElement != null) {
             curSkeletonElement.onRemove();
         }
@@ -67,6 +70,7 @@ public class ViewSkeleton {
         skeletonView.setId(view.getId());
         skeletonView.setLayoutParams(view.getLayoutParams());
         viewGroup.removeView(view);
+        skeletonView.setAlpha(1F);
         viewGroup.addView(skeletonView, index);
 
 
