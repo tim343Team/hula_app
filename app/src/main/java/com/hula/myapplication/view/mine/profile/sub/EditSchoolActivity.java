@@ -36,6 +36,12 @@ public class EditSchoolActivity extends BaseActivity {
                 finish();
             }
         });
+        binding.tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectSchoolActivity.actionStart(EditSchoolActivity.this);
+            }
+        });
     }
 
     @Override
