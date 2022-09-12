@@ -280,7 +280,7 @@ public class EditFragment extends BaseLazyFragment {
     private void initRecyclerViewProfile() {
         subProfileDaos.add(new SubProfileDao());
         recyclerProfile.setLayoutManager(new FlowLayoutManager());
-        profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos);
+        profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos,true);
         profileSettingAdapter.bindToRecyclerView(recyclerProfile);
         profileSettingAdapter.setEnableLoadMore(false);
     }

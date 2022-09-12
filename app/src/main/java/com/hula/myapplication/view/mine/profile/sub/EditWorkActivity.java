@@ -24,7 +24,8 @@ public class EditWorkActivity extends BaseActivity {
     @Override
     protected View getActivityLayoutView() {
         binding = ActivitySettingWorkBinding.inflate(getLayoutInflater());
-        return binding.getRoot();    }
+        return binding.getRoot();
+    }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
