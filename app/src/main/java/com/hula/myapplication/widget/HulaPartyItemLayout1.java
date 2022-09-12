@@ -12,18 +12,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.bumptech.glide.Glide;
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.dao.home.SubEventsItem;
 import com.hula.myapplication.util.BusinessUtils;
+import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.util.HUtils;
+import com.hula.myapplication.view.home.vm.Repository;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class HulaPartyItemLayout1 extends RelativeLayout {
     private boolean showFindBuddy;
     private boolean showPersion;
+    private ServiceProfile profile = HService.getService(ServiceProfile.class);
+    private Repository repository = new Repository();
 
     public HulaPartyItemLayout1(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleRes) {
         super(context, attrs, defStyleRes);
@@ -70,14 +85,49 @@ public class HulaPartyItemLayout1 extends RelativeLayout {
         TextView tv7 = childView.findViewById(R.id.tv_7);
         ImageView iv = childView.findViewById(R.id.iv);
         ImageView iv_love = childView.findViewById(R.id.iv_love);
+        Runnable runnable = () -> {
+            boolean liked = data.isLiked();
+            if (liked) {
+                iv_love.setImageResource(R.mipmap.icon_like);
+            } else {
+                iv_love.setImageResource(R.mipmap.icon_unlove_fff);
+            }
+        };
+        runnable.run();
+        iv_love.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean liked = data.isLiked();
+                String url = UrlFactory.getLike();
+                if (liked) {
+                    url = UrlFactory.getUnLike();
+                }
+                ToastUtil.showLoading("");
+                Map<String, Object> hashbody = new HashMap<>();
+                hashbody.put("user_id", profile.getUserId());
+                hashbody.put("event_id", data.getId());
+                WonderfulOkhttpUtils.postJson()
+                        .url(url)
+                        .body(GsonUtils.toJson(hashbody))
+                        .addHeader("Content-Type","application/json")
+                        .build()
+                        .getCall()
+                        .enqueue(new GsonWalkDogCallBack<RemoteData<Object>>() {
+                            @Override
+                            protected void onRes(RemoteData<Object> d) throws Exception {
+                                data.setLiked(!data.isLiked());
+                                runnable.run();
+                                ToastUtil.hideLoading();
+                            }
 
-
-        boolean liked = data.isLiked();
-        if (liked) {
-            iv_love.setImageResource(R.mipmap.icon_like);
-        } else {
-            iv_love.setImageResource(R.mipmap.icon_unlove_fff);
-        }
+                            @Override
+                            protected void onFail(Exception e) {
+                                super.onFail(e);
+                                ToastUtil.hideLoading();
+                            }
+                        });
+            }
+        });
 
         tv1.setText(data.getName());
         HUtils.runCatch(() -> tv2.setText(data.getSubCategory().get(0).getCategory().getName()));
@@ -92,7 +142,12 @@ public class HulaPartyItemLayout1 extends RelativeLayout {
                 .into(iv));
 
         TextView findBuddy = findViewById(R.id.tv_find_buddy);
-
+        findBuddy.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repository.findBuddyV2(data.getId());
+            }
+        });
 
 
     }

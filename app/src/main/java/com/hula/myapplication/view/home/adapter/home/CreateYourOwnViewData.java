@@ -54,9 +54,7 @@ public class CreateYourOwnViewData extends AbsMultiItemViewData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CreateYourOwnViewData)) return false;
-        CreateYourOwnViewData that = (CreateYourOwnViewData) o;
-        return true;
+        return o instanceof CreateYourOwnViewData;
     }
 
     @Override

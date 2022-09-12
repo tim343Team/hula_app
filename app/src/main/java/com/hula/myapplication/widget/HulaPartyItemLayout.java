@@ -25,6 +25,7 @@ import com.hula.myapplication.dao.home.SubEventsItem;
 import com.hula.myapplication.util.BusinessUtils;
 import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.util.HUtils;
+import com.hula.myapplication.view.home.vm.Repository;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class HulaPartyItemLayout extends RelativeLayout {
     private boolean showFindBuddy;
     private boolean showPersion;
     private ServiceProfile profile = HService.getService(ServiceProfile.class);
+    private Repository repository = new Repository();
 
     public HulaPartyItemLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleRes) {
         super(context, attrs, defStyleRes);
@@ -164,7 +166,11 @@ public class HulaPartyItemLayout extends RelativeLayout {
             viewById.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 接口请求
+                    SubEventsItem subEventsItem = CollectionUtils.getOrNull(data.getSubEvents(), 0);
+                    if (subEventsItem == null) {
+                        return;
+                    }
+                    repository.findBuddyV2(subEventsItem.getId());
                 }
             });
         }

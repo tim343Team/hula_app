@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,11 +23,13 @@ import com.hula.myapplication.dao.home.SubEventsItem;
 import com.hula.myapplication.util.BusinessUtils;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.view.home.EventsDetailActivity;
+import com.hula.myapplication.view.home.vm.Repository;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
@@ -36,7 +39,7 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
     private final DataItemDao data;
     private final String title;
     private ServiceProfile service = HService.getService(ServiceProfile.class);
-
+    private Repository repository = new Repository();
     public FeaturedEventViewData(DataItemDao data) {
         super(R.layout.home_item_featured_event);
         this.data = data;
@@ -68,7 +71,51 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
                     helper.getView(R.id.tv_find_buddy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            findBuddyV2(item.getId());
+                            repository.findBuddyV2(subEventsItem.getId());
+                        }
+                    });
+                    ImageView iv_love = helper.getView(R.id.iv_love);
+                    Runnable runnable = () -> {
+                        boolean liked = subEventsItem.isLiked();
+                        if (liked) {
+                            iv_love.setImageResource(R.mipmap.icon_like);
+                        } else {
+                            iv_love.setImageResource(R.mipmap.icon_unlove_fff);
+                        }
+                    };
+                    runnable.run();
+                    iv_love.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean liked = subEventsItem.isLiked();
+                            String url = UrlFactory.getLike();
+                            if (liked) {
+                                url = UrlFactory.getUnLike();
+                            }
+                            ToastUtil.showLoading("");
+                            Map<String, Object> hashbody = new HashMap<>();
+                            hashbody.put("user_id", service.getUserId());
+                            hashbody.put("event_id", subEventsItem.getId());
+                            WonderfulOkhttpUtils.postJson()
+                                    .url(url)
+                                    .body(GsonUtils.toJson(hashbody))
+                                    .addHeader("Content-Type","application/json")
+                                    .build()
+                                    .getCall()
+                                    .enqueue(new GsonWalkDogCallBack<RemoteData<Object>>() {
+                                        @Override
+                                        protected void onRes(RemoteData<Object> d) throws Exception {
+                                            subEventsItem.setLiked(!subEventsItem.isLiked());
+                                            runnable.run();
+                                            ToastUtil.hideLoading();
+                                        }
+
+                                        @Override
+                                        protected void onFail(Exception e) {
+                                            super.onFail(e);
+                                            ToastUtil.hideLoading();
+                                        }
+                                    });
                         }
                     });
                 }
@@ -86,31 +133,6 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
             viewPager2.setAdapter(baseQuickAdapter);
             viewPager2.setPageTransformer(new MarginPageTransformer(ScreenUtils.dip2px(viewPager2.getContext(), 8F)));
         }
-    }
-
-    private void findBuddyV2(int id) {
-        ToastUtil.showLoading("");
-        String userId = service.getUserId();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("user_id", userId);
-        hashMap.put("event_id", id);
-        WonderfulOkhttpUtils.get()
-                .url(UrlFactory.findBuddyV2() + HUtils.toGetUri(hashMap))
-                .build()
-                .getCall()
-                .enqueue(new GsonWalkDogCallBack<RemoteData<Object>>() {
-                    @Override
-                    protected void onRes(RemoteData<Object> data) {
-                        ToastUtil.showLoading("");
-                        ToastUtil.showSuccessToast("Find Buddy Success");
-                    }
-
-                    @Override
-                    protected void onFail(Exception e) {
-                        super.onFail(e);
-                        ToastUtil.showLoading("");
-                    }
-                });
     }
 
 

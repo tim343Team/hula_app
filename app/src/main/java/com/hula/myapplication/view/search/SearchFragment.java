@@ -41,9 +41,6 @@ public class SearchFragment extends BaseTransFragment {
     private PartyAdapter adapter;
     private ViewSkeleton viewSkeleton;
     private int offset = 0;
-    private int category = 0;
-    private int date = 0;
-    private int neighborhood = 0;
     private SearchViewModel viewModel;
 
     @Override
@@ -118,7 +115,7 @@ public class SearchFragment extends BaseTransFragment {
         } else {
             builder.addParams("category", getRequestValue("CATEGORY"))
                     .addParams("date", getRequestValue("DATE"))
-                    .addParams("neighborhood", String.valueOf(neighborhood));
+                    .addParams("neighborhood", getRequestValue("NEIGHBORHOOD"));
         }
         int sort = 0;
         List<SearchItem> value = viewModel.sortItemLD.getValue();
