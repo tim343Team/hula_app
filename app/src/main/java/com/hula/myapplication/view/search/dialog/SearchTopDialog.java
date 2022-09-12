@@ -269,11 +269,18 @@ public class SearchTopDialog extends DialogFragment {
             setOnItemClickListener((adapter, view, position) -> {
                 if (!Objects.equals(searchViewModel.sortSelectPosition.getValue(), position)) {
                     searchViewModel.sortSelectPosition.setValue(position);
+                } else {
+                    searchViewModel.sortSelectPosition.setValue(null);
                 }
             });
             searchViewModel.sortSelectPosition.observe(getViewLifecycleOwner(), integer -> {
                 if (oldPosition != -1) {
                     notifyItemChanged(oldPosition);
+                }
+
+                if (integer == null) {
+                    oldPosition = -1;
+                    return;
                 }
                 notifyItemChanged(integer);
                 oldPosition = integer;
@@ -307,6 +314,7 @@ public class SearchTopDialog extends DialogFragment {
             helper.setText(R.id.tv_txt, item);
             helper.getView(R.id.iv_delect).setOnClickListener(v -> searchViewModel.remove(item));
             helper.itemView.setOnClickListener(v -> {
+                dismiss();
                 if (huCallBack != null) {
                     huCallBack.call(item);
                 }

@@ -14,6 +14,7 @@ import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.SearchItem;
 import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.dao.home.EventsItem;
 import com.hula.myapplication.databinding.FragmentSearchBinding;
@@ -65,10 +66,6 @@ public class SearchFragment extends BaseTransFragment {
         binding = FragmentSearchBinding.bind(rootView);
         binding.tvSearch.setOnClickListener(v -> {
             SearchTopDialog searchTopDialog = new SearchTopDialog();
-            searchTopDialog.editCall = (s, booleanHuCallBack1) -> {
-                //request success
-                booleanHuCallBack1.call(true);
-            };
             searchTopDialog.huCallBack = s -> {
                 viewModel.editSearch = s;
                 if (!viewModel.editSearch.isEmpty()) {
@@ -123,6 +120,16 @@ public class SearchFragment extends BaseTransFragment {
                     .addParams("date", getRequestValue("DATE"))
                     .addParams("neighborhood", String.valueOf(neighborhood));
         }
+        int sort = 0;
+        List<SearchItem> value = viewModel.sortItemLD.getValue();
+        Integer sortSelectPosition = viewModel.sortSelectPosition.getValue();
+        if (value != null && sortSelectPosition != null) {
+            sort = value.get(sortSelectPosition).tag;
+        }
+        if (sort != 0) {
+            builder.addParams("sort", String.valueOf(sort));
+        }
+
         builder.build()
                 .getCall()
                 .bindLifecycle(this)
@@ -132,9 +139,9 @@ public class SearchFragment extends BaseTransFragment {
                         if (offset == 0) {
                             viewSkeleton.hint();
                         }
-                        if (offset==0){
+                        if (offset == 0) {
                             adapter.setNewData(data.getNotNullData());
-                        }else {
+                        } else {
                             adapter.addData(data.getNotNullData());
                         }
                         adapter.loadMoreComplete();

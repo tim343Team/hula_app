@@ -44,11 +44,11 @@ public class SearchViewModel extends ViewModel {
     private boolean isModify = false;
 
     public SearchViewModel() {
-        sortItemLD.setValue(Arrays.asList(new SearchItem(0, "Price (low to high)"),
-                new SearchItem(0, "Price (high to low)"),
-                new SearchItem(0, "Date (newest to oldest)"),
-                new SearchItem(0, "Popularity"),
-                new SearchItem(0, "Most buddies joined the matching pool")));
+        sortItemLD.setValue(Arrays.asList(new SearchItem(1, "Price (low to high)"),
+                new SearchItem(2, "Price (high to low)"),
+                new SearchItem(3, "Date (newest to oldest)"),
+                new SearchItem(4, "Popularity"),
+                new SearchItem(5, "Most buddies joined the matching pool")));
 
         getAllSections();
         refreshHistory();
