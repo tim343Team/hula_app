@@ -17,9 +17,15 @@ import com.hula.myapplication.dao.SubProfileDao;
 import java.util.List;
 
 public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseViewHolder> {
+    private boolean isSetting = false;
 
     public ProfileSettingAdapter(int layoutResId, @Nullable List<SubProfileDao> data) {
         super(layoutResId, data);
+    }
+
+    public ProfileSettingAdapter(int layoutResId, @Nullable List<SubProfileDao> data, boolean isSetting) {
+        super(layoutResId, data);
+        this.isSetting = isSetting;
     }
 
     @Override
@@ -29,11 +35,11 @@ public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseV
         View itemView = helper.getView(R.id.layout);
         tv.setTextColor(Color.BLACK);
         itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_strock1_8e73d3));
-        if(getItemCount()-1==helper.getLayoutPosition()){
-            //如果是最后一个
+        if (isSetting && getItemCount() - 1 == helper.getLayoutPosition()) {
+            //如果是最后一个并且是可编辑的状态
             iv.setBackgroundResource(R.mipmap.icon_add_more);
             tv.setText(R.string.custom);
-        }else {
+        } else {
             tv.setText(item.getName());
         }
     }

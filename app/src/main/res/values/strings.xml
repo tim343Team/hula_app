@@ -66,6 +66,11 @@
     <string name="my_occupation_notice_1">What i do for work</string>
     <string name="my_occupation_hint">ex.Unicorn Trainer</string>
     <string name="choose_interests">Choose Interests</string>
+    <string name="select_add_school">Select/Add School</string>
+    <string name="select_add_school_hint">type to add new school</string>
+    <string name="interests">Interests</string>
+    <string name="event_attend_">Events Attended (%s)</string>
+    <string name="event_buck_list">Event Bucket List </string>
 
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>
