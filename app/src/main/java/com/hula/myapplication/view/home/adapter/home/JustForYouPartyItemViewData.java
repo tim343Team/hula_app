@@ -34,7 +34,7 @@ public class JustForYouPartyItemViewData extends AbsMultiItemViewData {
         grouphelper.getView(R.id.tv_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KeyEvent.getGlobalKeyObservable().sendData(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY,title);
+                KeyEvent.INSTANCE.getGlobalKeyObservable().sendData(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY,title);
             }
         });
         RecyclerView recyclerView = grouphelper.getView(R.id.recyclerView);

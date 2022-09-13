@@ -65,7 +65,7 @@ public class HomeFragment extends BaseTransFragment {
     @Override
     protected void init() {
         homeVm = new ViewModelProvider(this).get(HomeVm.class);
-        KeyEvent.getGlobalKeyObservable().addObserver(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY, addMoreCategoryFragmentObserver);
+        KeyEvent.INSTANCE.getGlobalKeyObservable().addObserver(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY, addMoreCategoryFragmentObserver);
     }
 
     @Override
@@ -174,6 +174,6 @@ public class HomeFragment extends BaseTransFragment {
 
     @Override
     protected void initDestroy() {
-        KeyEvent.getGlobalKeyObservable().deleteObserver(addMoreCategoryFragmentObserver);
+        KeyEvent.INSTANCE.getGlobalKeyObservable().deleteObserver(addMoreCategoryFragmentObserver);
     }
 }
