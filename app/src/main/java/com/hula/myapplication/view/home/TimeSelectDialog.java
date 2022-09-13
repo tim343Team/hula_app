@@ -12,12 +12,11 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.hula.myapplication.R;
 import com.hula.myapplication.databinding.DialogTimeSelectBinding;
 import com.hula.myapplication.util.BusinessUtils;
-import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.widget.dialog.BaseBottomDialog;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class TimeSelectDialog extends BaseBottomDialog {
@@ -92,8 +91,7 @@ public class TimeSelectDialog extends BaseBottomDialog {
                 showTimeDialog(null, new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
-                        //1663070100000
-                        time1 = date.getTime() % (60000L * 60  * 24);
+                        time1 = BusinessUtils.getHHmmTime(date);
                         onSelect();
                     }
                 });
@@ -105,7 +103,7 @@ public class TimeSelectDialog extends BaseBottomDialog {
                 showTimeDialog(null, new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
-                        time2 = date.getTime() % (60000L  * 60 * 24);
+                        time2 = BusinessUtils.getHHmmTime(date);
                         onSelect();
                     }
                 });
