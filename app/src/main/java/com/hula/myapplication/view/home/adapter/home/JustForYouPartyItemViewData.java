@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hula.myapplication.app.event.KeyEvent;
 import com.hula.myapplication.widget.HulaPartyItemLayout;
 import com.hula.myapplication.R;
 import com.hula.myapplication.dao.home.DataItemDao;
@@ -30,6 +31,12 @@ public class JustForYouPartyItemViewData extends AbsMultiItemViewData {
     @Override
     public void convert(BaseViewHolder grouphelper) {
         grouphelper.setText(R.id.tv_title, title);
+        grouphelper.getView(R.id.tv_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyEvent.getGlobalKeyObservable().sendData(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY,title);
+            }
+        });
         RecyclerView recyclerView = grouphelper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null || recyclerView.getAdapter().getItemCount() != data.getEvents().size()) {
             BaseQuickAdapter<EventsItem, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<EventsItem, BaseViewHolder>(R.layout.item_just_for_you) {

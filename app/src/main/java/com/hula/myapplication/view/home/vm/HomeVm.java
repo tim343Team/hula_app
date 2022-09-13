@@ -151,7 +151,8 @@ public class HomeVm extends ViewModel {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
         WonderfulOkhttpUtils.get()
                 .url(UrlFactory.specificEventsList())
-                .addParams("isLike", "True")
+                .addParams("is_like", "True")
+                .addParams("user_id",service.getUserId())
                 .build()
                 .getCall()
                 .enqueue(new GsonWalkDogCallBack<RemoteData<List<Object>>>() {

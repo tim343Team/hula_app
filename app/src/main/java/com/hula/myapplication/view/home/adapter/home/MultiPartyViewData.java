@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hula.myapplication.app.event.KeyEvent;
 import com.hula.myapplication.widget.HulaPartyItemLayout;
 import com.hula.myapplication.R;
 import com.hula.myapplication.app.RootApplication;
@@ -48,6 +49,12 @@ public class MultiPartyViewData extends AbsMultiItemViewData {
         grouphelper.setText(R.id.tv_title, title);
         View view = grouphelper.getView(R.id.tv_title);
         Object tag = view.getTag();
+        grouphelper.getView(R.id.tv_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyEvent.getGlobalKeyObservable().sendData(KeyEvent.ADD_MORE_CATEGORY_FRAGMENT_KEY,title);
+            }
+        });
 
         RecyclerView recyclerView = grouphelper.getView(R.id.recyclerView);
         if (recyclerView.getAdapter() == null || !title.equals(tag) ||  recyclerView.getAdapter().getItemCount() != data.getEvents().size()) {

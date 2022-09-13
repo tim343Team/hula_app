@@ -23,7 +23,16 @@ public class SearchSectionsDao {
         @SerializedName(value = "title", alternate = {"name"})
         private String title;
         private String pin_location;
-        private String needs_user_location;
+        private boolean needs_user_location;
+
+
+        public boolean getNeeds_user_location() {
+            return needs_user_location;
+        }
+
+        public String getPin_location() {
+            return pin_location;
+        }
 
         public void setTitle(String title) {
             this.title = title;

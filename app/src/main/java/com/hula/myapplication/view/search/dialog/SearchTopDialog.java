@@ -1,5 +1,6 @@
 package com.hula.myapplication.view.search.dialog;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.hula.myapplication.view.search.vm.SearchViewModel;
 import com.hula.myapplication.widget.GrapItemDecoration;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.HulaBaseDialog;
+import com.hula.myapplication.widget.dialog.PermissonDialog;
 import com.library.flowlayout.FlowLayoutManager;
 
 import java.util.HashMap;
@@ -235,20 +237,40 @@ public class SearchTopDialog extends DialogFragment {
                             view.setBackgroundResource(R.drawable.shape_radius100_stroke1_b6b6b6);
                         }
                         view.setOnClickListener(v -> {
-                            if (contains) {
-                                list.remove(Integer.valueOf(index));
-                            } else {
-                                if (index > 0) {
-                                    list.remove(Integer.valueOf(0));
-                                } else {
-                                    list.clear();
+
+                            Runnable runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (contains) {
+                                        list.remove(Integer.valueOf(index));
+                                    } else {
+                                        if (index > 0) {
+                                            list.remove(Integer.valueOf(0));
+                                        } else {
+                                            list.clear();
+                                        }
+                                        list.add(index);
+                                    }
+                                    if (list.isEmpty()) {
+                                        list.add(0);
+                                    }
+                                    notifyItemRangeChanged(0, dao.getItems().size());
                                 }
-                                list.add(index);
+                            };
+
+                            if (item.getNeeds_user_location()) {
+                                checkPermisson(new PermissonDialog.Builder.StandardPermissionHand() {
+                                    @Override
+                                    public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {
+                                        if (allGranted) {
+                                            runnable.run();
+                                        }
+                                    }
+                                });
+                            } else {
+                                runnable.run();
                             }
-                            if (list.isEmpty()) {
-                                list.add(0);
-                            }
-                            notifyItemRangeChanged(0, dao.getItems().size());
+
                         });
                     }
                 }
@@ -259,6 +281,15 @@ public class SearchTopDialog extends DialogFragment {
             recyclerView.setItemAnimator(null);
             recyclerView.setAdapter(adapter);
         }
+    }
+
+    private void checkPermisson(PermissonDialog.Builder.StandardPermissionHand hand) {
+        new PermissonDialog.Builder()
+                .setDrawableId(R.mipmap.icon_location)
+                .setTitle("Enable location")
+                .setSubTitle("We will recommend events and buddies based on your location!")
+                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .request(getChildFragmentManager(), hand);
     }
 
     class SortAdapter extends BaseQuickAdapter<SearchItem, BaseViewHolder> {

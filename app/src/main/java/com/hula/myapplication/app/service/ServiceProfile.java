@@ -70,7 +70,7 @@ public class ServiceProfile {
         }
     }
 
-    public SafeGet<UserInfoData> AsyncGetUserInfo() {
+    public SafeGet<UserInfoData> asyncGetUserInfo() {
         return new SafeGet<UserInfoData>(getUserInfo());
     }
 

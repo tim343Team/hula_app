@@ -95,8 +95,8 @@
             android:name=".view.HomeActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".view.login.RegisterActivity"
             android:screenOrientation="portrait" />
@@ -204,6 +204,10 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.home.TimeDialogDelegateActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.Translucent" />
     </application>
 
 </manifest>

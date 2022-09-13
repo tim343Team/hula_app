@@ -27,7 +27,7 @@ public class CollectionUtils {
             if (++count > 1) {
                 buffer.append(separator);
             }
-            buffer.append(next);
+            buffer.append(callBackR.call(next));
         }
         return buffer.toString();
     }

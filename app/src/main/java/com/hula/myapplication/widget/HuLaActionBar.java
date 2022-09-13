@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.hula.myapplication.R;
 
 public class HuLaActionBar extends FrameLayout {
+
 
     public interface OnItemClickListener {
         void onClick(int position, View view);
@@ -72,6 +74,11 @@ public class HuLaActionBar extends FrameLayout {
 
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HuLaActionBar);
+        Drawable bgDrawable = typedArray.getDrawable(R.styleable.HuLaActionBar_acb_back_bg);
+        if (bgDrawable != null) {
+            ivBack.setBackground(bgDrawable);
+        }
+
         boolean b = typedArray.getBoolean(R.styleable.HuLaActionBar_acb_enableBack, true);
         if (b) {
             ivBack.setVisibility(View.VISIBLE);
@@ -86,6 +93,12 @@ public class HuLaActionBar extends FrameLayout {
             tvTitle.setVisibility(View.GONE);
         }
         typedArray.recycle();
+    }
+
+
+    public void setTitle(String title) {
+        tvTitle.setText(title);
+        tvTitle.setVisibility(View.VISIBLE);
     }
 
     @Override

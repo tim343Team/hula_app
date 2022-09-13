@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,10 +19,14 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.base.picselect.GlideImageEngine;
 import com.hula.myapplication.base.picselect.LubanCompressFileEngine;
+import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityAddNewEventBinding;
+import com.hula.myapplication.util.CollectionUtils;
+import com.hula.myapplication.util.SimTextWatcher;
 import com.hula.myapplication.view.home.vm.AddNewEventVM;
 import com.hula.myapplication.view.login.RegisterPicActivity;
 import com.hula.myapplication.widget.DelectImageView;
+import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.PermissonDialog;
 import com.luck.picture.lib.basic.PictureSelector;
 import com.luck.picture.lib.config.SelectMimeType;
@@ -51,7 +56,70 @@ public class AddNewEventActivity extends HBaseActivity {
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerView.setAdapter(imageAdapter);
+        initView();
+        observer();
     }
+
+    private void initView() {
+        binding.editTitle.addTextChangedListener(new SimTextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                checkSubmit();
+            }
+        });
+        binding.editLocationName.addTextChangedListener(new SimTextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                checkSubmit();
+            }
+        });
+        binding.tvCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FavoriteCategoryDialog dialog = new FavoriteCategoryDialog();
+                dialog.show(getSupportFragmentManager(),"");
+            }
+        });
+        binding.tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeSelectDialog dialog = new TimeSelectDialog();
+                dialog.show(getSupportFragmentManager(),"");
+            }
+        });
+    }
+
+    private void observer() {
+        viewmodel.subCategoriesDaoMutableLD.observe(this, subCategoriesDaos -> {
+            String categoreiesnames = CollectionUtils.joinToString(subCategoriesDaos, ",", SubCategoriesDao::getName);
+            binding.tvCategory.setText(categoreiesnames);
+            checkSubmit();
+        });
+
+    }
+
+
+    private boolean checkSubmit(){
+
+
+        return false;
+    }
+    //{
+    //	"starting": "2022-09-13T13:46:30+0800",
+    //	"user_id": 6597,
+    //	"category": "2",
+    //	"ticket_price": "552",
+    //	"event_url": "de",
+    //	"creating_to_find_buddy": "True",
+    //	"name": "Ui",
+    //	"location": "Beijing ",
+    //	"ending": "2022-09-13T13:46:33+0800",
+    //	"description": "明",
+    //	"image_link": "https:\/\/cdn.hula-events.com\/Dudu_6597%2Fmy_events%2FC7A6A84B-6EB9-4868-8F26-DBFF17A6D8D7%2F0.jpg",
+    //	"sub_category": "50"
+    //}
 
     class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

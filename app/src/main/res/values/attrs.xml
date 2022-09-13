@@ -17,6 +17,7 @@
     <declare-styleable name="HuLaActionBar">
         <attr name="acb_enableBack" format="boolean" />
         <attr name="acb_title" format="string|reference" />
+        <attr name="acb_back_bg" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="HuLaActionBarMenu">
