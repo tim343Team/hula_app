@@ -14,6 +14,8 @@ import com.hula.myapplication.dao.NewInfoDao;
 import com.hula.myapplication.databinding.ActivityNewBinding;
 import com.hula.myapplication.databinding.ActivityProfileBinding;
 import com.hula.myapplication.view.mine.profile.ProfileActivity;
+import com.hula.myapplication.widget.skeleton.LinearLayoutSkeletonElement;
+import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class NewActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private NewAdapter adapter;
     private List<NewInfoDao> data=new ArrayList<>();
+    private ViewSkeleton viewSkeleton;
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, NewActivity.class);
@@ -70,10 +73,12 @@ public class NewActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
+        viewSkeleton = new ViewSkeleton(recyclerView,new LinearLayoutSkeletonElement(), null);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new NewAdapter(R.layout.adapter_what_new, data);
         adapter.bindToRecyclerView(recyclerView);
         adapter.setEnableLoadMore(false);
+        viewSkeleton.showLoading();
     }
 }

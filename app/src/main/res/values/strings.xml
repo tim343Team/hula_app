@@ -17,6 +17,9 @@
 
     <!--邀请-->
     <string name="invites">Invites</string>
+    <string name="buddies">Buddies</string>
+    <string name="groups">Groups</string>
+    <string name="more_than_7_days">More than 7 days</string>
 
     <!--我的-->
     <string name="settings">Settings</string>

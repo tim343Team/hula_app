@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="18dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.hula.myapplication.widget.WHImageView
+        android:id="@+id/avatar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@mipmap/icon_persion_null" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="13dp"
+                android:textColor="@color/color_2e2e2e"
+                android:textStyle="bold"
+                tools:text="Ricky" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/color_2e2e2e"
+                android:textStyle="bold"
+                tools:text="12:10 PM" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:drawableStart="@mipmap/icon_buddy_party"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="13dp"
+            android:textColor="@color/color_5C5C5C"
+            tools:text="Ricky" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_marginEnd="60dp"
+            android:background="@mipmap/icon_buddy_shape">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:drawablePadding="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="13dp"
+                android:textColor="@color/white"
+                tools:text="1 day left to respond" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
