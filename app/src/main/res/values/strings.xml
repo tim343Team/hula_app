@@ -20,6 +20,16 @@
     <string name="buddies">Buddies</string>
     <string name="groups">Groups</string>
     <string name="more_than_7_days">More than 7 days</string>
+    <string name="reactivate_invite">Tap to reactivate the invite!</string>
+    <string name="event_expired">Event expired</string>
+    <string name="view_less">View Less</string>
+    <string name="requests">Requests</string>
+    <string name="invitations">Invitations</string>
+    <string name="accept">Accept</string>
+    <string name="ignore">Ignore</string>
+    <string name="join">Join</string>
+    <string name="not_interested">Not Interested</string>
+    <string name="group_full">Group full</string>
 
     <!--我的-->
     <string name="settings">Settings</string>
@@ -35,7 +45,7 @@
     <string name="work">Work</string>
     <string name="job_time">Job Title</string>
     <string name="drink">Drink</string>
-    <string name="profile_tag">Profile Tag</string>
+    <string name="profile_badge">Profile Badge</string>
     <string name="mine_notice_2">Select a tag to add to your profile</string>
     <string name="about_me">About me</string>
     <string name="categories_into">Event categories I’m into</string>
@@ -49,6 +59,10 @@
     <string name="what_new">What\'s New</string>
     <string name="help_center">Help Center</string>
     <string name="log_out">Log Out</string>
+    <string name="profile_badge_notice_1">Create your profile badge</string>
+    <string name="profile_badge_notice_2">Didn’t see one that fits your status? Customize your own!</string>
+    <string name="profile_badge_notice_hint">Write in your tag\nDon’t forget to pick an emoji</string>
+    <string name="delete_tag">Delete Tag</string>
 
     <!--Profile-->
     <string name="custom">Custom</string>
@@ -117,5 +131,9 @@
     <string name="help_notice_3">Type something here</string>
     <string name="help_notice_4">Please enter content</string>
     <string name="send">Send</string>
+    <!--help-->
+    <string name="leave_group">Leave Group</string>
+    <string name="add_to_calendar">Add to calendar</string>
+
 
 </resources>

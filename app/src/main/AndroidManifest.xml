@@ -208,6 +208,21 @@
             android:name=".view.home.TimeDialogDelegateActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.Translucent" />
+        <activity
+            android:name=".view.mine.profile.sub.ProfileBadgeActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mine.profile.ProfileDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.invite.group.GroupDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

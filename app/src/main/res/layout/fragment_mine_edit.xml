@@ -11,8 +11,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dimen_16"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,8 +34,8 @@
             <RelativeLayout
                 android:layout_width="@dimen/dimen_194"
                 android:layout_height="@dimen/dimen_158"
-                android:layout_marginTop="@dimen/dimen_6"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_6">
 
                 <ImageView
                     android:id="@+id/img_phtoto_1"
@@ -50,7 +50,7 @@
                     android:layout_height="@dimen/dimen_36"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@mipmap/icon_add_2"/>
+                    android:background="@mipmap/icon_add_2" />
 
             </RelativeLayout>
 
@@ -65,20 +65,20 @@
                     android:id="@+id/img_phtoto_2"
                     android:layout_width="@dimen/dimen_105"
                     android:layout_height="@dimen/dimen_105"
-                    android:src="@mipmap/icon_add_image"/>
+                    android:src="@mipmap/icon_add_image" />
 
                 <ImageView
                     android:id="@+id/img_phtoto_3"
                     android:layout_width="@dimen/dimen_105"
                     android:layout_height="@dimen/dimen_105"
                     android:layout_marginHorizontal="@dimen/dimen_14"
-                    android:src="@mipmap/icon_add_image"/>
+                    android:src="@mipmap/icon_add_image" />
 
                 <ImageView
                     android:id="@+id/img_phtoto_4"
                     android:layout_width="@dimen/dimen_105"
                     android:layout_height="@dimen/dimen_105"
-                    android:src="@mipmap/icon_add_image"/>
+                    android:src="@mipmap/icon_add_image" />
 
             </LinearLayout>
 
@@ -95,7 +95,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <LinearLayout
                 android:id="@+id/ll_name"
@@ -114,8 +114,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/name"
                         android:textColor="@color/color_2e2e2e"
                         android:textSize="13dp" />
@@ -125,8 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -134,15 +134,15 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_16"
                     android:layout_height="@dimen/dimen_16"
-                    android:layout_marginStart="@dimen/dimen_16"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_more"/>
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:src="@mipmap/icon_more" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <LinearLayout
                 android:id="@+id/ll_age"
@@ -161,8 +161,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/age"
                         android:textColor="@color/color_2e2e2e"
                         android:textSize="13dp" />
@@ -172,8 +172,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -181,15 +181,15 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_16"
                     android:layout_height="@dimen/dimen_16"
-                    android:layout_marginStart="@dimen/dimen_16"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_more"/>
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:src="@mipmap/icon_more" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <LinearLayout
                 android:id="@+id/ll_school"
@@ -208,8 +208,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/school"
                         android:textColor="@color/color_2e2e2e"
                         android:textSize="13dp" />
@@ -219,8 +219,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -228,15 +228,15 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_16"
                     android:layout_height="@dimen/dimen_16"
-                    android:layout_marginStart="@dimen/dimen_16"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_more"/>
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:src="@mipmap/icon_more" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -255,8 +255,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/job_time"
                         android:textColor="@color/color_2e2e2e"
                         android:textSize="13dp" />
@@ -266,8 +266,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -275,15 +275,15 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_16"
                     android:layout_height="@dimen/dimen_16"
-                    android:layout_marginStart="@dimen/dimen_16"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_more"/>
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:src="@mipmap/icon_more" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <LinearLayout
                 android:id="@+id/ll_drink"
@@ -302,8 +302,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@string/drink"
                         android:textColor="@color/color_2e2e2e"
                         android:textSize="13dp" />
@@ -313,8 +313,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|start"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/color_5C5C5C"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -322,22 +322,22 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_16"
                     android:layout_height="@dimen/dimen_16"
-                    android:layout_marginStart="@dimen/dimen_16"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_more"/>
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:src="@mipmap/icon_more" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:layout_marginTop="@dimen/dimen_24"
-                android:text="@string/profile_tag"
+                android:text="@string/profile_badge"
                 android:textColor="@color/color_2e2e2e"
                 android:textSize="18dp" />
 
@@ -353,7 +353,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_profile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -369,8 +369,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="103dp"
                 android:layout_marginTop="@dimen/dimen_8"
-                android:padding="@dimen/dimen_12"
-                android:background="@drawable/shape_radius15_stroke1">
+                android:background="@drawable/shape_radius15_stroke1"
+                android:padding="@dimen/dimen_12">
 
                 <EditText
                     android:id="@+id/edit_about_me"
@@ -378,9 +378,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@id/tv_edit_length"
                     android:background="@null"
+                    android:hint="@string/about_me"
                     android:inputType="textMultiLine"
                     android:lineSpacingMultiplier="1.2"
-                    android:hint="@string/about_me"
                     android:maxLength="160"
                     android:textColor="@color/color_5C5C5C"
                     android:textSize="@dimen/dimen_14" />
@@ -392,8 +392,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/dimen_8"
-                    android:maxLines="1"
                     android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="160"
                     android:textColor="@color/app_main_color"
                     android:textSize="13dp" />
@@ -404,7 +404,7 @@
                 android:layout_height="@dimen/dp1"
                 android:layout_marginTop="@dimen/dimen_24"
                 android:layout_marginBottom="@dimen/dimen_24"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -426,14 +426,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_categorie"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp1"
                 android:layout_marginTop="@dimen/dimen_24"
                 android:layout_marginBottom="@dimen/dimen_24"
-                android:background="@color/color_878787"/>
+                android:background="@color/color_878787" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -457,28 +457,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/dimen_12"
                 android:background="@drawable/shape_radius15_stroke_b7b7b7"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_12">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@mipmap/icon_number_1"/>
+                    android:background="@mipmap/icon_number_1" />
 
                 <EditText
                     android:id="@+id/edit_event_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:layout_marginStart="16dp"
-                    android:maxLines="1"
-                    android:maxLength="40"
                     android:hint="@string/profile_event_hint_1"
-                    android:textSize="13dp"
-                    android:textColor="@color/color_5C5C5C"/>
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:textColor="@color/color_5C5C5C"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -487,28 +487,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="@dimen/dimen_8"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/dimen_12"
                 android:background="@drawable/shape_radius15_stroke_b7b7b7"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_12">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@mipmap/icon_number_2"/>
+                    android:background="@mipmap/icon_number_2" />
 
                 <EditText
                     android:id="@+id/edit_event_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:layout_marginStart="16dp"
-                    android:maxLines="1"
-                    android:maxLength="40"
                     android:hint="@string/profile_event_hint_1"
-                    android:textSize="13dp"
-                    android:textColor="@color/color_5C5C5C"/>
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:textColor="@color/color_5C5C5C"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -517,28 +517,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="@dimen/dimen_8"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/dimen_12"
                 android:background="@drawable/shape_radius15_stroke_b7b7b7"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_12">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@mipmap/icon_number_3"/>
+                    android:background="@mipmap/icon_number_3" />
 
                 <EditText
                     android:id="@+id/edit_event_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:layout_marginStart="16dp"
-                    android:maxLines="1"
-                    android:maxLength="40"
                     android:hint="@string/profile_event_hint_1"
-                    android:textSize="13dp"
-                    android:textColor="@color/color_5C5C5C"/>
+                    android:maxLength="40"
+                    android:maxLines="1"
+                    android:textColor="@color/color_5C5C5C"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 

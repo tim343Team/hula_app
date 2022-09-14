@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
-import com.hula.myapplication.dao.BuddyInvitesDao;
+import com.hula.myapplication.dao.GroupInvitesDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuddyAdapter extends BaseQuickAdapter<BuddyInvitesDao, BaseViewHolder> {
+public class InviteGroupAdapter extends BaseQuickAdapter<GroupInvitesDao, BaseViewHolder> {
     private final List<Integer> expand = new ArrayList<>();
 
-    public BuddyAdapter(List<BuddyInvitesDao> data) {
+    public InviteGroupAdapter(List<GroupInvitesDao> data) {
         super(R.layout.item_invite_root,data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BuddyInvitesDao item) {
+    protected void convert(BaseViewHolder helper, GroupInvitesDao item) {
         boolean isExpand = expand.contains(helper.getAbsoluteAdapterPosition());
         helper.setText(R.id.tv_title, item.getName());
         helper.getView(R.id.ll_down).setOnClickListener(new View.OnClickListener() {
@@ -49,21 +49,37 @@ public class BuddyAdapter extends BaseQuickAdapter<BuddyInvitesDao, BaseViewHold
             recyclerView.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(), LinearLayoutManager.VERTICAL, false));
         }
         boolean needRefresh = false;
-        SubBuddyAdapter adapter = (SubBuddyAdapter) recyclerView.getAdapter();
+        SubGroupAdapter adapter = (SubGroupAdapter) recyclerView.getAdapter();
         if (adapter == null) {
             needRefresh = true;
         }
-//        if (adapter != null && !adapter.getData().isEmpty()) {
+        //        if (adapter != null && !adapter.getData().isEmpty()) {
 //            SubBuddyInvitesDao data = adapter.getData().get(0);
 //            if (data.getCategory().getId() != item.getId()) {
 //                needRefresh = true;
 //            }
 //        }
 //        if (needRefresh) {
-//            adapter = new SubBuddyAdapter(R.layout.item_invite_sub,item.getData(),item.getType());
+//            adapter = new SubGroupAdapter(R.layout.item_invite_sub,item.getData(),item.getType());
 //            recyclerView.setAdapter(adapter);
 //        }
-        adapter = new SubBuddyAdapter(R.layout.item_invite_buddy_sub,item.getData(),item.getType());
+        adapter = new SubGroupAdapter(R.layout.item_invite_group_sub,item.getData(),item.getType());
         recyclerView.setAdapter(adapter);
+        adapter.OnclickListenerItem(new SubGroupAdapter.OnclickListenerItem() {
+            @Override
+            public void click(int position) {
+                itemClick.click(position);
+            }
+        });
+    }
+
+    OnclickListenerItem itemClick;
+
+    public void OnclickListenerItem(OnclickListenerItem itemClick) {
+        this.itemClick = itemClick;
+    }
+
+    public interface OnclickListenerItem {
+        void click(int position);
     }
 }

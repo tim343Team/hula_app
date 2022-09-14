@@ -58,10 +58,12 @@
             tools:text="Ricky" />
 
         <RelativeLayout
+            android:id="@+id/ll_response"
             android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_marginEnd="60dp"
-            android:background="@mipmap/icon_buddy_shape">
+            android:background="@mipmap/icon_buddy_shape"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,5 +78,57 @@
                 tools:text="1 day left to respond" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_reactive"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="11dp"
+                android:background="@mipmap/icon_buddy_react"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/app_main_color"
+                android:textSize="13dp"
+                android:text="@string/reactivate_invite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_view_less"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_5C5C5C"
+                android:textSize="13dp"
+                android:text="@string/event_expired" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/app_main_color"
+                android:textSize="13dp"
+                android:text="@string/view_less" />
+        </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

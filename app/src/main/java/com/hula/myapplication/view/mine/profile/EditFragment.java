@@ -27,6 +27,7 @@ import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
+import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 import com.library.flowlayout.FlowLayoutManager;
@@ -283,6 +284,12 @@ public class EditFragment extends BaseLazyFragment {
         profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos,true);
         profileSettingAdapter.bindToRecyclerView(recyclerProfile);
         profileSettingAdapter.setEnableLoadMore(false);
+        profileSettingAdapter.AddListenerItem(new ProfileSettingAdapter.AddListenerItem() {
+            @Override
+            public void click() {
+                ProfileBadgeActivity.actionStart(getmActivity());
+            }
+        });
     }
 
     private void initRecyclerViewCategorie() {

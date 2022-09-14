@@ -39,8 +39,24 @@ public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseV
             //如果是最后一个并且是可编辑的状态
             iv.setBackgroundResource(R.mipmap.icon_add_more);
             tv.setText(R.string.custom);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemClick.click();
+                }
+            });
         } else {
             tv.setText(item.getName());
         }
+    }
+
+    AddListenerItem itemClick;
+
+    public void AddListenerItem(AddListenerItem itemClick) {
+        this.itemClick = itemClick;
+    }
+
+    public interface AddListenerItem {
+        void click();
     }
 }
