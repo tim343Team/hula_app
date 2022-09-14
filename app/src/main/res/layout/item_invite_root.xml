@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="24dp"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="16dp"
     android:layout_marginVertical="12dp"
     android:background="@drawable/shape_radius20_fff"
     android:elevation="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="16dp">
 
     <LinearLayout
         android:id="@+id/ll_down"
@@ -31,21 +31,28 @@
             android:layout_marginStart="10dp"
             android:text="@string/buddies"
             android:textColor="@color/color_2e2e2e"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:background="@color/color_b7b7b7"/>
+            android:layout_weight="1"
+            android:background="@color/color_b7b7b7" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </LinearLayout>
