@@ -19,7 +19,7 @@ public class SaveEventsBean implements Anthing {
         if (this == o) return true;
         if (!(o instanceof SaveEventsBean)) return false;
         SaveEventsBean that = (SaveEventsBean) o;
-        return name.equals(that.name) && sub_categoryObj.equals(that.sub_categoryObj);
+        return Objects.equals(name, that.name) && Objects.equals(sub_categoryObj, that.sub_categoryObj);
     }
 
     @Override
