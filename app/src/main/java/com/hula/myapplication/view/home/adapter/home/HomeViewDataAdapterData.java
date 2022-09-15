@@ -6,6 +6,7 @@ import com.hula.myapplication.dao.SaveEventsBean;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.dao.home.GroupDao;
+import com.hula.myapplication.dao.home.RecommendedDao;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 public class HomeViewDataAdapterData {
     private final DiffMutiAdapter adapter;
-    private List<Anthing> dataItemDaos = new ArrayList<>();
+    private final List<Anthing> dataItemDaos = new ArrayList<>();
     private Anthing saveEventData;
     private List<Anthing> eventsDatas;
 
@@ -23,28 +24,31 @@ public class HomeViewDataAdapterData {
     }
 
     private int getSortId(AbsMultiItemViewData absMultiItemViewData) {
-        if (absMultiItemViewData.getClass().equals(SaveEventsViewData.class)){
+        if (absMultiItemViewData.getClass().equals(SaveEventsViewData.class)) {
             return 0;
         }
-        if (absMultiItemViewData.getClass().equals(JustForYouPartyItemViewData.class)) {
+        if (absMultiItemViewData.getClass().equals(RecommendedBuddiesViewData.class)) {
             return 1;
         }
-        if (absMultiItemViewData.getClass().equals(FeaturedEventViewData.class)) {
+        if (absMultiItemViewData.getClass().equals(JustForYouPartyItemViewData.class)) {
             return 2;
         }
-        if (absMultiItemViewData.getClass().equals(GroupsYouMightLikeViewData.class)) {
+        if (absMultiItemViewData.getClass().equals(FeaturedEventViewData.class)) {
             return 3;
         }
-        if (absMultiItemViewData.getClass().equals(MultiPartyViewData.class) && ((MultiPartyViewData) absMultiItemViewData).getTitle().equals("Events submitted by HULA users")) {
+        if (absMultiItemViewData.getClass().equals(GroupsYouMightLikeViewData.class)) {
             return 4;
         }
-        if (absMultiItemViewData.getClass().equals(CreateYourOwnViewData.class)) {
+        if (absMultiItemViewData.getClass().equals(MultiPartyViewData.class) && ((MultiPartyViewData) absMultiItemViewData).getTitle().equals("Events submitted by HULA users")) {
             return 5;
         }
-        if (absMultiItemViewData.getClass().equals(MultiPartyViewData.class)) {
+        if (absMultiItemViewData.getClass().equals(CreateYourOwnViewData.class)) {
             return 6;
         }
-        return 7;
+        if (absMultiItemViewData.getClass().equals(MultiPartyViewData.class)) {
+            return 7;
+        }
+        return 8;
     }
 
     public void setDataItemDaos(List<Anthing> dataItemDaos) {
@@ -53,7 +57,7 @@ public class HomeViewDataAdapterData {
 
     }
 
-    public void setSaveEventData(Anthing data) {
+    public void setSaveEventData(@Nullable Anthing data) {
         this.saveEventData = data;
         addALL();
     }
@@ -65,6 +69,9 @@ public class HomeViewDataAdapterData {
         }
         if (eventsDatas != null) {
             dataItemDaos.addAll(eventsDatas);
+        }
+        if (eventsDatas == null) {
+            return;
         }
         List<AbsMultiItemViewData> data = adapter(dataItemDaos);
         checkAndSort(data);
@@ -81,7 +88,7 @@ public class HomeViewDataAdapterData {
                 break;
             }
         }
-        if (!hasCreateYourOwnViewData) {
+        if (!hasCreateYourOwnViewData && data.size() > 1) {
             data.add(new CreateYourOwnViewData());
         }
 
@@ -93,6 +100,7 @@ public class HomeViewDataAdapterData {
                 if (compare > 0) {
                     data.set(i, absMultiItemViewData1);
                     data.set(j, absMultiItemViewData);
+                    absMultiItemViewData = absMultiItemViewData1;
                 }
 
             }
@@ -149,15 +157,20 @@ public class HomeViewDataAdapterData {
                     result.add(groupsYouMightLikeViewData);
                 }
             }
-            if (next instanceof SaveEventsBean){
+            if (next instanceof SaveEventsBean) {
                 SaveEventsViewData saveEventsViewData = coverSaveEventsViewData((SaveEventsBean) next);
                 result.add(saveEventsViewData);
+            }
+            if (next instanceof RecommendedDao) {
+                RecommendedBuddiesViewData recommendedBuddiesViewData = coverRecommendedBuddiesViewData((RecommendedDao) next);
+                if (recommendedBuddiesViewData != null) {
+                    result.add(recommendedBuddiesViewData);
+                }
             }
 
         }
         return result;
     }
-
 
 
     private MultiPartyViewData find(List<AbsMultiItemViewData> result, String title) {
@@ -186,22 +199,29 @@ public class HomeViewDataAdapterData {
 
     @Nullable
     private JustForYouPartyItemViewData coverJustForYou(DataItemDao dao) {
-        if ("Just For You".equals(dao.getTitle())) {
+        if ("Just For You".equals(dao.getSectionType())) {
             return new JustForYouPartyItemViewData(dao);
+        }
+        return null;
+    }
+
+    private RecommendedBuddiesViewData coverRecommendedBuddiesViewData(RecommendedDao next) {
+        if (!next.getProfiles().isEmpty()) {
+            return new RecommendedBuddiesViewData(next);
         }
         return null;
     }
 
     @Nullable
     private FeaturedEventViewData coverFeaturedEventItem(DataItemDao dao) {
-        if ("Featured Event".equals(dao.getTitle())) {
+        if ("featured".equals(dao.getSectionType()) || "Featured Event".equals(dao.getTitle())) {
             return new FeaturedEventViewData(dao);
         }
         return null;
     }
 
     private GroupsYouMightLikeViewData coverGroupYouLikeViewData(GroupDao dao) {
-        if ("Recently Created Groups".equals(dao.getTitle())) {
+        if ("groups_small_card".equals(dao.getSection_type()) || "Recently Created Groups".equals(dao.getTitle())) {
             return new GroupsYouMightLikeViewData(dao);
         }
         return null;

@@ -26,6 +26,7 @@ import com.hula.myapplication.view.home.EventsDetailActivity;
 import com.hula.myapplication.view.home.vm.Repository;
 import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 import com.hula.myapplication.widget.htoast.ToastUtil;
+import com.rd.PageIndicatorView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,13 +44,14 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
     public FeaturedEventViewData(DataItemDao data) {
         super(R.layout.home_item_featured_event);
         this.data = data;
-        this.title = "Featured Event";
+        this.title = "Featured Events";
     }
 
     @Override
     public void convert(BaseViewHolder grouphelper) {
         grouphelper.setText(R.id.tv_title, title);
         ViewPager2 viewPager2 = grouphelper.getView(R.id.viewpager);
+        PageIndicatorView pageIndicatorView = grouphelper.getView(R.id.pageIndicatorView);
         if (viewPager2.getAdapter() == null || viewPager2.getAdapter().getItemCount() != data.getEvents().size()) {
             BaseQuickAdapter<EventsItem, BaseViewHolder> baseQuickAdapter = new BaseQuickAdapter<EventsItem, BaseViewHolder>(R.layout.item_featured_event) {
                 @Override
@@ -132,6 +134,14 @@ public class FeaturedEventViewData extends AbsMultiItemViewData {
             viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
             viewPager2.setAdapter(baseQuickAdapter);
             viewPager2.setPageTransformer(new MarginPageTransformer(ScreenUtils.dip2px(viewPager2.getContext(), 8F)));
+            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    pageIndicatorView.onPageSelected(position);
+                }
+            });
+            pageIndicatorView.setCount(baseQuickAdapter.getData().size());
         }
     }
 

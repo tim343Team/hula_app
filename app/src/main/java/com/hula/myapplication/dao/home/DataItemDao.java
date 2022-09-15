@@ -5,16 +5,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class DataItemDao implements Anthing{
-	private String sectionType;
+	private String section_type;
 	private String title;
 	private List<EventsItem> events;
 	private boolean isGroupRelatedEvent;
-	private String sectionTyp;
 	private boolean isFeatured;
 	private boolean showLarge;
 
 	public String getSectionType(){
-		return sectionType;
+		return section_type;
 	}
 
 	public String getTitle(){
@@ -32,9 +31,6 @@ public class DataItemDao implements Anthing{
 		return isGroupRelatedEvent;
 	}
 
-	public String getSectionTyp(){
-		return sectionTyp;
-	}
 
 	public boolean isIsFeatured(){
 		return isFeatured;
@@ -49,11 +45,11 @@ public class DataItemDao implements Anthing{
 		if (this == o) return true;
 		if (!(o instanceof DataItemDao)) return false;
 		DataItemDao that = (DataItemDao) o;
-		return isGroupRelatedEvent == that.isGroupRelatedEvent && isFeatured == that.isFeatured && showLarge == that.showLarge && Objects.equals(sectionType, that.sectionType) && Objects.equals(title, that.title) && Objects.equals(sectionTyp, that.sectionTyp) && getEvents().size() == that.getEvents().size();
+		return isGroupRelatedEvent == that.isGroupRelatedEvent && isFeatured == that.isFeatured && showLarge == that.showLarge && Objects.equals(section_type, that.section_type) && Objects.equals(title, that.title) && getEvents().size() == that.getEvents().size();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(sectionType, title, isGroupRelatedEvent, sectionTyp, isFeatured, showLarge,getEvents().size());
+		return Objects.hash(section_type, title, isGroupRelatedEvent, isFeatured, showLarge,getEvents().size());
 	}
 }

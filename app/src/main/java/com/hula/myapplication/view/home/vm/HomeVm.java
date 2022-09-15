@@ -21,6 +21,7 @@ import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.dao.home.GroupDao;
+import com.hula.myapplication.dao.home.RecommendedDao;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.ThreadUtils;
 import com.hula.myapplication.widget.htoast.ToastUtil;
@@ -51,6 +52,10 @@ public class HomeVm extends ViewModel {
                         JsonArray events = asJsonObject.getAsJsonArray("events");
                         if (events != null) {
                             return GsonUtils.getGson().fromJson(json, DataItemDao.class);
+                        }
+                        JsonArray profiles = asJsonObject.getAsJsonArray("profiles");
+                        if (profiles!=null){
+                            return GsonUtils.getGson().fromJson(json, RecommendedDao.class);
                         }
                         return null;
                     }

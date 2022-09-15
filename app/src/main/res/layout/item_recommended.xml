@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ellipsize="end"
+        android:maxEms="4"
+        android:singleLine="true"
+        tools:text="Derekasdfasdf" />
+
     <ImageView
+        android:id="@+id/iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/shape_oval_solid_8e73d3"
         android:padding="2dp"
         android:src="@mipmap/icon_persion_null" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Derek" />
 </LinearLayout>

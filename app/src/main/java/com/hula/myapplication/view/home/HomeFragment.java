@@ -102,7 +102,6 @@ public class HomeFragment extends BaseTransFragment {
         }));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.setAdapter(homeAdapter);
-        recyclerView.setItemAnimator(null);
         homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -143,8 +142,7 @@ public class HomeFragment extends BaseTransFragment {
             public void onChanged(List<Anthing> dataItemDaos) {
                 adapterData.setDataItemDaos(dataItemDaos);
                 viewSkeleton.hint();
-                recyclerView.setVisibility(View.VISIBLE);
-                if (!homeAdapter.getData().isEmpty()) {
+                if (recyclerView.getVisibility() != View.VISIBLE) {
                     recyclerView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -152,7 +150,7 @@ public class HomeFragment extends BaseTransFragment {
                         }
                     });
                 }
-
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -182,6 +180,8 @@ public class HomeFragment extends BaseTransFragment {
                 List<SubCategoriesDao> sub_categoryObj = (List<SubCategoriesDao>) map.get("sub_categoryObj");
                 if (!TextUtils.isEmpty(name)) {
                     adapterData.setSaveEventData(new SaveEventsBean(name, sub_categoryObj));
+                }else {
+                    adapterData.setSaveEventData(null);
                 }
             }
         });
