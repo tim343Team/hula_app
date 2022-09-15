@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.hula.myapplication.databinding.DialogTimeSelectBinding;
 import com.hula.myapplication.util.BusinessUtils;
+import com.hula.myapplication.view.home.vm.AddNewEventVM;
 import com.hula.myapplication.widget.dialog.BaseBottomDialog;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,12 +28,14 @@ public class TimeSelectDialog extends BaseBottomDialog {
     private Long time1;
     private Date date2;
     private Long time2;
-    private Date now = new Date();
+    private final Date now = new Date();
+    private AddNewEventVM addNewEventVM;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addNewEventVM = new ViewModelProvider(requireActivity()).get(AddNewEventVM.class);
     }
 
     @Nullable
@@ -64,10 +69,12 @@ public class TimeSelectDialog extends BaseBottomDialog {
         binding.tvDate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateDialog(date1, new SingleDateAndTimePickerDialog.Listener() {
+                showDateDialog(date1, now, new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
                         date1 = date;
+                        date2 = null;
+                        time2 = null;
                         onSelect();
                     }
                 });
@@ -76,7 +83,7 @@ public class TimeSelectDialog extends BaseBottomDialog {
         binding.tvDate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateDialog(date1, new SingleDateAndTimePickerDialog.Listener() {
+                showDateDialog(date2, date1, new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
                         date2 = date;
@@ -92,6 +99,8 @@ public class TimeSelectDialog extends BaseBottomDialog {
                     @Override
                     public void onDateSelected(Date date) {
                         time1 = BusinessUtils.getHHmmTime(date);
+                        date2 = null;
+                        time2 = null;
                         onSelect();
                     }
                 });
@@ -110,28 +119,66 @@ public class TimeSelectDialog extends BaseBottomDialog {
             }
         });
 
+        binding.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long startTime = getTime(date1, time1);
+                long endTime = getTime(date2, time2);
+                if (endTime <= startTime) {
+                    ToastUtil.showFailToast("The end time must be after the start time");
+                    return;
+                }
+                dismiss();
+                addNewEventVM.timeLD.setValue(new Long[]{startTime, endTime});
+            }
+        });
+
+
+    }
+
+    private long getTime(Date date, long time) {
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(date);
+        int minute = (int) (time / 60_000);
+        instance.set(Calendar.HOUR_OF_DAY, minute / 60);
+        instance.set(Calendar.MINUTE, minute % 60);
+        instance.set(Calendar.MILLISECOND, 0);
+        return instance.getTimeInMillis();
     }
 
 
     private void onSelect() {
         if (date1 != null) {
             binding.tvDate1.setText(TimeUtils.date2String(date1, "MM-dd-yyyy"));
+        } else {
+            binding.tvDate1.setText("");
         }
         if (date2 != null) {
             binding.tvDate2.setText(TimeUtils.date2String(date2, "MM-dd-yyyy"));
+        } else {
+            binding.tvDate2.setText("");
         }
 
         if (time1 != null) {
             binding.tvTime1.setText(BusinessUtils.getStringTimeHHmm(time1));
+        } else {
+            binding.tvTime1.setText("");
         }
 
-        if (time2!=null){
+        if (time2 != null) {
             binding.tvTime2.setText(BusinessUtils.getStringTimeHHmm(time2));
+        } else {
+            binding.tvTime2.setText("");
         }
+        int visible = View.INVISIBLE;
+        if (date1 != null && time1 != null && date2 != null && time2 != null) {
+            visible = View.VISIBLE;
+        }
+        binding.menu.setVisibility(visible);
     }
 
 
-    private void showDateDialog(Date selectDate, SingleDateAndTimePickerDialog.Listener listener) {
+    private void showDateDialog(Date selectDate, Date mindate, SingleDateAndTimePickerDialog.Listener listener) {
         TimeDialogDelegateActivity.display(requireActivity(), new TimeDialogDelegateActivity.DialogFactory() {
             @Override
             public SingleDateAndTimePickerDialog factory(TimeDialogDelegateActivity activity) {
@@ -147,7 +194,7 @@ public class TimeSelectDialog extends BaseBottomDialog {
                 if (selectDate != null) {
                     builder.defaultDate(selectDate);
                 }
-                return builder.minDateRange(now)
+                return builder.minDateRange(mindate)
                         .bottomSheet()
                         .mainColor(Color.parseColor("#8E73D3"))
                         .titleTextColor(Color.parseColor("#8E73D3"))

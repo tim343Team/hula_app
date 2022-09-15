@@ -14,8 +14,8 @@ public class UrlFactory {
         return host + "/user/get_profile";
     }
 
-    public static String getAllHomeEventsV3() {
-        return host + "/events/all_home_events_v3";
+    public static String getAllHomeEvents() {
+        return host + "/events/all_home_events";
     }
 
     public static String findBuddyV2() {
@@ -35,11 +35,15 @@ public class UrlFactory {
         return host + "/events/specific_events_list";
     }
 
+    public static String getAllCity() {
+        return host + "/user/list_all_browsing_cities";
+    }
+
     public static String eventSearch() {
         return host + "/events/event_search";
     }
 
-    public static String getAllSections(){
-        return host +"/events/get_all_sections";
+    public static String getAllSections() {
+        return host + "/events/get_all_sections";
     }
 }

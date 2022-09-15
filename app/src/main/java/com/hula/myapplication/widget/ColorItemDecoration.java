@@ -88,8 +88,13 @@ public class ColorItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         final int childCount = parent.getChildCount();
+        RecyclerView.Adapter<?> adapter = parent.getAdapter();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            int childAdapterPosition = parent.getChildAdapterPosition(child);
+            if (adapter != null && childAdapterPosition == adapter.getItemCount() - 1) {
+                continue;
+            }
             parent.getDecoratedBoundsWithMargins(child, mBounds);
             final int bottom = mBounds.bottom + Math.round(child.getTranslationY());
             final int top = bottom - scape;
@@ -115,8 +120,14 @@ public class ColorItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         final int childCount = parent.getChildCount();
+        RecyclerView.Adapter<?> adapter = parent.getAdapter();
+
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            int childAdapterPosition = parent.getChildAdapterPosition(child);
+            if (adapter != null && childAdapterPosition == adapter.getItemCount() - 1) {
+                continue;
+            }
             parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
             final int right = mBounds.right + Math.round(child.getTranslationX());
             final int left = right - scape;

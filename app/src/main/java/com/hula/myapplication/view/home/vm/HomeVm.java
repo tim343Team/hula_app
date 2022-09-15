@@ -69,7 +69,7 @@ public class HomeVm extends ViewModel {
                     hashMap.put("user_id", service.getUserId());
                     hashMap.put("page", 0);
                     ResponseBody body = WonderfulOkhttpUtils.get()
-                            .url(UrlFactory.getAllHomeEventsV3() + HUtils.toGetUri(hashMap))
+                            .url(UrlFactory.getAllHomeEvents() + HUtils.toGetUri(hashMap))
                             .build()
                             .getCall().execute().body();
                     if (body == null) {
@@ -83,7 +83,7 @@ public class HomeVm extends ViewModel {
                     hashMap1.put("user_id", service.getUserId());
                     hashMap1.put("page", 1);
                     ResponseBody body1 = WonderfulOkhttpUtils.get()
-                            .url(UrlFactory.getAllHomeEventsV3() + HUtils.toGetUri(hashMap1))
+                            .url(UrlFactory.getAllHomeEvents() + HUtils.toGetUri(hashMap1))
                             .build()
                             .getCall().execute().body();
                     if (body1 == null) {
@@ -124,7 +124,7 @@ public class HomeVm extends ViewModel {
         hashMap.put("user_id", userId);
         hashMap.put("page", page);
         WonderfulOkhttpUtils.get()
-                .url(UrlFactory.getAllHomeEventsV3() + HUtils.toGetUri(hashMap))
+                .url(UrlFactory.getAllHomeEvents() + HUtils.toGetUri(hashMap))
                 .build()
                 .getCall()
                 .callbackExecutor(ThreadUtils.newCachedThreadPool)

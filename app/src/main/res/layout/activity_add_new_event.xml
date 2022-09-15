@@ -80,6 +80,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="City" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:id="@+id/tv_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/select_edit_bg"
+                android:drawableEnd="@mipmap/icon_right_1"
+                android:hint="Select a city"
+                android:padding="15dp"
+                android:singleLine="true"
+                app:tv_hintStartDrawable="@mipmap/icon_location_hint_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Category" />
 
             <com.hula.myapplication.widget.HuLaTextView
@@ -133,6 +151,7 @@
                     android:hint="Describe your event/activity."
                     android:maxLines="4"
                     android:minLines="4"
+                    android:maxLength="160"
                     android:padding="15dp"
                     app:edit_hintStartDrawable="@mipmap/icon_description_hint" />
 
@@ -164,6 +183,7 @@
                 tools:listitem="@layout/item_image_view" />
 
             <TextView
+                android:id="@+id/tv_image_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -185,7 +205,6 @@
                 android:layout_marginTop="6dp"
                 android:background="@drawable/select_edit_bg"
                 android:hint="Add the website link"
-                android:minLines="3"
                 android:padding="15dp"
                 app:edit_hintStartDrawable="@mipmap/icon_link_hint" />
 
@@ -200,6 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:inputType="numberDecimal"
                 android:background="@drawable/select_edit_bg"
                 android:hint="Select a time"
                 android:padding="15dp"

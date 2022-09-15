@@ -1,14 +1,12 @@
 package com.hula.myapplication.view.home;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,30 +15,26 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.base.HBaseActivity;
-import com.hula.myapplication.base.picselect.GlideImageEngine;
-import com.hula.myapplication.base.picselect.LubanCompressFileEngine;
+import com.hula.myapplication.dao.CityDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityAddNewEventBinding;
+import com.hula.myapplication.util.BusinessUtils;
 import com.hula.myapplication.util.CollectionUtils;
+import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.SimTextWatcher;
 import com.hula.myapplication.view.home.vm.AddNewEventVM;
-import com.hula.myapplication.view.login.RegisterPicActivity;
 import com.hula.myapplication.widget.DelectImageView;
 import com.hula.myapplication.widget.HuCallBack1;
-import com.hula.myapplication.widget.dialog.PermissonDialog;
-import com.luck.picture.lib.basic.PictureSelector;
-import com.luck.picture.lib.config.SelectMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.interfaces.OnResultCallbackListener;
+import com.hula.myapplication.widget.adapter.AbsMultiItemViewData;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import tim.com.libnetwork.base.BaseActivity;
 
 public class AddNewEventActivity extends HBaseActivity {
     private ActivityAddNewEventBinding binding;
     private ImageAdapter imageAdapter;
+    private View footView;
     private AddNewEventVM viewmodel;
 
     @Override
@@ -49,46 +43,129 @@ public class AddNewEventActivity extends HBaseActivity {
         viewmodel = new ViewModelProvider(this).get(AddNewEventVM.class);
         binding = ActivityAddNewEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        imageAdapter = new ImageAdapter();
-        imageAdapter.addData("");
-        imageAdapter.addData("");
-        imageAdapter.addData("");
-
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.recyclerView.setAdapter(imageAdapter);
         initView();
         observer();
     }
 
     private void initView() {
-        binding.editTitle.addTextChangedListener(new SimTextWatcher(){
+        binding.editTitle.addTextChangedListener(new SimTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
                 checkSubmit();
             }
         });
-        binding.editLocationName.addTextChangedListener(new SimTextWatcher(){
+        binding.editLocationName.addTextChangedListener(new SimTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
                 checkSubmit();
+            }
+        });
+        binding.tvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectCityBottomDialog dialog = new SelectCityBottomDialog();
+                dialog.huCallBack1 = new HuCallBack1<CityDao>() {
+                    @Override
+                    public void call(CityDao cityDao) {
+                        viewmodel.cityLD.setValue(cityDao);
+                    }
+                };
+                dialog.show(getSupportFragmentManager(), "");
             }
         });
         binding.tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FavoriteCategoryDialog dialog = new FavoriteCategoryDialog();
-                dialog.show(getSupportFragmentManager(),"");
+                dialog.show(getSupportFragmentManager(), "");
             }
         });
         binding.tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TimeSelectDialog dialog = new TimeSelectDialog();
-                dialog.show(getSupportFragmentManager(),"");
+                dialog.show(getSupportFragmentManager(), "");
             }
         });
+        binding.tvDes.addTextChangedListener(new SimTextWatcher() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                binding.tvDesLimit.setText(s.length() + "/160");
+            }
+        });
+        imageAdapter = new ImageAdapter();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        footView = LayoutInflater.from(this).inflate(R.layout.item_image_view, binding.recyclerView, false);
+        footView.setOnClickListener(v -> {
+            HUtils.selectPic(AddNewEventActivity.this, 10 - imageAdapter.getData().size(), new HuCallBack1<List<String>>() {
+                @Override
+                public void call(List<String> strings) {
+                    imageAdapter.addData(strings);
+                    onImageSizeChange();
+                }
+            });
+
+        });
+        imageAdapter.addFooterView(footView);
+
+        binding.recyclerView.setAdapter(imageAdapter);
+
+
+        binding.tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submit();
+            }
+        });
+    }
+
+    @Override
+    public void finish() {
+        MutiItemBottomDialog dialog = new MutiItemBottomDialog();
+        List<AbsMultiItemViewData> list = new ArrayList<>();
+        list.add(new MutiItemBottomDialog.SimTextMultiItemViewData("Save event as a draft?", Color.parseColor("#B7B7B7"), 13, false, null));
+        list.add(new MutiItemBottomDialog.SimTextMultiItemViewData("Save Draft", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                viewmodel.save();
+                AddNewEventActivity.super.finish();
+            }
+        }));
+        list.add(new MutiItemBottomDialog.SimTextMultiItemViewData("Discard", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                AddNewEventActivity.super.finish();
+            }
+        }));
+        list.add(new MutiItemBottomDialog.SimTextMultiItemViewData("Continue Editing", Color.parseColor("#0047FF"), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        }));
+        dialog.absMultiItemViewData = list;
+        dialog.show(getSupportFragmentManager(), "");
+    }
+
+    private void submit() {
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void onImageSizeChange() {
+        if (imageAdapter.getData().size() == 10) {
+            imageAdapter.removeFooterView(footView);
+        } else if (footView.getParent() != imageAdapter.getFooterLayout()) {
+            imageAdapter.addFooterView(footView);
+        }
+        binding.tvImageSize.setText("Photos: " + imageAdapter.getData().size() + "/10");
+        checkSubmit();
     }
 
     private void observer() {
@@ -98,14 +175,26 @@ public class AddNewEventActivity extends HBaseActivity {
             checkSubmit();
         });
 
+        viewmodel.timeLD.observe(this, time -> {
+            String dateStr = BusinessUtils.getEnTime(new Date(time[0])) + "-" + BusinessUtils.getEnTime(new Date(time[1]));
+            binding.tvTime.setText(dateStr);
+            checkSubmit();
+        });
+        viewmodel.cityLD.observe(this, cityDao -> {
+            binding.tvCity.setText(cityDao.getName());
+            checkSubmit();
+        });
+
     }
 
 
-    private boolean checkSubmit(){
+    private boolean checkSubmit() {
 
 
         return false;
     }
+
+
     //{
     //	"starting": "2022-09-13T13:46:30+0800",
     //	"user_id": 6597,
@@ -130,50 +219,18 @@ public class AddNewEventActivity extends HBaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            DelectImageView imageView =  helper.getView(R.id.iv);
-            imageView.setOnClickListener(v -> {
-                if (TextUtils.isEmpty(item)) {
-                    new PermissonDialog.Builder()
-                            .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            .setTitle("“Hula” Would Like to Access Your Photos")
-                            .setSubTitle("So you can add all your related photos to your event board.")
-                            .request(getSupportFragmentManager(), new PermissonDialog.Builder.StandardPermissionHand() {
-                                @Override
-                                public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {
-                                    PictureSelector.create(AddNewEventActivity.this)
-                                            .openGallery(SelectMimeType.ofImage())
-                                            .setImageEngine(GlideImageEngine.engine)
-                                            .setCompressEngine(LubanCompressFileEngine.engine)
-                                            .forResult(new OnResultCallbackListener<LocalMedia>() {
-                                                @Override
-                                                public void onResult(ArrayList<LocalMedia> result) {
-
-                                                }
-
-                                                @Override
-                                                public void onCancel() {
-
-                                                }
-                                            });
-                                }
-                            });
-                }
-            });
+            DelectImageView imageView = helper.getView(R.id.iv);
             imageView.setDelectOnClick(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewmodel.delectPic(item);
+                    remove(helper.getAbsoluteAdapterPosition());
+                    onImageSizeChange();
                 }
             });
-            if (TextUtils.isEmpty(item)) {
-                imageView.setImageResource(R.mipmap.icon_add_image);
-                imageView.setShowDelect(false);
-            } else {
-                imageView.setShowDelect(true);
-                Glide.with(imageView)
-                        .load(item)
-                        .into(imageView);
-            }
+            imageView.setShowDelect(true);
+            Glide.with(imageView)
+                    .load(item)
+                    .into(imageView);
         }
     }
 }

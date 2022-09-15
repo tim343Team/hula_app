@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingEnd="12dp"
-    android:paddingBottom="12dp"
     tools:ignore="RtlSymmetry">
 
     <com.hula.myapplication.widget.DelectImageView
         android:id="@+id/iv"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:background="@mipmap/icon_add_image" />
+        android:src="@mipmap/icon_add_image"
+        app:shapeAppearance="@style/RoundedStyle10"/>
 </FrameLayout>

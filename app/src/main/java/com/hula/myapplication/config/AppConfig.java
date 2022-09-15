@@ -9,7 +9,7 @@ package com.hula.myapplication.config;
 public class AppConfig {
     //测试
     static String SOCKET_IP="152.32.132.18";
-    public static String BASE_URL = "http://ec2-3-143-124-172.us-east-2.compute.amazonaws.com";
+    public static String BASE_URL = "http://ec2-3-140-26-246.us-east-2.compute.amazonaws.com";
     //生产
 
 }
