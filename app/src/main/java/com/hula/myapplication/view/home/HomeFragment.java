@@ -2,6 +2,7 @@ package com.hula.myapplication.view.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,11 +17,16 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.app.event.KeyEvent;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.CategoriesDao;
+import com.hula.myapplication.dao.SaveEventsBean;
+import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.view.home.adapter.home.DiffMutiAdapter;
 import com.hula.myapplication.view.home.adapter.home.HomeViewDataAdapterData;
+import com.hula.myapplication.view.home.vm.AddNewEventVM;
 import com.hula.myapplication.view.home.vm.HomeVm;
 import com.hula.myapplication.view.login.RegisterActivity;
+import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.HuLaActionBar;
 import com.hula.myapplication.widget.HuLaActionBarMenu;
 import com.hula.myapplication.widget.skeleton.ErrSkeletonElement;
@@ -28,6 +34,8 @@ import com.hula.myapplication.widget.skeleton.GridLayoutSkeletonElement;
 import com.hula.myapplication.widget.skeleton.ViewSkeleton;
 
 import java.util.List;
+import java.util.Map;
+
 import tim.com.libnetwork.base.BaseTransFragment;
 
 public class HomeFragment extends BaseTransFragment {
@@ -39,6 +47,7 @@ public class HomeFragment extends BaseTransFragment {
     private HuLaActionBarMenu lickMenu;
     private HuLaActionBarMenu menuNotice;
     private ImageView ivHeader;
+    private RecyclerView recyclerView;
     private final java.util.Observer addMoreCategoryFragmentObserver = (o, arg) -> {
         String categoryName = (String) arg;
         getChildFragmentManager().beginTransaction()
@@ -84,7 +93,7 @@ public class HomeFragment extends BaseTransFragment {
 
         homeAdapter = new DiffMutiAdapter();
         adapterData = new HomeViewDataAdapterData(homeAdapter);
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView = rootView.findViewById(R.id.recyclerView);
         viewSkeleton = new ViewSkeleton(rootView.findViewById(R.id.holdView), new GridLayoutSkeletonElement(), ErrSkeletonElement.getInstance(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +102,7 @@ public class HomeFragment extends BaseTransFragment {
         }));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         recyclerView.setAdapter(homeAdapter);
+        recyclerView.setItemAnimator(null);
         homeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -126,12 +136,23 @@ public class HomeFragment extends BaseTransFragment {
     protected void loadData() {
         homeVm.page = 0;
         viewSkeleton.showLoading();
+        recyclerView.setVisibility(View.INVISIBLE);
         loadEvents();
         homeVm.allEventLD.observe(this, new Observer<List<Anthing>>() {
             @Override
             public void onChanged(List<Anthing> dataItemDaos) {
                 adapterData.setDataItemDaos(dataItemDaos);
                 viewSkeleton.hint();
+                recyclerView.setVisibility(View.VISIBLE);
+                if (!homeAdapter.getData().isEmpty()) {
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerView.scrollToPosition(0);
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -152,6 +173,18 @@ public class HomeFragment extends BaseTransFragment {
                 .onGet(userInfoData -> Glide.with(requireActivity())
                         .load(userInfoData.getProfile())
                         .into(ivHeader));
+
+        AddNewEventVM.restore(new HuCallBack1<Map<String, Object>>() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public void call(Map<String, Object> map) {
+                String name = (String) map.get("name");
+                List<SubCategoriesDao> sub_categoryObj = (List<SubCategoriesDao>) map.get("sub_categoryObj");
+                if (!TextUtils.isEmpty(name)) {
+                    adapterData.setSaveEventData(new SaveEventsBean(name, sub_categoryObj));
+                }
+            }
+        });
 
     }
 

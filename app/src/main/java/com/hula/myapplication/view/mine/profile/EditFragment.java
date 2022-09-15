@@ -12,13 +12,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
-import com.hula.myapplication.adapter.NewAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
-import com.hula.myapplication.dao.PronounDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.SubProfileDao;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
@@ -28,8 +25,6 @@ import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
 import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
-import com.hula.myapplication.widget.HuCallBack1;
-import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 import com.library.flowlayout.FlowLayoutManager;
 
 import java.util.ArrayList;
@@ -39,7 +34,6 @@ import java.util.List;
 
 import tim.com.libnetwork.base.BaseLazyFragment;
 import tim.com.libnetwork.utils.DateTimeUtil;
-import tim.com.libnetwork.utils.WonderfulStringUtils;
 
 public class EditFragment extends BaseLazyFragment {
     private FragmentMineEditBinding binding;
@@ -137,7 +131,7 @@ public class EditFragment extends BaseLazyFragment {
                 if (editable.toString().isEmpty()) {
                     llEvent1.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
                 } else {
-                    llEvent1.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                    llEvent1.setBackgroundResource(R.drawable.shape_radius15_stroke1_8e73d3);
                 }
             }
         });
@@ -157,7 +151,7 @@ public class EditFragment extends BaseLazyFragment {
                 if (editable.toString().isEmpty()) {
                     llEvent2.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
                 } else {
-                    llEvent2.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                    llEvent2.setBackgroundResource(R.drawable.shape_radius15_stroke1_8e73d3);
                 }
             }
         });
@@ -177,7 +171,7 @@ public class EditFragment extends BaseLazyFragment {
                 if (editable.toString().isEmpty()) {
                     llEvent3.setBackgroundResource(R.drawable.shape_radius15_stroke_b7b7b7);
                 } else {
-                    llEvent3.setBackgroundResource(R.drawable.shape_radius15_stroke1);
+                    llEvent3.setBackgroundResource(R.drawable.shape_radius15_stroke1_8e73d3);
                 }
             }
         });

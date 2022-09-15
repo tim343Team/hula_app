@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="3dp"
-        android:background="@drawable/shape_radius15_stroke1"
+        android:background="@drawable/shape_radius15_stroke1_8e73d3"
         android:drawableEnd="@mipmap/icon_down"
         android:hint="Select University"
         android:padding="20dp"

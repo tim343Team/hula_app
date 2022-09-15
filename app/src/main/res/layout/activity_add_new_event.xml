@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Description" />
+                android:text="Add Photos" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -239,6 +239,7 @@
                 android:orientation="vertical">
 
                 <RadioButton
+                    android:id="@+id/rbtn_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/selector_check_box"
@@ -247,6 +248,7 @@
                     android:textColor="@drawable/selector_check_text_color" />
 
                 <RadioButton
+                    android:id="@+id/rbtn_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/selector_check_box"

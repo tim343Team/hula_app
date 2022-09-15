@@ -3,10 +3,12 @@ package com.hula.myapplication.view.home;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -48,6 +50,13 @@ public class AddNewEventActivity extends HBaseActivity {
     }
 
     private void initView() {
+        binding.tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         binding.editTitle.addTextChangedListener(new SimTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -132,6 +141,7 @@ public class AddNewEventActivity extends HBaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                setDataToViewModel();
                 viewmodel.save();
                 AddNewEventActivity.super.finish();
             }
@@ -140,6 +150,7 @@ public class AddNewEventActivity extends HBaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                viewmodel.remove();
                 AddNewEventActivity.super.finish();
             }
         }));
@@ -153,8 +164,22 @@ public class AddNewEventActivity extends HBaseActivity {
         dialog.show(getSupportFragmentManager(), "");
     }
 
-    private void submit() {
+    private void setDataToViewModel() {
+        viewmodel.name.setValue(binding.editTitle.getText().toString().trim());
+        viewmodel.location.setValue(binding.editLocationName.getText().toString().trim());
+        viewmodel.des.setValue(binding.tvDes.getText().toString().trim());
+        viewmodel.link.setValue(binding.editLink.getText().toString().trim());
+        viewmodel.price.setValue(binding.editPrice.getText().toString().trim());
+        int checkedRadioButtonId = binding.groupRadio.getCheckedRadioButtonId();
+        if (checkedRadioButtonId != -1) {
+            viewmodel.createType.setValue(checkedRadioButtonId == binding.rbtn0.getId() ? 0 : 1);
+            viewmodel.createType.setValue(binding.groupRadio.getCheckedRadioButtonId());
+        }
+    }
 
+    private void submit() {
+        setDataToViewModel();
+        viewmodel.submit();
     }
 
     @SuppressLint("SetTextI18n")
@@ -175,6 +200,7 @@ public class AddNewEventActivity extends HBaseActivity {
             checkSubmit();
         });
 
+
         viewmodel.timeLD.observe(this, time -> {
             String dateStr = BusinessUtils.getEnTime(new Date(time[0])) + "-" + BusinessUtils.getEnTime(new Date(time[1]));
             binding.tvTime.setText(dateStr);
@@ -183,6 +209,83 @@ public class AddNewEventActivity extends HBaseActivity {
         viewmodel.cityLD.observe(this, cityDao -> {
             binding.tvCity.setText(cityDao.getName());
             checkSubmit();
+        });
+        viewmodel.pics.observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                if (imageAdapter.getData().isEmpty()) {
+                    imageAdapter.addData(strings);
+                }
+            }
+        });
+        viewmodel.name.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    return;
+                }
+                if (binding.editTitle.getText().length() == 0) {
+                    binding.editTitle.setText(s);
+                }
+            }
+        });
+
+        viewmodel.price.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    return;
+                }
+                if (binding.editPrice.getText().length() == 0) {
+                    binding.editPrice.setText(s);
+                }
+            }
+        });
+        viewmodel.des.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    return;
+                }
+                if (binding.tvDes.getText().length() == 0) {
+                    binding.tvDes.setText(s);
+                }
+            }
+        });
+        viewmodel.link.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    return;
+                }
+                if (binding.editLink.getText().length() == 0) {
+                    binding.editLink.setText(s);
+                }
+            }
+        });
+        viewmodel.location.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (TextUtils.isEmpty(s)) {
+                    return;
+                }
+                if (binding.editLocationName.getText().length() == 0) {
+                    binding.editLocationName.setText(s);
+                }
+            }
+        });
+        viewmodel.createType.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (binding.groupRadio.getCheckedRadioButtonId() == -1) {
+                    if (integer == 0) {
+                        binding.rbtn0.setChecked(true);
+                    } else {
+                        binding.rbtn1.setChecked(true);
+                    }
+
+                }
+            }
         });
 
     }
@@ -194,21 +297,6 @@ public class AddNewEventActivity extends HBaseActivity {
         return false;
     }
 
-
-    //{
-    //	"starting": "2022-09-13T13:46:30+0800",
-    //	"user_id": 6597,
-    //	"category": "2",
-    //	"ticket_price": "552",
-    //	"event_url": "de",
-    //	"creating_to_find_buddy": "True",
-    //	"name": "Ui",
-    //	"location": "Beijing ",
-    //	"ending": "2022-09-13T13:46:33+0800",
-    //	"description": "明",
-    //	"image_link": "https:\/\/cdn.hula-events.com\/Dudu_6597%2Fmy_events%2FC7A6A84B-6EB9-4868-8F26-DBFF17A6D8D7%2F0.jpg",
-    //	"sub_category": "50"
-    //}
 
     class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

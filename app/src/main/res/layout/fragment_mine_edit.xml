@@ -369,7 +369,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="103dp"
                 android:layout_marginTop="@dimen/dimen_8"
-                android:background="@drawable/shape_radius15_stroke1"
+                android:background="@drawable/shape_radius15_stroke1_8e73d3"
                 android:padding="@dimen/dimen_12">
 
                 <EditText

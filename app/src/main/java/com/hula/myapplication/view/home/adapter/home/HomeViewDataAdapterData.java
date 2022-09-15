@@ -2,6 +2,7 @@ package com.hula.myapplication.view.home.adapter.home;
 
 import androidx.annotation.Nullable;
 
+import com.hula.myapplication.dao.SaveEventsBean;
 import com.hula.myapplication.dao.home.Anthing;
 import com.hula.myapplication.dao.home.DataItemDao;
 import com.hula.myapplication.dao.home.GroupDao;
@@ -13,12 +14,18 @@ import java.util.Objects;
 
 public class HomeViewDataAdapterData {
     private final DiffMutiAdapter adapter;
+    private List<Anthing> dataItemDaos = new ArrayList<>();
+    private Anthing saveEventData;
+    private List<Anthing> eventsDatas;
 
     public HomeViewDataAdapterData(DiffMutiAdapter adapter) {
         this.adapter = adapter;
     }
 
     private int getSortId(AbsMultiItemViewData absMultiItemViewData) {
+        if (absMultiItemViewData.getClass().equals(SaveEventsViewData.class)){
+            return 0;
+        }
         if (absMultiItemViewData.getClass().equals(JustForYouPartyItemViewData.class)) {
             return 1;
         }
@@ -41,6 +48,24 @@ public class HomeViewDataAdapterData {
     }
 
     public void setDataItemDaos(List<Anthing> dataItemDaos) {
+        this.eventsDatas = dataItemDaos;
+        addALL();
+
+    }
+
+    public void setSaveEventData(Anthing data) {
+        this.saveEventData = data;
+        addALL();
+    }
+
+    private void addALL() {
+        this.dataItemDaos.clear();
+        if (saveEventData != null) {
+            dataItemDaos.add(saveEventData);
+        }
+        if (eventsDatas != null) {
+            dataItemDaos.addAll(eventsDatas);
+        }
         List<AbsMultiItemViewData> data = adapter(dataItemDaos);
         checkAndSort(data);
         this.adapter.submit(data);
@@ -124,10 +149,16 @@ public class HomeViewDataAdapterData {
                     result.add(groupsYouMightLikeViewData);
                 }
             }
+            if (next instanceof SaveEventsBean){
+                SaveEventsViewData saveEventsViewData = coverSaveEventsViewData((SaveEventsBean) next);
+                result.add(saveEventsViewData);
+            }
 
         }
         return result;
     }
+
+
 
     private MultiPartyViewData find(List<AbsMultiItemViewData> result, String title) {
         for (int i = 0; i < result.size(); i++) {
@@ -147,6 +178,10 @@ public class HomeViewDataAdapterData {
             return new MultiPartyViewData(next, "Events submitted by HULA users", 240, 250, true, true);
         }
         return null;
+    }
+
+    private SaveEventsViewData coverSaveEventsViewData(SaveEventsBean next) {
+        return new SaveEventsViewData(next);
     }
 
     @Nullable

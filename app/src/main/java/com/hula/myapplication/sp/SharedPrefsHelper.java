@@ -18,6 +18,9 @@ public class SharedPrefsHelper {
 
     public static final String USER_INFO_KEY = "USER_INFO_KEY";
 
+    public static final String EVENT_SAVE = "EVENT_SAVE";
+
+
 
     private static SharedPrefsHelper instance;
     private static final Gson gson = new Gson();
