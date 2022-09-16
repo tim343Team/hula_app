@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
 import com.hula.myapplication.dao.EventAttendDao;
+import com.hula.myapplication.widget.HulaPartyItemLayout;
 
 import java.util.List;
 
@@ -20,8 +21,5 @@ public class EventAttendAdapter extends BaseQuickAdapter<EventAttendDao, BaseVie
 
     @Override
     protected void convert(BaseViewHolder helper, EventAttendDao item) {
-        TextView tv = helper.getView(R.id.tv);
-        ImageView iv = helper.getView(R.id.iv);
-        tv.setText("test");
     }
 }

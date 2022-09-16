@@ -16,9 +16,13 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.SubProfileDao;
+import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
+import com.hula.myapplication.util.SafeGet;
 import com.hula.myapplication.view.mine.profile.sub.ChooseInterActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
@@ -249,7 +253,22 @@ public class EditFragment extends BaseLazyFragment {
 
     @Override
     protected void loadData() {
+        HService.getService(ServiceProfile.class).asyncGetUserInfo().onGet(new SafeGet.SafeCall<UserInfoData>() {
+            @Override
+            public void call(UserInfoData userInfoData) {
+                //TODO
 
+            }
+        });
+
+//        ServiceProfile service = HService.getService(ServiceProfile.class);
+//        service.refresh();
+//        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
+//            @Override
+//            public void call(UserInfoData userInfoData) {
+//                handler.post(startNext);
+//            }
+//        });
     }
 
     @Override

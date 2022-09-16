@@ -85,7 +85,7 @@ public class PreviewFragment extends BaseLazyFragment {
 
             @Override
             public void onPageSelected(int position) {
-
+                setImageBackground(position %= myPagerAdapter.getBanners().length);
             }
 
             @Override
@@ -140,6 +140,20 @@ public class PreviewFragment extends BaseLazyFragment {
             viewGroup.addView(imageView, params);
         }
     }
+
+
+    private void setImageBackground(int selectItem) {
+        for (int i = 0; i < myPagerAdapter.getBanners().length; i++) {
+            ImageView imageView = (ImageView) viewGroup.getChildAt(i);
+            imageView.setBackground(null);
+            if (i == selectItem) {
+                imageView.setImageResource(R.drawable.selector_dot_d351a4);
+            } else {
+                imageView.setImageResource(R.drawable.selector_dot_white);
+            }
+        }
+    }
+
 
     private void initRecyclerInterest(){
         //TODO 测试数据

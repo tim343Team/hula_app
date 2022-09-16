@@ -84,7 +84,7 @@
     </LinearLayout>
 
     <com.hula.myapplication.widget.NoScrollViewPager
-        android:id="@+id/viewpager_invite"
+        android:id="@+id/viewpager_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
