@@ -30,12 +30,14 @@
         android:padding="7dp"
         android:src="@mipmap/icon_unlove_fff" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="-1dp"
         android:background="#88000000"
         android:paddingVertical="10dp">
 
@@ -122,7 +124,6 @@
             tools:text="Recommended by Mark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <TextView
         android:id="@+id/tv_find_buddy"

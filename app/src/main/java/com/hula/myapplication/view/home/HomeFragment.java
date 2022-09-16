@@ -21,6 +21,7 @@ import com.hula.myapplication.view.home.adapter.home.DiffMutiAdapter;
 import com.hula.myapplication.view.home.adapter.home.HomeViewDataAdapterData;
 import com.hula.myapplication.view.home.vm.HomeVm;
 import com.hula.myapplication.view.login.RegisterActivity;
+import com.hula.myapplication.view.mine.profile.ProfileDetailActivity;
 import com.hula.myapplication.widget.HuLaActionBar;
 import com.hula.myapplication.widget.HuLaActionBarMenu;
 import com.hula.myapplication.widget.skeleton.ErrSkeletonElement;
@@ -109,7 +110,13 @@ public class HomeFragment extends BaseTransFragment {
                         .commit();
             }
         });
-
+        ivHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO 用户详情页入口
+                ProfileDetailActivity.actionStart(getmActivity(),1);
+            }
+        });
     }
 
     @Override
