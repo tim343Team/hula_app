@@ -122,7 +122,7 @@ public class HomeViewDataAdapterData {
     public List<AbsMultiItemViewData> adapter(List<Anthing> dataItemDaos) {
         List<AbsMultiItemViewData> result = new ArrayList<>();
         for (Anthing next : dataItemDaos) {
-            if (next instanceof DataItemDao) {
+            if (next instanceof DataItemDao && !((DataItemDao) next).getEvents().isEmpty()) {
                 JustForYouPartyItemViewData justForYouPartyItemViewData = coverJustForYou((DataItemDao) next);
                 if (justForYouPartyItemViewData != null) {
                     result.add(justForYouPartyItemViewData);

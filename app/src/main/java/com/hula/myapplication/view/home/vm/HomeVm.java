@@ -54,7 +54,7 @@ public class HomeVm extends ViewModel {
                             return GsonUtils.getGson().fromJson(json, DataItemDao.class);
                         }
                         JsonArray profiles = asJsonObject.getAsJsonArray("profiles");
-                        if (profiles!=null){
+                        if (profiles != null) {
                             return GsonUtils.getGson().fromJson(json, RecommendedDao.class);
                         }
                         return null;
@@ -108,7 +108,10 @@ public class HomeVm extends ViewModel {
                     page = 2;
                     result.postValue(!notNullData.isEmpty());
                 } catch (Exception e) {
-                    ToastUtil.showFailToast(e.getMessage());
+                    String message = e.getMessage();
+                    if (message != null) {
+                        ToastUtil.showFailToast(message);
+                    }
                     result.postValue(true);
                 }
             }
@@ -157,7 +160,7 @@ public class HomeVm extends ViewModel {
         WonderfulOkhttpUtils.get()
                 .url(UrlFactory.specificEventsList())
                 .addParams("is_like", "True")
-                .addParams("user_id",service.getUserId())
+                .addParams("user_id", service.getUserId())
                 .build()
                 .getCall()
                 .enqueue(new GsonWalkDogCallBack<RemoteData<List<Object>>>() {

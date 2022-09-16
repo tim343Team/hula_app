@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "25866640859",
+    "project_id": "eventbuddies-staging",
+    "storage_bucket": "eventbuddies-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25866640859:android:ca61c6dbba1f851ca8dbfe",
+        "android_client_info": {
+          "package_name": "com.hula.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25866640859-81ijodq1hcvp12s25vei9nhsjt9i15dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSEtG5Vq4EUrfq5ivgCGao306-wGySyx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25866640859-81ijodq1hcvp12s25vei9nhsjt9i15dq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "25866640859-tgjctnc83s3mikgttdc0r3dsv4vupcsn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hula-events.Hula"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

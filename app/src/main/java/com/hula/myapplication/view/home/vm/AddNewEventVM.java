@@ -6,11 +6,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.reflect.TypeToken;
+import com.hula.myapplication.app.firebase.HulaFirebaseStorage;
 import com.hula.myapplication.dao.CityDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.sp.SharedPrefsHelper;
@@ -18,10 +23,13 @@ import com.hula.myapplication.util.CollectionUtils;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.ThreadUtils;
 import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -123,7 +131,7 @@ public class AddNewEventVM extends ViewModel {
                 .apply();
     }
 
-    public void remove(){
+    public void remove() {
         SharedPrefsHelper.getInstance().sharedPreferences.edit()
                 .remove(EVENT_SAVE)
                 .apply();
@@ -254,6 +262,71 @@ public class AddNewEventVM extends ViewModel {
     }
 
     public void submit() {
+        List<String> value = pics.getValue();
+        if (value == null) {
+            return;
+        }
+        Map<Integer, String> maps = new HashMap<>();
+        for (int i = 0; i < value.size(); i++) {
+            maps.put(i,value.get(i));
+        }
+        updateFile(maps, new HuCallBack1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                ToastUtil.showSuccessToast(String.valueOf(aBoolean));
+            }
+        });
+    }
 
+
+    private void updateFile(Map<Integer, String> map, HuCallBack1<Boolean> callBack) {
+        ToastUtil.showLoading("put photo...");
+        final int[] successNum = {0};
+        final boolean[] isFail = {false};
+        List<UploadTask> uploadTasks = new ArrayList<>();
+        for (Integer next : map.keySet()) {
+            String filePath = map.get(next);
+            if (filePath != null) {
+                UploadTask uploadTask = HulaFirebaseStorage.updateEventPhotos(next, filePath);
+                uploadTasks.add(uploadTask);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                uploadTasks.remove(uploadTask);
+                                ToastUtil.showFailToast("put photo fail");
+                                if (!isFail[0]) {
+                                    callBack.call(false);
+                                    ToastUtil.hideLoading();
+                                    isFail[0] = true;
+                                    for (int i = 0; i < uploadTasks.size(); i++) {
+                                        uploadTasks.get(i).cancel();
+                                    }
+                                }
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                uploadTasks.remove(uploadTask);
+                                if (!isFail[0]) {
+                                    successNum[0]++;
+                                    if (successNum[0] == map.size()) {
+                                        callBack.call(true);
+                                        ToastUtil.hideLoading();
+                                    }
+                                }
+                            }
+                        });
+            }
+        }
+    }
+
+    public void addPic(List<String> strings) {
+        List<String> value = pics.getValue();
+        if (value==null){
+            value = new ArrayList<>();
+        }
+        value.addAll(strings);
+        pics.setValue(value);
     }
 }

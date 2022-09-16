@@ -113,8 +113,7 @@ public class AddNewEventActivity extends HBaseActivity {
             HUtils.selectPic(AddNewEventActivity.this, 10 - imageAdapter.getData().size(), new HuCallBack1<List<String>>() {
                 @Override
                 public void call(List<String> strings) {
-                    imageAdapter.addData(strings);
-                    onImageSizeChange();
+                    viewmodel.addPic(strings);
                 }
             });
 
@@ -215,6 +214,7 @@ public class AddNewEventActivity extends HBaseActivity {
             public void onChanged(List<String> strings) {
                 if (imageAdapter.getData().isEmpty()) {
                     imageAdapter.addData(strings);
+                    onImageSizeChange();
                 }
             }
         });
@@ -313,6 +313,10 @@ public class AddNewEventActivity extends HBaseActivity {
                 public void onClick(View v) {
                     remove(helper.getAbsoluteAdapterPosition());
                     onImageSizeChange();
+                    List<String> value = viewmodel.pics.getValue();
+                    if (value!=null){
+                        value.remove(item);
+                    }
                 }
             });
             imageView.setShowDelect(true);
