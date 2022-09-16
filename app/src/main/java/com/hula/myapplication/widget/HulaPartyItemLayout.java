@@ -80,6 +80,15 @@ public class HulaPartyItemLayout extends RelativeLayout {
         }
     }
 
+    public void setEventShow() {
+        View viewById = findViewById(R.id.iv_love);
+        View viewById1 = findViewById(R.id.tv_3);
+        View viewById2 = findViewById(R.id.tv_4);
+        viewById.setVisibility(View.GONE);
+        viewById1.setVisibility(View.GONE);
+        viewById2.setVisibility(View.GONE);
+    }
+
 
     @SuppressLint("SetTextI18n")
     public void setData(EventsItem data) {

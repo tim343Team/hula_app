@@ -45,7 +45,7 @@ object ToastUtil {
             return
         }
         val xToast: HToast = createToast(mark, activity, duration == null)
-        val contentView: View = createView(activity,null, iconView, text)
+        val contentView: View = createView(activity, null, iconView, text)
         if (duration != null) {
             xToast.setDuration(duration)
         }
@@ -60,11 +60,15 @@ object ToastUtil {
         iconView: View?,
         text: String?
     ): View {
-        val contentView: View = LayoutInflater.from(activity).inflate(R.layout.view_toast, viewGroup, false)
+        val contentView: View =
+            LayoutInflater.from(activity).inflate(R.layout.view_toast, viewGroup, false)
         if (iconView != null) {
             val iconLayout = contentView.findViewById<FrameLayout>(R.id.icon_layout)
             iconLayout.visibility = View.VISIBLE
-            iconView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            iconView.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
             iconLayout.addView(iconView)
             contentView.minimumHeight = contentView.minimumWidth
         }
@@ -84,18 +88,25 @@ object ToastUtil {
     @JvmOverloads
     fun showLoading(content: String, activity: Activity? = null) {
         HUtils.runOnUi {
-            val _activity = activity ?: ActivityLifecycleManager.get().curActivity() ?: return@runOnUi
+            val _activity =
+                activity ?: ActivityLifecycleManager.get().curActivity() ?: return@runOnUi
             hideLoading()
             val iconView = LoadingView(_activity)
-            val dialog = Dialog(_activity,R.style.LDialogStyle_NoDim)
+            val dialog = Dialog(_activity, R.style.LDialogStyle_NoDim)
             val bgView = FrameLayout(_activity)
             val contentView = createView(_activity, bgView, iconView, content)
             val layoutParams = contentView.layoutParams as FrameLayout.LayoutParams
             layoutParams.gravity = Gravity.CENTER
-            bgView.addView(contentView,layoutParams)
+            bgView.addView(contentView, layoutParams)
             dialog.setCanceledOnTouchOutside(false)
             dialog.setCancelable(true)
-            dialog.setContentView(bgView,ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT))
+            dialog.setContentView(
+                bgView,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+            )
             dialog.show()
             mMarkDialogList.add(dialog)
             dialog.setOnDismissListener {
@@ -136,6 +147,9 @@ object ToastUtil {
     @JvmStatic
     @JvmOverloads
     fun showFailToast(content: String, mark: Boolean = false, duration: Int = 2000) {
+        if (content == null) {
+            return;
+        }
         HUtils.runOnUi {
             showIconToast(content, R.mipmap.icon_remind, mark, duration)
         }

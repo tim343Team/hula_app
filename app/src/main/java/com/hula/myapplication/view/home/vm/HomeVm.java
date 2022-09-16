@@ -108,7 +108,7 @@ public class HomeVm extends ViewModel {
                     page = 2;
                     result.postValue(!notNullData.isEmpty());
                 } catch (Exception e) {
-                    ToastUtil.showFailToast(e.getMessage());
+//                    ToastUtil.showFailToast(e.getMessage());
                     result.postValue(true);
                 }
             }

@@ -50,7 +50,7 @@ public class MessageFragment extends BaseTransFragment {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        viewpager = rootView.findViewById(R.id.viewpager_invite);
+        viewpager = rootView.findViewById(R.id.viewpager_message);
         tvBuddies = rootView.findViewById(R.id.tv_buddies);
         tvGroups = rootView.findViewById(R.id.tv_groups);
         tvBuddies.setOnClickListener(new View.OnClickListener() {

@@ -88,6 +88,7 @@
     <string name="interests">Interests</string>
     <string name="event_attend_">Events Attended (%s)</string>
     <string name="event_buck_list">Event Bucket List </string>
+    <string name="both_like">You and [Name] both like...</string>
 
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>
