@@ -22,4 +22,8 @@ public class LocalDataSource implements DataSource {
         return INSTANCE;
     }
 
+    @Override
+    public void getDefaultProfileTag(DataCallback dataCallback) {
+
+    }
 }
