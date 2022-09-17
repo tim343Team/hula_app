@@ -194,8 +194,4 @@ public class UserInfoData {
         return age;
     }
 
-
-    public UserInfoData copy(){
-        return new UserInfoData();
-    }
 }

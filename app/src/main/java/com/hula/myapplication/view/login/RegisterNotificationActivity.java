@@ -1,5 +1,6 @@
 package com.hula.myapplication.view.login;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.blankj.utilcode.util.NotificationUtils;
+import com.blankj.utilcode.util.PermissionUtils;
 import com.hula.myapplication.R;
 import com.hula.myapplication.databinding.ActivityRegisterNotificationBinding;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.dialog.PermissonDialog;
 
 import java.util.List;
@@ -31,15 +34,21 @@ public class RegisterNotificationActivity extends BaseActivity {
         binding = ActivityRegisterNotificationBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
-
+    private void startNextPage() {
+        if (!PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            Intent intent = new Intent(this, RegisterLocationActivity.class);
+            startActivity(intent);
+            return;
+        }
+        HomeActivity.start(this);
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initViews(Bundle savedInstanceState) {
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterNotificationActivity.this, RegisterLocationActivity.class);
-                startActivity(intent);
+                startNextPage();
             }
         });
         binding.imageSwitch.setChecked(NotificationUtils.areNotificationsEnabled());

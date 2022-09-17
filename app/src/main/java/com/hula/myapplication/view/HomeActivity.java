@@ -12,8 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.view.home.HomeFragment;
 import com.hula.myapplication.view.invite.InviteFragment;
+import com.hula.myapplication.view.login.StartActivity;
 import com.hula.myapplication.view.message.MessageFragment;
 import com.hula.myapplication.view.mine.MineFragment;
 import com.hula.myapplication.view.search.SearchFragment;
@@ -22,6 +26,15 @@ import butterknife.BindView;
 import tim.com.libnetwork.base.BaseTransFragmentActivity;
 
 public class HomeActivity extends BaseTransFragmentActivity {
+
+    public static void start(Context context){
+        Intent intent = new Intent(context, StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
+
     public static HomeActivity instance = null;
     @BindView(R.id.flContainer)
     FrameLayout flContainer;

@@ -21,9 +21,9 @@ public class HuLaHeaderInterceptor implements Interceptor {
         ServiceProfile serviceProfile = HService.getService(ServiceProfile.class);
 
         String token = serviceProfile.getToken();
-       // if (!TextUtils.isEmpty(token)) {
-            builder.addHeader("Authorization", "Token " + "2800a4865b6d7718a91d7f1988e4f76102647a69");
-       // }
+        if (!TextUtils.isEmpty(token)) {
+            builder.addHeader("Authorization", "Token " + token);
+        }
         builder.addHeader("User-Agent","Hula/2 CFNetwork/1240.0.4 Darwin/20.5.0");
         builder.addHeader("auth-key","12345");
         return chain.proceed(builder.build());

@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.GsonUtils;
 import com.hula.myapplication.app.UrlFactory;
 import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.User;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.util.HUtils;
@@ -36,8 +37,14 @@ public class ServiceProfile {
     }
 
     public synchronized String getUserId() {
-        //TODO
-        return "6761";
+        UserInfoData userInfo = getUserInfo();
+        if (userInfo != null) {
+            User user = userInfo.getUser();
+            if (user != null) {
+                return String.valueOf(user.getId());
+            }
+        }
+        return "";
     }
 
 
@@ -54,12 +61,12 @@ public class ServiceProfile {
             });
         }
         if (userInfoData != null) {
-            result = userInfoData.copy();
+            result = userInfoData;
         }
         return result;
     }
 
-    public synchronized void updateUserInfo(UserInfoData userInfoData) {
+    public synchronized void updateUserInfo(@Nullable UserInfoData userInfoData) {
         if (userInfoData != null) {
             this.userInfoData = userInfoData;
             sharedPrefsHelper.sharedPreferences.edit().putString(SharedPrefsHelper.USER_INFO_KEY, GsonUtils.toJson(userInfoData))
@@ -67,6 +74,9 @@ public class ServiceProfile {
             for (int i = 0; i < callBacks.size(); i++) {
                 callBacks.get(i).call(userInfoData);
             }
+        } else {
+            this.userInfoData = null;
+            sharedPrefsHelper.sharedPreferences.edit().remove(SharedPrefsHelper.USER_INFO_KEY).apply();
         }
     }
 
@@ -80,10 +90,10 @@ public class ServiceProfile {
         if (TextUtils.isEmpty(userId)) {
             return;
         }
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("user_id",getUserId());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("user_id", getUserId());
         WonderfulOkhttpUtils.get()
-                .url(UrlFactory.getProfile()+HUtils.toGetUri(hashMap))
+                .url(UrlFactory.getProfile() + HUtils.toGetUri(hashMap))
                 .build()
                 .getCall()
                 .enqueue(new GsonWalkDogCallBack<RemoteData<UserInfoData>>() {

@@ -7,7 +7,7 @@ import android.view.View;
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.databinding.ActivityRegisterBinding;
 
-public class RegisterActivity extends HBaseActivity {
+public class RegisterOrLoginActivity extends HBaseActivity {
     ActivityRegisterBinding binding;
 
     @Override
@@ -18,6 +18,7 @@ public class RegisterActivity extends HBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +31,7 @@ public class RegisterActivity extends HBaseActivity {
         binding.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this,RegisterPhoneActivity.class);
+                Intent intent = new Intent(RegisterOrLoginActivity.this, LoginPhoneActivity.class);
                 startActivity(intent);
             }
         });

@@ -13,7 +13,8 @@ import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivitySplashBinding;
 import com.hula.myapplication.view.HomeActivity;
-import com.hula.myapplication.view.login.RegisterActivity;
+import com.hula.myapplication.view.login.RegisterOrLoginActivity;
+import com.hula.myapplication.view.login.StartActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 
 import tim.com.libnetwork.base.BaseActivity;
@@ -27,13 +28,12 @@ public class HSplashActivity extends BaseActivity {
         public void run() {
             ServiceProfile service = HService.getService(ServiceProfile.class);
             UserInfoData userInfo = service.getUserInfo();
-            Intent intent;
             if (userInfo == null) {
-                intent = new Intent(HSplashActivity.this, RegisterActivity.class);
+                StartActivity.start(HSplashActivity.this);
             } else {
-                intent = new Intent(HSplashActivity.this, HomeActivity.class);
+                Intent intent = new Intent(HSplashActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
-            startActivity(intent);
             handler.removeCallbacks(this);
         }
     };

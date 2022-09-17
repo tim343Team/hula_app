@@ -17,7 +17,6 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.app.event.KeyEvent;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
-import com.hula.myapplication.dao.CategoriesDao;
 import com.hula.myapplication.dao.SaveEventsBean;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.home.Anthing;
@@ -25,7 +24,7 @@ import com.hula.myapplication.view.home.adapter.home.DiffMutiAdapter;
 import com.hula.myapplication.view.home.adapter.home.HomeViewDataAdapterData;
 import com.hula.myapplication.view.home.vm.AddNewEventVM;
 import com.hula.myapplication.view.home.vm.HomeVm;
-import com.hula.myapplication.view.login.RegisterActivity;
+import com.hula.myapplication.view.login.RegisterOrLoginActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.view.mine.profile.ProfileDetailActivity;
 import com.hula.myapplication.widget.HuLaActionBar;
@@ -87,7 +86,7 @@ public class HomeFragment extends BaseTransFragment {
         actionBar.setMenuClickListener(new HuLaActionBar.OnItemClickListener() {
             @Override
             public void onClick(int position, View view) {
-                Intent intent = new Intent(requireActivity(), RegisterActivity.class);
+                Intent intent = new Intent(requireActivity(), RegisterOrLoginActivity.class);
                 startActivity(intent);
             }
         });

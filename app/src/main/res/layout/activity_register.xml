@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawablePadding="10dp"
-            android:text="Use phone or email"
+            android:text="Use in with Phone"
             app:drawableStartCompat="@mipmap/icon_persion" />
 
     </FrameLayout>

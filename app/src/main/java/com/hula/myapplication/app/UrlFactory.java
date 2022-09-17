@@ -43,6 +43,10 @@ public class UrlFactory {
         return host + "/events/event_search";
     }
 
+    public static String login(){
+        return host +"/user/login";
+    }
+
     public static String getAllSections() {
         return host + "/events/get_all_sections";
     }

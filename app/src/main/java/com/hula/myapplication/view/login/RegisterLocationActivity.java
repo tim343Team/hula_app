@@ -2,6 +2,7 @@ package com.hula.myapplication.view.login;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.hula.myapplication.R;
 import com.hula.myapplication.databinding.ActivityRegisterLocationBinding;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.dialog.PermissonDialog;
 import com.permissionx.guolindev.callback.RequestCallback;
 
@@ -62,6 +64,13 @@ public class RegisterLocationActivity extends BaseActivity {
             }
         });
         binding.imageSwitch.setChecked(PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION));
+
+        binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeActivity.start(RegisterLocationActivity.this);
+            }
+        });
     }
 
     @Override

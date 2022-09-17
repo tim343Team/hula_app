@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.view.login.StartActivity;
 import com.hula.myapplication.view.mine.help.HelpActivity;
 import com.hula.myapplication.view.mine.preferences.PreferenceActivity;
 import com.hula.myapplication.view.mine.privacy.PrivacyActivity;
@@ -80,7 +81,7 @@ public class MineFragment extends BaseTransFragment {
         rootView.findViewById(R.id.ll_log_out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                StartActivity.start(requireActivity());
             }
         });
     }
