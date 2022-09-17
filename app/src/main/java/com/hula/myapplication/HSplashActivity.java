@@ -52,7 +52,9 @@ public class HSplashActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         ServiceProfile service = HService.getService(ServiceProfile.class);
-        service.refresh();
+        if (!service.getToken().isEmpty()){
+            service.refresh();
+        }
         handler.postDelayed(startNext, 3000);
         service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
             @Override
