@@ -28,7 +28,7 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getDefaultProfileTag(DataCallback dataCallback) {
-        WonderfulOkhttpUtils.get().url(UrlFactory.getDefaultProfileTags())
+        WonderfulOkhttpUtils.post().url(UrlFactory.getDefaultProfileTags())
                 .build()
                 .execute(new StringCallBack() {
                     @Override
