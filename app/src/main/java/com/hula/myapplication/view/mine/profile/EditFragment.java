@@ -16,6 +16,7 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
+import com.hula.myapplication.app.Injection;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.SubCategoriesDao;
@@ -40,8 +41,9 @@ import java.util.List;
 import tim.com.libnetwork.base.BaseLazyFragment;
 import tim.com.libnetwork.utils.DateTimeUtil;
 
-public class EditFragment extends BaseLazyFragment {
+public class EditFragment extends BaseLazyFragment implements ProfileContract.ProfileView{
     private FragmentMineEditBinding binding;
+    private ProfileContract.ProfilePresenter presenter;
     private View llAboutMe;
     private EditText editAboutMe;
     private TextView tvEditLength;
@@ -99,6 +101,7 @@ public class EditFragment extends BaseLazyFragment {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        presenter = new ProfilePresenter(Injection.provideTasksRepository(getmActivity()), this);//初始化presenter
         llAboutMe = binding.llAboutMe;
         editAboutMe = binding.editAboutMe;
         tvEditLength = binding.tvEditLength;
@@ -274,16 +277,7 @@ public class EditFragment extends BaseLazyFragment {
 
     @Override
     protected void loadData() {
-
-
-//        ServiceProfile service = HService.getService(ServiceProfile.class);
-//        service.refresh();
-//        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
-//            @Override
-//            public void call(UserInfoData userInfoData) {
-//                handler.post(startNext);
-//            }
-//        });
+        presenter.getDefaultProfileTag();
     }
 
     @Override
@@ -343,5 +337,15 @@ public class EditFragment extends BaseLazyFragment {
                 ChooseInterActivity.actionStart(getmActivity());
             }
         });
+    }
+
+    @Override
+    public void getFail(Integer code, String toastMessage) {
+
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.ProfilePresenter presenter) {
+        this.presenter=presenter;
     }
 }
