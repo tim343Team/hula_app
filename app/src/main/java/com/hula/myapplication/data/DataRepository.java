@@ -21,4 +21,9 @@ public class DataRepository implements DataSource {
     }
 
 
+    @Override
+    public void getDefaultProfileTag(DataCallback dataCallback) {
+        if (isLocal) mLocalDataSource.getDefaultProfileTag(dataCallback);
+        else mRemoteDataSource.getDefaultProfileTag(dataCallback);
+    }
 }

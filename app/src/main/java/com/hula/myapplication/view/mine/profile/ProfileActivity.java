@@ -3,13 +3,22 @@ package com.hula.myapplication.view.mine.profile;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.hula.myapplication.HSplashActivity;
 import com.hula.myapplication.adapter.PagerAdapter;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivityProfileBinding;
+import com.hula.myapplication.view.HomeActivity;
+import com.hula.myapplication.view.login.RegisterActivity;
+import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -65,6 +74,18 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void obtainData() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        service.refresh();
+        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
+            @Override
+            public void call(UserInfoData userInfoData) {
+            }
+        });
     }
 
     @Override

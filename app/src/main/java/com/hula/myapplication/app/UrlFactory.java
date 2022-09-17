@@ -46,4 +46,9 @@ public class UrlFactory {
     public static String getAllSections() {
         return host + "/events/get_all_sections";
     }
+
+    //获取默认profile tag
+    public static String getDefaultProfileTags() {
+        return host + "/user/get_default_profile_tags";
+    }
 }

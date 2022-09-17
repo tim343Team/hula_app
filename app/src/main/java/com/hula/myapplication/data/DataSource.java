@@ -8,4 +8,7 @@ public interface DataSource {
 
         void onDataNotAvailable(Integer code, String toastMessage);
     }
+
+    void getDefaultProfileTag(DataCallback dataCallback);
+
 }

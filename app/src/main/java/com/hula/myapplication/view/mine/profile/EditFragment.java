@@ -29,6 +29,7 @@ import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
 import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
+import com.hula.myapplication.widget.HuCallBack1;
 import com.library.flowlayout.FlowLayoutManager;
 
 import java.util.ArrayList;
@@ -74,6 +75,26 @@ public class EditFragment extends BaseLazyFragment {
     @Override
     protected void init() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        HService.getService(ServiceProfile.class).asyncGetUserInfo().onGet(new SafeGet.SafeCall<UserInfoData>() {
+//            @Override
+//            public void call(UserInfoData userInfoData) {
+//                //TODO
+//                updateView(userInfoData);
+//            }
+//        });
+//        ServiceProfile service = HService.getService(ServiceProfile.class);
+//        service.refresh();
+//        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
+//            @Override
+//            public void call(UserInfoData userInfoData) {
+//                updateView(userInfoData);
+//            }
+//        });
     }
 
     @Override
@@ -253,13 +274,7 @@ public class EditFragment extends BaseLazyFragment {
 
     @Override
     protected void loadData() {
-        HService.getService(ServiceProfile.class).asyncGetUserInfo().onGet(new SafeGet.SafeCall<UserInfoData>() {
-            @Override
-            public void call(UserInfoData userInfoData) {
-                //TODO
 
-            }
-        });
 
 //        ServiceProfile service = HService.getService(ServiceProfile.class);
 //        service.refresh();
@@ -281,6 +296,17 @@ public class EditFragment extends BaseLazyFragment {
 
     }
 
+    private void updateView(UserInfoData userInfoData){
+        if(userInfoData==null){
+            return;
+        }
+        binding.tvName.setText(userInfoData.getDisplayName());
+        binding.tvAge.setText(userInfoData.getAge()+"");
+        binding.tvSchool.setText(userInfoData.getSchool());
+        binding.tvJobTitle.setText("");//TODO 哪个字段
+        binding.tvDrink.setText(userInfoData.getDrink());
+    }
+
     private void onSelectDate() {
         if (selectDate == null) {
             binding.tvAge.setText("");
@@ -294,7 +320,7 @@ public class EditFragment extends BaseLazyFragment {
     private void initRecyclerViewProfile() {
         subProfileDaos.add(new SubProfileDao());
         recyclerProfile.setLayoutManager(new FlowLayoutManager());
-        profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos,true);
+        profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos, true);
         profileSettingAdapter.bindToRecyclerView(recyclerProfile);
         profileSettingAdapter.setEnableLoadMore(false);
         profileSettingAdapter.AddListenerItem(new ProfileSettingAdapter.AddListenerItem() {
