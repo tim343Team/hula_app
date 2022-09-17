@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "25866640859-f620mte5oevqoeoaqm9tgc5h2crlsdtu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hula.myapplication",
+            "certificate_hash": "18b3a18d2517d37860be10ad1d7a1f672707b797"
+          }
+        },
+        {
           "client_id": "25866640859-81ijodq1hcvp12s25vei9nhsjt9i15dq.apps.googleusercontent.com",
           "client_type": 3
         }

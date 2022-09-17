@@ -113,7 +113,7 @@ public class AddNewEventActivity extends HBaseActivity {
             HUtils.selectPic(AddNewEventActivity.this, 10 - imageAdapter.getData().size(), new HuCallBack1<List<String>>() {
                 @Override
                 public void call(List<String> strings) {
-                    viewmodel.addPic(strings);
+                    imageAdapter.addData(strings);
                 }
             });
 
@@ -169,6 +169,9 @@ public class AddNewEventActivity extends HBaseActivity {
         viewmodel.des.setValue(binding.tvDes.getText().toString().trim());
         viewmodel.link.setValue(binding.editLink.getText().toString().trim());
         viewmodel.price.setValue(binding.editPrice.getText().toString().trim());
+        viewmodel.pics.addAll(imageAdapter.getData());
+
+
         int checkedRadioButtonId = binding.groupRadio.getCheckedRadioButtonId();
         if (checkedRadioButtonId != -1) {
             viewmodel.createType.setValue(checkedRadioButtonId == binding.rbtn0.getId() ? 0 : 1);
@@ -208,15 +211,6 @@ public class AddNewEventActivity extends HBaseActivity {
         viewmodel.cityLD.observe(this, cityDao -> {
             binding.tvCity.setText(cityDao.getName());
             checkSubmit();
-        });
-        viewmodel.pics.observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                if (imageAdapter.getData().isEmpty()) {
-                    imageAdapter.addData(strings);
-                    onImageSizeChange();
-                }
-            }
         });
         viewmodel.name.observe(this, new Observer<String>() {
             @Override
@@ -313,10 +307,6 @@ public class AddNewEventActivity extends HBaseActivity {
                 public void onClick(View v) {
                     remove(helper.getAbsoluteAdapterPosition());
                     onImageSizeChange();
-                    List<String> value = viewmodel.pics.getValue();
-                    if (value!=null){
-                        value.remove(item);
-                    }
                 }
             });
             imageView.setShowDelect(true);

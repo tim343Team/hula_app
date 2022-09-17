@@ -3,7 +3,6 @@ package com.hula.myapplication.app.firebase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
-import com.google.firebase.storage.ktx.storageMetadata
 import com.hula.myapplication.app.service.HService
 import com.hula.myapplication.app.service.ServiceProfile
 import java.io.FileInputStream
@@ -11,8 +10,7 @@ import java.io.InputStream
 import java.util.*
 
 object HulaFirebaseStorage {
-
-    private val storage = Firebase.storage
+    private val storage = Firebase.storage("gs://eventbuddies-staging.appspot.com")
 
     val profilePath = "profile/"
     val myEventsPath = "my_events/"
@@ -24,14 +22,9 @@ object HulaFirebaseStorage {
 
     @JvmStatic
     fun update(datePath: String, inputStream: InputStream): UploadTask {
-        val storageRef = storage.getReferenceFromUrl("gs://eventbuddies-staging.appspot.com/$datePath")
-        // Create a reference to "mountains.jpg"
-        val metadata = storageMetadata {
-//            setCustomMetadata("contentType","image/jpeg",)
-//            setCustomMetadata("name",datePath)
-//            contentType = ""
-        }
-        return storageRef.putStream(inputStream,metadata)
+        val reference = storage.reference
+        val storageRef = reference.child(datePath)
+        return storageRef.putStream(inputStream)
     }
 
 
@@ -47,7 +40,7 @@ object HulaFirebaseStorage {
 
     fun userDir(): String {
         val service = HService.getService(ServiceProfile::class.java)
-        return "${service.userInfo?.user?.firstName ?: ""}_${service.userId}"
+        return "${service.userInfo?.user?.firstName ?: "android"}_${service.userId}"
     }
 
 

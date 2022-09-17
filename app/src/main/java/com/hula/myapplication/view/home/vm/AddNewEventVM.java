@@ -25,6 +25,8 @@ import com.hula.myapplication.util.ThreadUtils;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -48,13 +50,15 @@ public class AddNewEventVM extends ViewModel {
 
     public MutableLiveData<String> des = new MutableLiveData<>();
 
-    public MutableLiveData<List<String>> pics = new MutableLiveData<>();
+    public List<String> pics = new ArrayList<>();
 
     public MutableLiveData<String> link = new MutableLiveData<>();
 
     public MutableLiveData<String> price = new MutableLiveData<>();
 
     public MutableLiveData<Integer> createType = new MutableLiveData<>();
+
+    private  List<UploadTask> uploadTasks = new ArrayList<>();
 
     public AddNewEventVM() {
         restore(new HuCallBack1<Map<String, Object>>() {
@@ -81,11 +85,6 @@ public class AddNewEventVM extends ViewModel {
                 String descriptionStr = (String) map.get("description");
                 if (descriptionStr != null) {
                     des.setValue(descriptionStr);
-                }
-                String image_link = (String) map.get("image_link");
-                if (image_link != null) {
-                    String[] split = image_link.split(",");
-                    pics.setValue(Arrays.asList(split));
                 }
                 String event_url = (String) map.get("event_url");
                 if (event_url != null) {
@@ -124,6 +123,7 @@ public class AddNewEventVM extends ViewModel {
             return;
         }
         request.remove("city");
+        request.remove("image_link");
         request.remove("sub_category");
         String s = GsonUtils.toJson(request);
         SharedPrefsHelper.getInstance().sharedPreferences.edit()
@@ -230,7 +230,7 @@ public class AddNewEventVM extends ViewModel {
             request.put("description", desStr);
         }
 
-        List<String> picsList = pics.getValue();
+        List<String> picsList = pics;
         if (picsList != null && !picsList.isEmpty()) {
             completeNum++;
             request.put("image_link", CollectionUtils.joinToString(picsList, ",", new HuCallBack1.HuCallBackR<String, String>() {
@@ -262,13 +262,16 @@ public class AddNewEventVM extends ViewModel {
     }
 
     public void submit() {
-        List<String> value = pics.getValue();
+        List<String> value = pics;
         if (value == null) {
             return;
         }
         Map<Integer, String> maps = new HashMap<>();
         for (int i = 0; i < value.size(); i++) {
-            maps.put(i,value.get(i));
+            String s = value.get(i);
+            if (!s.startsWith("http")){
+                maps.put(i,value.get(i));
+            }
         }
         updateFile(maps, new HuCallBack1<Boolean>() {
             @Override
@@ -278,12 +281,19 @@ public class AddNewEventVM extends ViewModel {
         });
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        for (int i = 0; i < uploadTasks.size(); i++) {
+            uploadTasks.remove(i).cancel();
+        }
+    }
 
     private void updateFile(Map<Integer, String> map, HuCallBack1<Boolean> callBack) {
         ToastUtil.showLoading("put photo...");
         final int[] successNum = {0};
         final boolean[] isFail = {false};
-        List<UploadTask> uploadTasks = new ArrayList<>();
+
         for (Integer next : map.keySet()) {
             String filePath = map.get(next);
             if (filePath != null) {
@@ -319,14 +329,7 @@ public class AddNewEventVM extends ViewModel {
                         });
             }
         }
+
     }
 
-    public void addPic(List<String> strings) {
-        List<String> value = pics.getValue();
-        if (value==null){
-            value = new ArrayList<>();
-        }
-        value.addAll(strings);
-        pics.setValue(value);
-    }
 }
