@@ -1,14 +1,14 @@
 package com.hula.myapplication.dao;
 
 public class User{
-	private String lastName;
+	private String last_name;
 	private int id;
-	private String firstName;
+	private String first_name;
 	private String email;
 	private String username;
 
 	public String getLastName(){
-		return lastName;
+		return last_name;
 	}
 
 	public int getId(){
@@ -16,7 +16,7 @@ public class User{
 	}
 
 	public String getFirstName(){
-		return firstName;
+		return first_name;
 	}
 
 	public String getEmail(){

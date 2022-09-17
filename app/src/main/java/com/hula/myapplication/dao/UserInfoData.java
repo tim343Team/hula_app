@@ -39,7 +39,7 @@ public class UserInfoData {
     private Object location;
     private Object interests;
     private User user;
-    private boolean drinkIsPublic;
+    private boolean drink_is_public;
     private int age;
 
     public Object getIsEventVisited(){
@@ -187,7 +187,7 @@ public class UserInfoData {
     }
 
     public boolean isDrinkIsPublic(){
-        return drinkIsPublic;
+        return drink_is_public;
     }
 
     public int getAge(){

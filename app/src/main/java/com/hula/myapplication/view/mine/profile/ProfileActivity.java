@@ -109,6 +109,11 @@ public class ProfileActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
     private void setView() {
         tabs.clear();
         fragments.clear();

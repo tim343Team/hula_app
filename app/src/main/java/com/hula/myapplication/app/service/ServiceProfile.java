@@ -109,7 +109,7 @@ public class ServiceProfile {
 
     public void addRefreshListener(LifecycleOwner owner, HuCallBack1<UserInfoData> callBack) {
         callBacks.add(callBack);
-        owner.getLifecycle().removeObserver(new LifecycleEventObserver() {
+        owner.getLifecycle().addObserver(new LifecycleEventObserver() {
             @Override
             public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
                 if (event.equals(Lifecycle.Event.ON_DESTROY)) {
