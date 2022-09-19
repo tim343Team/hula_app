@@ -1,6 +1,8 @@
 package com.hula.myapplication.dao;
 
-public class BrowsingCity{
+import java.io.Serializable;
+
+public class BrowsingCity implements Serializable {
 	private String pinLocation;
 	private String name;
 	private int id;

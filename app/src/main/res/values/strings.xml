@@ -89,6 +89,10 @@
     <string name="event_attend_">Events Attended (%s)</string>
     <string name="event_buck_list">Event Bucket List </string>
     <string name="both_like">You and [Name] both like...</string>
+    <string name="display_name_error">Please enter the display Name</string>
+    <string name="my_school_name_error">Please enter the school Name</string>
+    <string name="my_occupation_error">Please enter the occupation</string>
+    <string name="my_drink_of_choice_error">Please enter the My drink</string>
 
     <!--Preference-->
     <string name="preference_notice_1">To edit, just select choice below</string>

@@ -1,6 +1,8 @@
 package com.hula.myapplication.dao;
 
-public class User{
+import java.io.Serializable;
+
+public class User implements Serializable {
 	private String last_name;
 	private int id;
 	private String first_name;

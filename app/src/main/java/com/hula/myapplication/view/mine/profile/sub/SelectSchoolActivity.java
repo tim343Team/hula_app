@@ -3,17 +3,24 @@ package com.hula.myapplication.view.mine.profile.sub;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hula.myapplication.adapter.SchoolDaoAdapter;
+import com.hula.myapplication.bus_event.UpdateSchoolEvent;
 import com.hula.myapplication.dao.SchoolDao;
 import com.hula.myapplication.databinding.ActivitySelectSchoolBinding;
 import com.hula.myapplication.databinding.ActivitySettingWorkBinding;
 import com.hula.myapplication.widget.ColorItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +29,10 @@ import tim.com.libnetwork.base.BaseActivity;
 
 public class SelectSchoolActivity extends BaseActivity {
     private ActivitySelectSchoolBinding binding;
+    private EditText editSchool;
     private RecyclerView recyclerView;
     private SchoolDaoAdapter adapter;
-    private List<SchoolDao> data=new ArrayList<>();
+    private List<SchoolDao> data = new ArrayList<>();
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, SelectSchoolActivity.class);
@@ -44,18 +52,34 @@ public class SelectSchoolActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        recyclerView=binding.recyclerView;
+        recyclerView = binding.recyclerView;
+        editSchool = binding.editSchool;
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        editSchool.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //执行对应的操作
+                    if(editSchool.getText().toString().isEmpty()){
+                        return true;
+                    }
+                    EventBus.getDefault().post(new UpdateSchoolEvent(editSchool.getText().toString()));
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
         //TODO 测试数据
-        for (int i=0;i<6;i++){
+        for (int i = 0; i < 6; i++) {
             data.add(new SchoolDao());
         }
-        adapter=new SchoolDaoAdapter(data);
+        adapter = new SchoolDaoAdapter(data);
         recyclerView.addItemDecoration(new ColorItemDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -95,7 +119,7 @@ public class SelectSchoolActivity extends BaseActivity {
 //        pageNo = pageNo + 1;
     }
 
-    private void loadData(List<SchoolDao> data){
+    private void loadData(List<SchoolDao> data) {
         adapter.loadMoreComplete();
 //        if (refreshLayout == null) {
 //            return;

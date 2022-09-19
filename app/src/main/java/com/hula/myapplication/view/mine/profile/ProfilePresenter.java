@@ -1,5 +1,6 @@
 package com.hula.myapplication.view.mine.profile;
 
+import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.data.DataSource;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ProfilePresenter implements  ProfileContract.ProfilePresenter{
         dataRepository.getDefaultProfileTag(new DataSource.DataCallback() {
             @Override
             public void onDataLoaded(Object obj) {
-//                view.getBoxtSuccess((List<DogBoxDao>) obj);
+                view.getDefaultProfileTagSuccess((List<ProfileTagDao>) obj);
             }
 
             @Override
