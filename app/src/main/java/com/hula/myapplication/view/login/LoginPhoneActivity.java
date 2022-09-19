@@ -48,11 +48,14 @@ public class LoginPhoneActivity extends HBaseActivity {
     private ActivityLoginPhoneBinding binding;
     String verificationId;
     PhoneAuthProvider.ForceResendingToken forceResendingToken;
-    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private  FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseAuth.getInstance().getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
+        mAuth = FirebaseAuth.getInstance();
         binding = ActivityLoginPhoneBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.editPhone.addTextChangedListener(new SimTextWatcher() {
@@ -66,7 +69,7 @@ public class LoginPhoneActivity extends HBaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
-                if (binding.editPhone.getText().length() != 10) {
+                if (binding.editPhone.getText().length() != 10 || forceResendingToken == null) {
                     return;
                 }
                 binding.tvConfirm.setEnabled(s.length() == 6);
@@ -129,7 +132,6 @@ public class LoginPhoneActivity extends HBaseActivity {
     }
 
     private void sendCode(String phoneNumber, PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phoneNumber)       // Phone number to verify
