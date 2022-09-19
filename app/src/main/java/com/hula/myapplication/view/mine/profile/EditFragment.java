@@ -17,8 +17,14 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.app.Injection;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
+import com.hula.myapplication.dao.ProfileTagDao;
+import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.SubProfileDao;
 import com.hula.myapplication.dao.UserInfoData;
@@ -33,15 +39,20 @@ import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.library.flowlayout.FlowLayoutManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import tim.com.libnetwork.base.BaseLazyFragment;
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 import tim.com.libnetwork.utils.DateTimeUtil;
 
-public class EditFragment extends BaseLazyFragment implements ProfileContract.ProfileView{
+public class EditFragment extends BaseLazyFragment implements ProfileContract.ProfileView {
     private FragmentMineEditBinding binding;
     private ProfileContract.ProfilePresenter presenter;
     private View llAboutMe;
@@ -55,6 +66,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     private List<SubCategoriesDao> subCategoriesDaos = new ArrayList<>();
     private List<SubProfileDao> subProfileDaos = new ArrayList<>();
     private Date selectDate;
+    private UserInfoData userInfoData;
 
     public static EditFragment getInstance() {
         EditFragment fragment = new EditFragment();
@@ -76,27 +88,19 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     @Override
     protected void init() {
+        EventBus.getDefault().register(this);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(UpdateUserInfoEvent event) {
+        //刷新
+        userInfoData=event.getUserInfoData();
+        updateView();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        HService.getService(ServiceProfile.class).asyncGetUserInfo().onGet(new SafeGet.SafeCall<UserInfoData>() {
-//            @Override
-//            public void call(UserInfoData userInfoData) {
-//                //TODO
-//                updateView(userInfoData);
-//            }
-//        });
-//        ServiceProfile service = HService.getService(ServiceProfile.class);
-//        service.refresh();
-//        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
-//            @Override
-//            public void call(UserInfoData userInfoData) {
-//                updateView(userInfoData);
-//            }
-//        });
     }
 
     @Override
@@ -206,7 +210,10 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         binding.llName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditNameActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                EditNameActivity.actionStart(getmActivity(),userInfoData);
             }
         });
         binding.llAge.setOnClickListener(new View.OnClickListener() {
@@ -246,19 +253,28 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         binding.llSchool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditSchoolActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                EditSchoolActivity.actionStart(getmActivity(),userInfoData);
             }
         });
         binding.llJobTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditWorkActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                EditWorkActivity.actionStart(getmActivity(),userInfoData);
             }
         });
         binding.llDrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditDrinkActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                EditDrinkActivity.actionStart(getmActivity(),userInfoData);
             }
         });
         initRecyclerViewProfile();
@@ -290,15 +306,16 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     }
 
-    private void updateView(UserInfoData userInfoData){
-        if(userInfoData==null){
+    private void updateView() {
+        if (userInfoData == null) {
             return;
         }
         binding.tvName.setText(userInfoData.getDisplayName());
-        binding.tvAge.setText(userInfoData.getAge()+"");
+        binding.tvAge.setText(userInfoData.getAge() + "");
         binding.tvSchool.setText(userInfoData.getSchool());
-        binding.tvJobTitle.setText("");//TODO 哪个字段
+        binding.tvJobTitle.setText(userInfoData.getWork());
         binding.tvDrink.setText(userInfoData.getDrink());
+        binding.editAboutMe.setText(userInfoData.getAbout());
     }
 
     private void onSelectDate() {
@@ -308,7 +325,9 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(selectDate);
-        binding.tvAge.setText(DateTimeUtil.getAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)) + "");
+        int age=DateTimeUtil.getAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+        userInfoData.setAge(age);
+        updateView();
     }
 
     private void initRecyclerViewProfile() {
@@ -345,7 +364,17 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     }
 
     @Override
+    public void getDefaultProfileTagSuccess(List<ProfileTagDao> obj) {
+        obj.size();
+    }
+
+    @Override
     public void setPresenter(ProfileContract.ProfilePresenter presenter) {
-        this.presenter=presenter;
+        this.presenter = presenter;
+    }
+
+    public void updateUserInfo(UserInfoData userInfoData) {
+        this.userInfoData = userInfoData;
+        updateView();
     }
 }

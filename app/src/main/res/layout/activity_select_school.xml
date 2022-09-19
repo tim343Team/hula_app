@@ -60,9 +60,13 @@
         android:orientation="vertical"
         android:padding="@dimen/dimen_16">
 
-        <TextView
+        <EditText
+            android:id="@+id/edit_school"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_40"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:inputType="text"
             android:gravity="center_vertical"
             android:paddingHorizontal="16dp"
             android:hint="@string/select_add_school_hint"

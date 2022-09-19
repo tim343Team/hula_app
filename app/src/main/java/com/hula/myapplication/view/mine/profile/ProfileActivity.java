@@ -74,13 +74,6 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ServiceProfile service = HService.getService(ServiceProfile.class);
-        service.refresh();
-        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
-            @Override
-            public void call(UserInfoData userInfoData) {
-            }
-        });
     }
 
     @Override
@@ -101,7 +94,16 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        service.refresh();
+        service.addRefreshListener(this, new HuCallBack1<UserInfoData>() {
+            @Override
+            public void call(UserInfoData userInfoData) {
+                if (subFragment2 != null) {
+                    subFragment2.updateUserInfo(userInfoData);
+                }
+            }
+        });
     }
 
     @Override

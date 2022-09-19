@@ -109,6 +109,7 @@
                 android:textStyle="bold" />
 
             <tim.com.libnetwork.view.switchbuttom.SwitchButton
+                android:id="@+id/image_switch"
                 android:layout_width="65dp"
                 android:layout_height="31dp"
                 app:sb_checked="false"
