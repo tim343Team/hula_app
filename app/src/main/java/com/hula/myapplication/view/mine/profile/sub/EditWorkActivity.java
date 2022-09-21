@@ -46,7 +46,7 @@ public class EditWorkActivity extends BaseActivity {
         userInfoData = (UserInfoData) getIntent().getSerializableExtra("userInfoData");
         editName = binding.editName;
         imageSwitch = binding.imageSwitch;
-        imageSwitch.setChecked(!userInfoData.isWorkIsPublic());
+        imageSwitch.setChecked(!userInfoData.isWork_is_public());
         editName.setText(userInfoData.getWork());
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class EditWorkActivity extends BaseActivity {
                     return;
                 }
                 userInfoData.setWork(editName.getText().toString());
-                userInfoData.setWorkIsPublic(!imageSwitch.isChecked());
+                userInfoData.setWork_is_public(!imageSwitch.isChecked());
                 EventBus.getDefault().post(new UpdateUserInfoEvent(userInfoData));
                 finish();
             }

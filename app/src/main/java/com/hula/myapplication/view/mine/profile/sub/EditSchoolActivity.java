@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hula.myapplication.R;
 import com.hula.myapplication.bus_event.UpdateSchoolEvent;
 import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
+import com.hula.myapplication.dao.SchoolDao;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivitySettingNameBinding;
 import com.hula.myapplication.databinding.ActivitySettingSchoolBinding;
@@ -27,6 +28,7 @@ public class EditSchoolActivity extends BaseActivity {
     private UserInfoData userInfoData;
     private TextView editName;
     private SwitchButton imageSwitch;
+    private SchoolDao schoolDao;
 
     public static void actionStart(Activity activity, UserInfoData userInfoData) {
         Intent intent = new Intent(activity, EditSchoolActivity.class);
@@ -51,8 +53,9 @@ public class EditSchoolActivity extends BaseActivity {
         userInfoData = (UserInfoData) getIntent().getSerializableExtra("userInfoData");
         editName = binding.tvName;
         imageSwitch = binding.imageSwitch;
-        imageSwitch.setChecked(!userInfoData.isSchoolIsPublic());
-        editName.setText(userInfoData.getSchool());
+        imageSwitch.setChecked(!userInfoData.isSchool_is_public());
+        schoolDao = userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0) : null;
+        editName.setText(userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0).getName() : "");
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,12 +72,13 @@ public class EditSchoolActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //更新主页
-                if (editName.getText().toString().isEmpty()) {
+                if (schoolDao == null) {
                     ToastUtil.showToast(getResources().getString(R.string.my_school_name_error));
                     return;
                 }
+                userInfoData.getMy_schools().add(schoolDao);
                 userInfoData.setSchool(editName.getText().toString());
-                userInfoData.setSchoolIsPublic(!imageSwitch.isChecked());
+                userInfoData.setSchool_is_public(!imageSwitch.isChecked());
                 EventBus.getDefault().post(new UpdateUserInfoEvent(userInfoData));
                 finish();
             }
@@ -98,7 +102,7 @@ public class EditSchoolActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateData(UpdateSchoolEvent event) {
-        editName.setText(event.getSchool());
-        userInfoData.setSchool(event.getSchool());
+        editName.setText(event.getSchool().getName());
+        schoolDao = event.getSchool();
     }
 }

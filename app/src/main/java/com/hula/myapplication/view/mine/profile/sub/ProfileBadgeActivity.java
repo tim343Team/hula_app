@@ -12,20 +12,45 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.Injection;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
+import com.hula.myapplication.dao.ProfileTagDao;
+import com.hula.myapplication.dao.SchoolDao;
+import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivityProfileBadgeBinding;
+import com.hula.myapplication.request.CreateProfileParameter;
 import com.hula.myapplication.widget.htoast.ToastUtil;
+
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import tim.com.libnetwork.base.BaseActivity;
 
-public class ProfileBadgeActivity extends BaseActivity {
+public class ProfileBadgeActivity extends BaseActivity implements ProfileSettingContract.ProfileSettingView{
     private ActivityProfileBadgeBinding binding;
     private EditText editProfile;
     private TextView tvEditLength;
     private TextView tvSave;
     private TextView tvDelete;
+    private ProfileSettingContract.ProfileSettingPresenter presenter;
+    private UserInfoData userInfoData;
+    private int tagId;
 
-    public static void actionStart(Activity activity) {
+    public static void actionStart(Activity activity, UserInfoData userInfoData) {
         Intent intent = new Intent(activity, ProfileBadgeActivity.class);
+        intent.putExtra("userInfoData", userInfoData);
+        activity.startActivity(intent);
+    }
+
+    public static void actionStart(Activity activity,UserInfoData userInfoData, int tagId,String name) {
+        Intent intent = new Intent(activity, ProfileBadgeActivity.class);
+        intent.putExtra("userInfoData", userInfoData);
+        intent.putExtra("tagId", tagId);
+        intent.putExtra("name", name);
         activity.startActivity(intent);
     }
 
@@ -42,10 +67,24 @@ public class ProfileBadgeActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        presenter = new ProfileSettingPresenter(Injection.provideTasksRepository(getApplicationContext()), this);//初始化presenter
+        userInfoData = (UserInfoData) getIntent().getSerializableExtra("userInfoData");
+        tagId = getIntent().getIntExtra("tagId",0);
         editProfile = binding.editProfile;
         tvEditLength = binding.tvEditLength;
         tvSave = binding.tvSave;
         tvDelete = binding.tvDelete;
+        if(tagId==0){
+            //添加
+            tvSave.setVisibility(View.VISIBLE);
+            tvDelete.setVisibility(View.GONE);
+        }else {
+            //删除
+            tvSave.setVisibility(View.GONE);
+            tvDelete.setVisibility(View.VISIBLE);
+            editProfile.setEnabled(false);
+            editProfile.setText(getIntent().getStringExtra("name"));
+        }
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,13 +131,22 @@ public class ProfileBadgeActivity extends BaseActivity {
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 删除tag
+                //删除tag
+                if(tagId==0){
+                    return;
+                }
+                ServiceProfile service = HService.getService(ServiceProfile.class);
+                ToastUtil.showLoading("");
+                presenter.deleteProfileTag(new CreateProfileParameter(service.getUserId(),tagId));
             }
         });
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 添加tag
+                //添加tag
+                ServiceProfile service = HService.getService(ServiceProfile.class);
+                ToastUtil.showLoading("");
+                presenter.createProfileTag(new CreateProfileParameter(service.getUserId(),editProfile.getText().toString()));
             }
         });
     }
@@ -115,6 +163,35 @@ public class ProfileBadgeActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+    }
 
+    @Override
+    public void getFail(Integer code, String toastMessage) {
+        ToastUtil.hideLoading();
+    }
+
+    @Override
+    public void getProfileSuccess(List<ProfileTagDao> daos) {
+        //更新上级页面
+        ToastUtil.hideLoading();
+        userInfoData.setMy_profile_tags(daos);
+        EventBus.getDefault().post(new UpdateUserInfoEvent(userInfoData));
+        finish();
+    }
+
+    @Override
+    public void getSchoolSuccess(List<SchoolDao> daos) {
+
+    }
+
+    @Override
+    public void addSchoolSuccess(SchoolDao daos) {
+
+    }
+
+
+    @Override
+    public void setPresenter(ProfileSettingContract.ProfileSettingPresenter presenter) {
+        this.presenter=presenter;
     }
 }
