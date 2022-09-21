@@ -1,27 +1,22 @@
 package com.hula.myapplication.view.login;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.NotificationUtils;
+import com.blankj.utilcode.util.PermissionUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
-import com.hula.myapplication.base.picselect.GlideImageEngine;
-import com.hula.myapplication.base.picselect.LubanCompressFileEngine;
 import com.hula.myapplication.databinding.ActivityRegisterIntroBinding;
-import com.hula.myapplication.databinding.ActivityRegisterPicBinding;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.ColorItemDecoration;
-import com.luck.picture.lib.basic.PictureSelector;
-import com.luck.picture.lib.config.SelectMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.interfaces.OnResultCallbackListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +58,7 @@ public class RegisterIntroActivity extends BaseActivity {
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterIntroActivity.this, RegisterNotificationActivity.class);
-                startActivity(intent);
+                updateProfile();
             }
         });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,7 +88,47 @@ public class RegisterIntroActivity extends BaseActivity {
             }
         });
         binding.recyclerView.setAdapter(adapter);
-        adapter.setNewData(anyThings.subList(0,3));
+        adapter.setNewData(anyThings.subList(0, 3));
+
+        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        if (!RegisterNextPageHelp.canFinish(4)) {
+            binding.tvBack.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void updateProfile() {
+
+        if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterIntroActivity.this, 5, false)) {
+            if (RegisterNextPageHelp.getminPage() == 1) {
+                //可以返回到填写邮箱页的话，就是注册，这个时候应该填写邀请码
+                Intent intent = new Intent(RegisterIntroActivity.this,RegisterInviteCodeActivity.class);
+                startActivity(intent);
+                return;
+            }
+            if (!NotificationUtils.areNotificationsEnabled()) {
+                Intent intent = new Intent(RegisterIntroActivity.this, RegisterNotificationActivity.class);
+                RegisterIntroActivity.this.startActivity(intent);
+                return;
+            }
+            if (!PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                Intent intent = new Intent(RegisterIntroActivity.this, RegisterLocationActivity.class);
+                RegisterIntroActivity.this.startActivity(intent);
+                return;
+            }
+            HomeActivity.start(RegisterIntroActivity.this);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (RegisterNextPageHelp.canFinish(4)) {
+            super.onBackPressed();
+        }
     }
 
     @Override

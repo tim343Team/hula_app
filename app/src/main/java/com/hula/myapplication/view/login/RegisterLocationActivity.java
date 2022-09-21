@@ -92,4 +92,9 @@ public class RegisterLocationActivity extends BaseActivity {
     protected void loadData() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

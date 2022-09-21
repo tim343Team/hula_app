@@ -36,7 +36,7 @@ public class UserInfoData implements Serializable {
     private String phone;
     private String dob;
     private Object hasBlockedMe;
-    private List<Object> myPhotos;
+    private List<Object> my_photos;
     private Object location;
     private Object interests;
     private User user;
@@ -172,7 +172,7 @@ public class UserInfoData implements Serializable {
     }
 
     public List<Object> getMyPhotos(){
-        return myPhotos;
+        return my_photos;
     }
 
     public Object getLocation(){

@@ -26,6 +26,7 @@ import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.databinding.ActivityRegisterFavoriteBinding;
 import com.hula.myapplication.databinding.ItemFavoriteGroupBinding;
 import com.hula.myapplication.util.CollectionUtils;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.ColorItemDecoration;
 import com.hula.myapplication.widget.GrapItemDecoration;
 import com.hula.myapplication.widget.HuCallBack1;
@@ -71,18 +72,29 @@ public class RegisterFavoriteActivity extends HBaseActivity {
                 finish();
             }
         });
+        if (!RegisterNextPageHelp.canFinish(2)){
+            binding.tvBack.setVisibility(View.INVISIBLE);
+        }
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HService.getService(PageDataHoldService.class).add("RegisterFavoriteActivity",categoriesDaoAdapter.select);
-                Intent intent = new Intent(RegisterFavoriteActivity.this, RegisterPicActivity.class);
-                startActivity(intent);
+                HService.getService(PageDataHoldService.class).add("RegisterFavoriteActivity", categoriesDaoAdapter.select);
+                if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterFavoriteActivity.this, 3, false)) {
+                    HomeActivity.start(RegisterFavoriteActivity.this);
+                }
             }
         });
         binding.recyclerView.addItemDecoration(new ColorItemDecoration());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(categoriesDaoAdapter);
         request();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (RegisterNextPageHelp.canFinish(2)) {
+            super.onBackPressed();
+        }
     }
 
     private void request() {

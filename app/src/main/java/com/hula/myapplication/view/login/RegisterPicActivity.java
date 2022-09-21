@@ -12,6 +12,7 @@ import com.hula.myapplication.base.picselect.GlideImageEngine;
 import com.hula.myapplication.base.picselect.LubanCompressFileEngine;
 import com.hula.myapplication.databinding.ActivityRegisterPicBinding;
 import com.hula.myapplication.util.HUtils;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.PermissonDialog;
 import com.luck.picture.lib.basic.PictureSelector;
@@ -65,6 +66,15 @@ public class RegisterPicActivity extends BaseActivity {
                 });
             }
         });
+        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        if (!RegisterNextPageHelp.canFinish(3)){
+            binding.tvBack.setVisibility(View.INVISIBLE);
+        }
         binding.iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,11 +126,19 @@ public class RegisterPicActivity extends BaseActivity {
                 list.add(headerPic);
                 list.add(subPic);
                 HService.getService(PageDataHoldService.class).add("RegisterPicActivity",list);
-                Intent intent = new Intent(RegisterPicActivity.this, RegisterIntroActivity.class);
-                startActivity(intent);
+                if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterPicActivity.this, 4, false)) {
+                    HomeActivity.start(RegisterPicActivity.this);
+                }
             }
         });
         checkSubmit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (RegisterNextPageHelp.canFinish(3)){
+            super.onBackPressed();
+        }
     }
 
     private void checkSubmit() {
