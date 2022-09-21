@@ -186,28 +186,9 @@ public class LoginPhoneActivity extends HBaseActivity {
     }
 
     private void startNextPage() {
-        boolean isLogin = (boolean) HService.getService(PageDataHoldService.class)
-                .remove("StartActivity.LoginOrRegister");
-
-        if (!isLogin){
-            Intent intent = new Intent(this, RegisterEmailActivity.class);
-            startActivity(intent);
-            return;
+        if (RegisterNextPageHelp.replenishProfileOnReigster(this,1,true)){
+            HomeActivity.start(this);
         }
-
-        if (!NotificationUtils.areNotificationsEnabled()) {
-            Intent intent = new Intent(this, RegisterNotificationActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
-        if (!PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            Intent intent = new Intent(this, RegisterLocationActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
-        HomeActivity.start(this);
     }
 
     @Override

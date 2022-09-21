@@ -115,4 +115,9 @@ public class RegisterNotificationActivity extends BaseActivity {
     protected void loadData() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

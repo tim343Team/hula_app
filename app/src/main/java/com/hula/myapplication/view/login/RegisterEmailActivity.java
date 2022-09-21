@@ -1,12 +1,9 @@
 package com.hula.myapplication.view.login;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
-import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
@@ -17,6 +14,7 @@ import com.hula.myapplication.dao.PronounDao;
 import com.hula.myapplication.databinding.ActivityRegisterEmailBinding;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.SimTextWatcher;
+import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 
@@ -86,8 +84,9 @@ public class RegisterEmailActivity extends HBaseActivity {
             public void onClick(View v) {
                 RegisterEmailData emailData = new RegisterEmailData(pronounDaoList.get(selectPronPosition), binding.editEmail.getText().toString(), binding.editName.getText().toString(), selectDate);
                 HService.getService(PageDataHoldService.class).add("RegisterEmailActivity",emailData);
-                Intent intent = new Intent(RegisterEmailActivity.this, RegisterFavoriteActivity.class);
-                startActivity(intent);
+                if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterEmailActivity.this,2,false)){
+                    HomeActivity.start(RegisterEmailActivity.this);
+                }
             }
         });
         binding.tvPron.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +178,13 @@ public class RegisterEmailActivity extends HBaseActivity {
         }
         binding.tvPron.setText(pronounDaoList.get(selectPronPosition).txt);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (RegisterNextPageHelp.canFinish(1)){
+            super.onBackPressed();
+        }
     }
 
     @Override
