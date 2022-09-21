@@ -17,11 +17,15 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.app.Injection;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
 import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
 import com.hula.myapplication.dao.UserInfoData;
+import com.hula.myapplication.dao.WishListDao;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
+import com.hula.myapplication.request.UpdateProfileParameter;
 import com.hula.myapplication.view.mine.profile.sub.ChooseInterActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
@@ -85,7 +89,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateData(UpdateUserInfoEvent event) {
         //刷新
-        userInfoData=event.getUserInfoData();
+        userInfoData = event.getUserInfoData();
         updateView();
     }
 
@@ -204,7 +208,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                 if (userInfoData == null) {
                     return;
                 }
-                EditNameActivity.actionStart(getmActivity(),userInfoData);
+                EditNameActivity.actionStart(getmActivity(), userInfoData);
             }
         });
         binding.llAge.setOnClickListener(new View.OnClickListener() {
@@ -247,7 +251,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                 if (userInfoData == null) {
                     return;
                 }
-                EditSchoolActivity.actionStart(getmActivity(),userInfoData);
+                EditSchoolActivity.actionStart(getmActivity(), userInfoData);
             }
         });
         binding.llJobTitle.setOnClickListener(new View.OnClickListener() {
@@ -256,7 +260,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                 if (userInfoData == null) {
                     return;
                 }
-                EditWorkActivity.actionStart(getmActivity(),userInfoData);
+                EditWorkActivity.actionStart(getmActivity(), userInfoData);
             }
         });
         binding.llDrink.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +269,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                 if (userInfoData == null) {
                     return;
                 }
-                EditDrinkActivity.actionStart(getmActivity(),userInfoData);
+                EditDrinkActivity.actionStart(getmActivity(), userInfoData);
             }
         });
         initRecyclerViewProfile();
@@ -301,12 +305,24 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         if (userInfoData == null) {
             return;
         }
-        binding.tvName.setText(userInfoData.getDisplayName());
+        binding.tvName.setText(userInfoData.getDisplay_name());
         binding.tvAge.setText(userInfoData.getAge() + "");
-        binding.tvSchool.setText(userInfoData.getSchool());
+        binding.tvSchool.setText(userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0).getName() : "");
         binding.tvJobTitle.setText(userInfoData.getWork());
         binding.tvDrink.setText(userInfoData.getDrink());
         binding.editAboutMe.setText(userInfoData.getAbout());
+        presenter.getDefaultProfileTag();
+        for (int i = 0; i < userInfoData.getWish_list().size(); i++) {
+            if (i == 0) {
+                binding.editEvent1.setText(userInfoData.getWish_list().get(i).getWish());
+            } else if (i == 1) {
+                binding.editEvent2.setText(userInfoData.getWish_list().get(i).getWish());
+            } else if (i == 2) {
+                binding.editEvent3.setText(userInfoData.getWish_list().get(i).getWish());
+            } else {
+                break;
+            }
+        }
     }
 
     private void onSelectDate() {
@@ -316,7 +332,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(selectDate);
-        int age=DateTimeUtil.getAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+        int age = DateTimeUtil.getAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         userInfoData.setAge(age);
         updateView();
     }
@@ -329,7 +345,19 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         profileSettingAdapter.AddListenerItem(new ProfileSettingAdapter.AddListenerItem() {
             @Override
             public void click() {
-                ProfileBadgeActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                ProfileBadgeActivity.actionStart(getmActivity(), userInfoData);
+            }
+        });
+        profileSettingAdapter.deleteListenerItem(new ProfileSettingAdapter.deleteListenerItem() {
+            @Override
+            public void click(int id, String name) {
+                if (userInfoData == null) {
+                    return;
+                }
+                ProfileBadgeActivity.actionStart(getmActivity(), userInfoData, id, name);
             }
         });
     }
@@ -348,6 +376,51 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
         });
     }
 
+    public void updateProfile() {
+        if (presenter == null) {
+            return;
+        } else {
+            //        {"work":"Job","work_is_public":"True","pronoun":"He\/Him\/His","age":"17",
+//                "drink_is_public":"False","id":6560,"dob":"09-14-2005","email":"310381453@qq.come",
+//                "display_name":"Name","wish_list":"l3","school_id":988,"default_profile_tags":"0",
+//                "drink":"Drink","about":"About me","school_is_public":"True"}
+            StringBuffer wishListBuffer = new StringBuffer();
+            if (!binding.editEvent1.toString().isEmpty()) {
+                wishListBuffer = wishListBuffer.append(binding.editEvent1.getText().toString()).append(",");
+            }
+            if (!binding.editEvent2.toString().isEmpty()) {
+                wishListBuffer = wishListBuffer.append(binding.editEvent2.getText().toString()).append(",");
+            }
+            if (!binding.editEvent3.toString().isEmpty()) {
+                wishListBuffer = wishListBuffer.append(binding.editEvent3.getText().toString()).append(",");
+            }
+            String wishListString=wishListBuffer.toString();
+            if(wishListString.endsWith(",")){
+                wishListString=wishListString.substring(0,wishListString.length()-1);
+            }
+
+            ServiceProfile service = HService.getService(ServiceProfile.class);
+            String userId = service.getUserId();
+            UpdateProfileParameter parameter = new UpdateProfileParameter();
+            parameter.setWork(userInfoData.getWork());
+            parameter.setWork_is_public(userInfoData.isWork_is_public() ? "True" : "False");
+            parameter.setPronoun(userInfoData.getPronoun());
+            parameter.setAge(userInfoData.getAge() + "");
+            parameter.setDrink_is_public(userInfoData.isDrink_is_public() ? "True" : "False");
+            parameter.setId(Integer.parseInt(userId));
+            parameter.setDob(userInfoData.getDob());
+            parameter.setEmail(userInfoData.getUser().getEmail());
+            parameter.setDisplay_name(userInfoData.getDisplay_name());
+            parameter.setWish_list(wishListString);
+            parameter.setSchool_id(userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0).getId() : 0);
+            parameter.setDefault_profile_tags("0");//TODO
+            parameter.setDrink(userInfoData.getDrink());
+            parameter.setAbout(userInfoData.getAbout());
+            parameter.setSchool_is_public(userInfoData.isSchool_is_public() ? "True" : "False");
+            presenter.updateProfile(parameter);
+        }
+    }
+
     @Override
     public void getFail(Integer code, String toastMessage) {
 
@@ -355,9 +428,18 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     @Override
     public void getDefaultProfileTagSuccess(List<ProfileTagDao> obj) {
+        subProfileDaos.clear();
         subProfileDaos.addAll(obj);
+        if (userInfoData != null && userInfoData.getMy_profile_tags().size() > 0) {
+            subProfileDaos.addAll(userInfoData.getMy_profile_tags());
+        }
         subProfileDaos.add(new ProfileTagDao());
         profileSettingAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateProfileSuccess(String toastMessage) {
+
     }
 
     @Override

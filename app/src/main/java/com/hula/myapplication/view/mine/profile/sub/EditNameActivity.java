@@ -44,7 +44,7 @@ public class EditNameActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
         userInfoData = (UserInfoData) getIntent().getSerializableExtra("userInfoData");
         editName = binding.editName;
-        editName.setText(userInfoData.getDisplayName());
+        editName.setText(userInfoData.getDisplay_name());
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class EditNameActivity extends BaseActivity {
                     ToastUtil.showToast(getResources().getString(R.string.display_name_error));
                     return;
                 }
-                userInfoData.setDisplayName(editName.getText().toString());
+                userInfoData.setDisplay_name(editName.getText().toString());
                 EventBus.getDefault().post(new UpdateUserInfoEvent(userInfoData));
                 finish();
             }

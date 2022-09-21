@@ -1,6 +1,7 @@
 package com.hula.myapplication.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserInfoData implements Serializable {
@@ -10,28 +11,28 @@ public class UserInfoData implements Serializable {
     private String city;
     private String about;
     private String createdAt;
-    private List<Object> wishList;
+    private List<WishListDao> wish_list;
     private String linkedAccounts;
     private String school;
     private String pronoun;
     private Object pinLocation;
     private List<Object> defaultProfileTags;
     private int id;
-    private List<Object> mySchools;
-    private boolean schoolIsPublic;
+    private List<SchoolDao> my_schools;
+    private boolean school_is_public;
     private boolean emailVerified;
     private String work;
     private String profile;
     private BrowsingCity browsingCity;
     private List<Object> interestedEvents;
     private boolean team;
-    private String displayName;
+    private String display_name;
     private String drink;
     private Object isBlockedByMe;
     private List<Object> tags;
     private List<Object> myProfileTags;
     private Object isJoinMatchingPool;
-    private boolean workIsPublic;
+    private boolean work_is_public;
     private boolean phoneVerified;
     private String phone;
     private String dob;
@@ -42,156 +43,142 @@ public class UserInfoData implements Serializable {
     private User user;
     private boolean drink_is_public;
     private int age;
+    private List<ProfileTagDao> my_profile_tags = new ArrayList<>();
+    private int school_id;
 
-    public Object getIsEventVisited(){
+    public Object getIsEventVisited() {
         return isEventVisited;
     }
 
-    public int getDistance(){
+    public int getDistance() {
         return distance;
     }
 
-    public boolean isBotInteraction(){
+    public boolean isBotInteraction() {
         return botInteraction;
     }
 
-    public String getCity(){
+    public String getCity() {
         return city;
     }
 
-    public String getAbout(){
+    public String getAbout() {
         return about;
     }
 
-    public String getCreatedAt(){
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public List<Object> getWishList(){
-        return wishList;
-    }
 
-    public String getLinkedAccounts(){
+    public String getLinkedAccounts() {
         return linkedAccounts;
     }
 
-    public String getSchool(){
+    public String getSchool() {
         return school;
     }
 
-    public String getPronoun(){
+    public String getPronoun() {
         return pronoun;
     }
 
-    public Object getPinLocation(){
+    public Object getPinLocation() {
         return pinLocation;
     }
 
-    public List<Object> getDefaultProfileTags(){
+    public List<Object> getDefaultProfileTags() {
         return defaultProfileTags;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public List<Object> getMySchools(){
-        return mySchools;
-    }
 
-    public boolean isSchoolIsPublic(){
-        return schoolIsPublic;
-    }
-
-    public boolean isEmailVerified(){
+    public boolean isEmailVerified() {
         return emailVerified;
     }
 
-    public String getWork(){
+    public String getWork() {
         return work;
     }
 
-    public String getProfile(){
+    public String getProfile() {
         return profile;
     }
 
-    public BrowsingCity getBrowsingCity(){
+    public BrowsingCity getBrowsingCity() {
         return browsingCity;
     }
 
-    public List<Object> getInterestedEvents(){
+    public List<Object> getInterestedEvents() {
         return interestedEvents;
     }
 
-    public boolean isTeam(){
+    public boolean isTeam() {
         return team;
     }
 
-    public String getDisplayName(){
-        return displayName;
-    }
 
-    public String getDrink(){
+    public String getDrink() {
         return drink;
     }
 
-    public Object getIsBlockedByMe(){
+    public Object getIsBlockedByMe() {
         return isBlockedByMe;
     }
 
-    public List<Object> getTags(){
+    public List<Object> getTags() {
         return tags;
     }
 
-    public List<Object> getMyProfileTags(){
+    public List<Object> getMyProfileTags() {
         return myProfileTags;
     }
 
-    public Object getIsJoinMatchingPool(){
+    public Object getIsJoinMatchingPool() {
         return isJoinMatchingPool;
     }
 
-    public boolean isWorkIsPublic(){
-        return workIsPublic;
-    }
 
-    public boolean isPhoneVerified(){
+    public boolean isPhoneVerified() {
         return phoneVerified;
     }
 
-    public String getPhone(){
+    public String getPhone() {
         return phone;
     }
 
-    public String getDob(){
+    public String getDob() {
         return dob;
     }
 
-    public Object getHasBlockedMe(){
+    public Object getHasBlockedMe() {
         return hasBlockedMe;
     }
 
-    public List<Object> getMyPhotos(){
+    public List<Object> getMyPhotos() {
         return myPhotos;
     }
 
-    public Object getLocation(){
+    public Object getLocation() {
         return location;
     }
 
-    public Object getInterests(){
+    public Object getInterests() {
         return interests;
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
-    public boolean isDrinkIsPublic(){
+    public boolean isDrinkIsPublic() {
         return drink_is_public;
     }
 
-    public int getAge(){
+    public int getAge() {
         return age;
     }
 
@@ -219,10 +206,6 @@ public class UserInfoData implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public void setWishList(List<Object> wishList) {
-        this.wishList = wishList;
-    }
-
     public void setLinkedAccounts(String linkedAccounts) {
         this.linkedAccounts = linkedAccounts;
     }
@@ -247,13 +230,6 @@ public class UserInfoData implements Serializable {
         this.id = id;
     }
 
-    public void setMySchools(List<Object> mySchools) {
-        this.mySchools = mySchools;
-    }
-
-    public void setSchoolIsPublic(boolean schoolIsPublic) {
-        this.schoolIsPublic = schoolIsPublic;
-    }
 
     public void setEmailVerified(boolean emailVerified) {
         this.emailVerified = emailVerified;
@@ -279,10 +255,6 @@ public class UserInfoData implements Serializable {
         this.team = team;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
     public void setDrink(String drink) {
         this.drink = drink;
     }
@@ -303,9 +275,6 @@ public class UserInfoData implements Serializable {
         this.isJoinMatchingPool = isJoinMatchingPool;
     }
 
-    public void setWorkIsPublic(boolean workIsPublic) {
-        this.workIsPublic = workIsPublic;
-    }
 
     public void setPhoneVerified(boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
@@ -345,5 +314,71 @@ public class UserInfoData implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public boolean isDrink_is_public() {
+        return drink_is_public;
+    }
+
+    public List<ProfileTagDao> getMy_profile_tags() {
+        if (my_profile_tags == null) {
+            my_profile_tags = new ArrayList<>();
+        }
+        return my_profile_tags;
+    }
+
+    public void setMy_profile_tags(List<ProfileTagDao> my_profile_tags) {
+        this.my_profile_tags = my_profile_tags;
+    }
+
+    public int getSchool_id() {
+        return school_id;
+    }
+
+    public void setSchool_id(int school_id) {
+        this.school_id = school_id;
+    }
+
+    public List<WishListDao> getWish_list() {
+        return wish_list;
+    }
+
+    public void setWish_list(List<WishListDao> wish_list) {
+        this.wish_list = wish_list;
+    }
+
+    public String getDisplay_name() {
+        return display_name;
+    }
+
+    public void setDisplay_name(String display_name) {
+        this.display_name = display_name;
+    }
+
+    public List<SchoolDao> getMy_schools() {
+        if (my_schools == null) {
+            my_schools = new ArrayList<>();
+        }
+        return my_schools;
+    }
+
+    public void setMy_schools(List<SchoolDao> my_schools) {
+        this.my_schools = my_schools;
+    }
+
+    public boolean isSchool_is_public() {
+        return school_is_public;
+    }
+
+    public void setSchool_is_public(boolean school_is_public) {
+        this.school_is_public = school_is_public;
+    }
+
+    public boolean isWork_is_public() {
+        return work_is_public;
+    }
+
+    public void setWork_is_public(boolean work_is_public) {
+        this.work_is_public = work_is_public;
     }
 }

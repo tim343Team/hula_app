@@ -1,17 +1,19 @@
 package com.hula.myapplication.bus_event;
 
-public class UpdateSchoolEvent {
-    private String school;
+import com.hula.myapplication.dao.SchoolDao;
 
-    public UpdateSchoolEvent(String school) {
+public class UpdateSchoolEvent {
+    private SchoolDao school;
+
+    public UpdateSchoolEvent(SchoolDao school) {
         this.school = school;
     }
 
-    public String getSchool() {
+    public SchoolDao getSchool() {
         return school;
     }
 
-    public void setSchool(String school) {
+    public void setSchool(SchoolDao school) {
         this.school = school;
     }
 }

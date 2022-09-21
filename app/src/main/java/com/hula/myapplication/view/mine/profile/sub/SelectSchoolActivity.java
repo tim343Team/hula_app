@@ -14,10 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hula.myapplication.adapter.SchoolDaoAdapter;
+import com.hula.myapplication.app.Injection;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.bus_event.UpdateSchoolEvent;
+import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.dao.SchoolDao;
 import com.hula.myapplication.databinding.ActivitySelectSchoolBinding;
 import com.hula.myapplication.databinding.ActivitySettingWorkBinding;
+import com.hula.myapplication.request.AddSchoolParameter;
+import com.hula.myapplication.request.GetSchoolParameter;
 import com.hula.myapplication.widget.ColorItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,12 +33,14 @@ import java.util.List;
 
 import tim.com.libnetwork.base.BaseActivity;
 
-public class SelectSchoolActivity extends BaseActivity {
+public class SelectSchoolActivity extends BaseActivity implements ProfileSettingContract.ProfileSettingView{
     private ActivitySelectSchoolBinding binding;
     private EditText editSchool;
     private RecyclerView recyclerView;
     private SchoolDaoAdapter adapter;
     private List<SchoolDao> data = new ArrayList<>();
+    private ProfileSettingContract.ProfileSettingPresenter presenter;
+    private int pageNo=0;
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, SelectSchoolActivity.class);
@@ -52,6 +60,7 @@ public class SelectSchoolActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        presenter = new ProfileSettingPresenter(Injection.provideTasksRepository(getApplicationContext()), this);//初始化presenter
         recyclerView = binding.recyclerView;
         editSchool = binding.editSchool;
         binding.tvBack.setOnClickListener(new View.OnClickListener() {
@@ -68,17 +77,14 @@ public class SelectSchoolActivity extends BaseActivity {
                     if(editSchool.getText().toString().isEmpty()){
                         return true;
                     }
-                    EventBus.getDefault().post(new UpdateSchoolEvent(editSchool.getText().toString()));
-                    finish();
+                    //添加学校接口
+                    ServiceProfile service = HService.getService(ServiceProfile.class);
+                    presenter.addSchool(new AddSchoolParameter(editSchool.getText().toString(),service.getUserId()));
                     return true;
                 }
                 return false;
             }
         });
-        //TODO 测试数据
-        for (int i = 0; i < 6; i++) {
-            data.add(new SchoolDao());
-        }
         adapter = new SchoolDaoAdapter(data);
         recyclerView.addItemDecoration(new ColorItemDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,7 +95,13 @@ public class SelectSchoolActivity extends BaseActivity {
                 loadMore();
             }
         }, binding.recyclerView);
-        adapter.setEnableLoadMore(false);
+        adapter.OnclickListenerItem(new SchoolDaoAdapter.OnclickListenerItem() {
+            @Override
+            public void click(int position) {
+                EventBus.getDefault().post(new UpdateSchoolEvent(data.get(position)));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -104,19 +116,23 @@ public class SelectSchoolActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        presenter.getSchoolList(new GetSchoolParameter(pageNo,service.getUserId()));
     }
 
     private void refresh() {
         adapter.setEnableLoadMore(true);
         adapter.loadMoreEnd(false);
-//        pageNo = 1;
-//        presenter.getDogList(new MailRequest(priceSort, nftCatagoryId), pageNo);
+        pageNo = 0;
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        presenter.getSchoolList(new GetSchoolParameter(pageNo,service.getUserId()));
     }
 
     private void loadMore() {
 //        refreshLayout.setEnabled(false);
-//        pageNo = pageNo + 1;
+        pageNo = pageNo + 1;
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        presenter.getSchoolList(new GetSchoolParameter(pageNo,service.getUserId()));
     }
 
     private void loadData(List<SchoolDao> data) {
@@ -126,22 +142,48 @@ public class SelectSchoolActivity extends BaseActivity {
 //        }
 //        refreshLayout.setEnabled(true);
 //        refreshLayout.setRefreshing(false);
-//        if (data == null || data.size() == 0) {
-//            if (pageNo == 1) {
-//                this.data.clear();
-//                adapter.notifyDataSetChanged();
-//            }
-//            return;
-//        }
-//        if (pageNo == 1) {
-//            this.data.clear();
-//            this.data.addAll(data);
-//        } else {
-//            this.data.addAll(data);
-//        }
-//        if (data.size() < 20) {
-//            adapter.loadMoreEnd();
-//        }
+        if (data == null || data.size() == 0) {
+            if (pageNo == 0) {
+                this.data.clear();
+                adapter.notifyDataSetChanged();
+            }
+            return;
+        }
+        if (pageNo == 0) {
+            this.data.clear();
+            this.data.addAll(data);
+        } else {
+            this.data.addAll(data);
+        }
+        if (data.size() < 20) {
+            adapter.loadMoreEnd();
+        }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getFail(Integer code, String toastMessage) {
+
+    }
+
+    @Override
+    public void getProfileSuccess(List<ProfileTagDao> daos) {
+
+    }
+
+    @Override
+    public void getSchoolSuccess(List<SchoolDao> daos) {
+        loadData(daos);
+    }
+
+    @Override
+    public void addSchoolSuccess(SchoolDao daos) {
+        EventBus.getDefault().post(new UpdateSchoolEvent(daos));
+        finish();
+    }
+
+    @Override
+    public void setPresenter(ProfileSettingContract.ProfileSettingPresenter presenter) {
+        this.presenter=presenter;
     }
 }

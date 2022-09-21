@@ -6,7 +6,10 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
+import com.hula.myapplication.request.AddSchoolParameter;
 import com.hula.myapplication.request.CreateProfileParameter;
+import com.hula.myapplication.request.GetSchoolParameter;
+import com.hula.myapplication.request.UpdateProfileParameter;
 
 public class LocalDataSource implements DataSource {
     private static LocalDataSource INSTANCE;
@@ -25,12 +28,32 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
+    public void addSchool(AddSchoolParameter parameter, DataCallback dataCallback) {
+
+    }
+
+    @Override
+    public void getSchoolList(GetSchoolParameter parameter, DataCallback dataCallback) {
+
+    }
+
+    @Override
+    public void deleteProfileTag(CreateProfileParameter parameter, DataCallback dataCallback) {
+
+    }
+
+    @Override
     public void createProfileTag(CreateProfileParameter parameter, DataCallback dataCallback) {
 
     }
 
     @Override
     public void getDefaultProfileTag(DataCallback dataCallback) {
+
+    }
+
+    @Override
+    public void updateProfile(UpdateProfileParameter parameter, DataCallback dataCallback) {
 
     }
 }

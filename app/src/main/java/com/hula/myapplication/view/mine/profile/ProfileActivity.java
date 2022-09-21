@@ -30,9 +30,10 @@ public class ProfileActivity extends BaseActivity {
     private EditFragment subFragment2;
     private ArrayList<String> tabs = new ArrayList<>();
     protected List<Fragment> fragments = new ArrayList<>();
-
+    private int selectPosition;
     private TextView tvPreview;
     private TextView tvEdit;
+    private TextView tvDone;
 
     public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, ProfileActivity.class);
@@ -55,11 +56,21 @@ public class ProfileActivity extends BaseActivity {
         viewpager = binding.viewpagerMine;
         tvPreview = binding.tvPreview;
         tvEdit = binding.tvEdit;
+        tvDone = binding.tvDone;
         tvTabs = new TextView[]{tvPreview, tvEdit};
         binding.tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        binding.tvDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (subFragment2 == null) {
+                    return;
+                }
+                subFragment2.updateProfile();
             }
         });
         setView();
@@ -130,12 +141,18 @@ public class ProfileActivity extends BaseActivity {
     }
 
     void showTab(int position) {
+        selectPosition = position;
         for (int i = 0; i < tvTabs.length; i++) {
             if (i == position) {
                 tvTabs[i].setSelected(true);
             } else {
                 tvTabs[i].setSelected(false);
             }
+        }
+        if (position == 1) {
+            tvDone.setVisibility(View.VISIBLE);
+        } else {
+            tvDone.setVisibility(View.INVISIBLE);
         }
         viewpager.setCurrentItem(position);
     }

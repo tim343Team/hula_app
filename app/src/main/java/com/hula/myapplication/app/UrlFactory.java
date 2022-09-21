@@ -60,4 +60,24 @@ public class UrlFactory {
     public static String createProfileTag() {
         return host + "/user/create_profile_tag";
     }
+
+    //删除接口profile tag
+    public static String deleteProfileTag() {
+        return host + "/user/delete_profile_tag";
+    }
+
+    //school列表
+    public static String getSchoolList() {
+        return host + "/events/schools";
+    }
+
+    //添加school
+    public static String addSchoolList() {
+        return host + "/events/add_school";
+    }
+
+    //更改设置profile
+    public static String updateProfile() {
+        return host + "/user/update_profile";
+    }
 }
