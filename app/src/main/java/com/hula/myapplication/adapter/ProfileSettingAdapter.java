@@ -11,25 +11,24 @@ import androidx.core.content.ContextCompat;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
-import com.hula.myapplication.dao.SubCategoriesDao;
-import com.hula.myapplication.dao.SubProfileDao;
+import com.hula.myapplication.dao.ProfileTagDao;
 
 import java.util.List;
 
-public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseViewHolder> {
+public class ProfileSettingAdapter extends BaseQuickAdapter<ProfileTagDao, BaseViewHolder> {
     private boolean isSetting = false;
 
-    public ProfileSettingAdapter(int layoutResId, @Nullable List<SubProfileDao> data) {
+    public ProfileSettingAdapter(int layoutResId, @Nullable List<ProfileTagDao> data) {
         super(layoutResId, data);
     }
 
-    public ProfileSettingAdapter(int layoutResId, @Nullable List<SubProfileDao> data, boolean isSetting) {
+    public ProfileSettingAdapter(int layoutResId, @Nullable List<ProfileTagDao> data, boolean isSetting) {
         super(layoutResId, data);
         this.isSetting = isSetting;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, SubProfileDao item) {
+    protected void convert(BaseViewHolder helper, ProfileTagDao item) {
         TextView tv = helper.getView(R.id.tv);
         ImageView iv = helper.getView(R.id.iv);
         View itemView = helper.getView(R.id.layout);
@@ -37,6 +36,7 @@ public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseV
         itemView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.shape_radius100_strock1_8e73d3));
         if (isSetting && getItemCount() - 1 == helper.getLayoutPosition()) {
             //如果是最后一个并且是可编辑的状态
+            iv.setVisibility(View.VISIBLE);
             iv.setBackgroundResource(R.mipmap.icon_add_more);
             tv.setText(R.string.custom);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +46,7 @@ public class ProfileSettingAdapter extends BaseQuickAdapter<SubProfileDao, BaseV
                 }
             });
         } else {
+            iv.setVisibility(View.GONE);
             tv.setText(item.getName());
         }
     }

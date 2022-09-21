@@ -17,26 +17,17 @@ import com.hula.myapplication.R;
 import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.app.Injection;
-import com.hula.myapplication.app.UrlFactory;
-import com.hula.myapplication.app.net.GsonWalkDogCallBack;
-import com.hula.myapplication.app.service.HService;
-import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
 import com.hula.myapplication.dao.ProfileTagDao;
-import com.hula.myapplication.dao.RemoteData;
-import com.hula.myapplication.dao.SearchSectionsDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
-import com.hula.myapplication.dao.SubProfileDao;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.FragmentMineEditBinding;
-import com.hula.myapplication.util.SafeGet;
 import com.hula.myapplication.view.mine.profile.sub.ChooseInterActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditDrinkActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
 import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
-import com.hula.myapplication.widget.HuCallBack1;
 import com.library.flowlayout.FlowLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,7 +55,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     private CategoriesSettingAdapter categoriesAdapter;
     private ProfileSettingAdapter profileSettingAdapter;
     private List<SubCategoriesDao> subCategoriesDaos = new ArrayList<>();
-    private List<SubProfileDao> subProfileDaos = new ArrayList<>();
+    private List<ProfileTagDao> subProfileDaos = new ArrayList<>();
     private Date selectDate;
     private UserInfoData userInfoData;
 
@@ -331,7 +322,6 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     }
 
     private void initRecyclerViewProfile() {
-        subProfileDaos.add(new SubProfileDao());
         recyclerProfile.setLayoutManager(new FlowLayoutManager());
         profileSettingAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, subProfileDaos, true);
         profileSettingAdapter.bindToRecyclerView(recyclerProfile);
@@ -365,7 +355,9 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     @Override
     public void getDefaultProfileTagSuccess(List<ProfileTagDao> obj) {
-        obj.size();
+        subProfileDaos.addAll(obj);
+        subProfileDaos.add(new ProfileTagDao());
+        profileSettingAdapter.notifyDataSetChanged();
     }
 
     @Override

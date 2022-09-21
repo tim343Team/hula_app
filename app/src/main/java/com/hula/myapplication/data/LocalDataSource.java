@@ -6,6 +6,8 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
+import com.hula.myapplication.request.CreateProfileParameter;
+
 public class LocalDataSource implements DataSource {
     private static LocalDataSource INSTANCE;
     private Context context;
@@ -20,6 +22,11 @@ public class LocalDataSource implements DataSource {
             INSTANCE = new LocalDataSource(context);
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void createProfileTag(CreateProfileParameter parameter, DataCallback dataCallback) {
+
     }
 
     @Override

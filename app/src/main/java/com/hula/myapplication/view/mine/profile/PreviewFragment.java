@@ -16,7 +16,7 @@ import com.hula.myapplication.adapter.EventAttendAdapter;
 import com.hula.myapplication.adapter.PreviewImagePagerAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.dao.EventAttendDao;
-import com.hula.myapplication.dao.SubProfileDao;
+import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.databinding.FragmentMinePreviewBinding;
 import com.library.flowlayout.FlowLayoutManager;
 
@@ -34,7 +34,7 @@ public class PreviewFragment extends BaseLazyFragment {
     private PreviewImagePagerAdapter myPagerAdapter;
     private ProfileSettingAdapter interestAdapter;
     private EventAttendAdapter eventAdapter;
-    private List<SubProfileDao>  interestDaos=new ArrayList<>();
+    private List<ProfileTagDao>  interestDaos=new ArrayList<>();
     private List<EventAttendDao>  eventDaos=new ArrayList<>();
 
     public static PreviewFragment getInstance() {
@@ -158,7 +158,7 @@ public class PreviewFragment extends BaseLazyFragment {
     private void initRecyclerInterest(){
         //TODO 测试数据
         for(int i=0;i<30;i++){
-            interestDaos.add(new SubProfileDao());
+            interestDaos.add(new ProfileTagDao());
         }
         recyclerInterest.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL));
         interestAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, interestDaos,false);

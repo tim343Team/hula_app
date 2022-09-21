@@ -17,6 +17,7 @@ import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.request.CreateProfileParameter;
 
 import java.util.List;
 
@@ -32,6 +33,38 @@ public class RemoteDataSource implements DataSource {
 
     private RemoteDataSource() {
 
+    }
+
+    @Override
+    public void createProfileTag(CreateProfileParameter parameter, DataCallback dataCallback) {
+        WonderfulOkhttpUtils.post().url(UrlFactory.createProfileTag())
+                .build()
+                .execute(new StringCallBack() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+                        super.onError(request, e);
+                        WonderfulLogUtils.logi("添加接口profile_tag:", e.getMessage());
+                        dataCallback.onDataNotAvailable(OKHTTP_ERROR, null);
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        WonderfulLogUtils.logi("添加接口profile_tag:", response.toString());
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if (object.optInt("code") == 0) {
+                                List<ProfileTagDao> objs = gson.fromJson(object.getJSONArray("data").toString(), new TypeToken<List<ProfileTagDao>>() {
+                                }.getType());
+                                dataCallback.onDataLoaded(objs);
+                            } else {
+                                dataCallback.onDataNotAvailable(object.getInt("code"), object.optString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            dataCallback.onDataNotAvailable(JSON_ERROR, null);
+                        }
+                    }
+                });
     }
 
     @Override

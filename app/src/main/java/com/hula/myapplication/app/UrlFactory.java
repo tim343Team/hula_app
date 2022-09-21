@@ -55,4 +55,9 @@ public class UrlFactory {
     public static String getDefaultProfileTags() {
         return host + "/user/get_default_profile_tags";
     }
+
+    //添加接口profile tag
+    public static String createProfileTag() {
+        return host + "/user/create_profile_tag";
+    }
 }

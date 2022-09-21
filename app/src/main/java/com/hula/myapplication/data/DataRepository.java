@@ -1,5 +1,7 @@
 package com.hula.myapplication.data;
 
+import com.hula.myapplication.request.CreateProfileParameter;
+
 public class DataRepository implements DataSource {
     private static DataRepository INSTANCE = null;
     private final DataSource mRemoteDataSource;
@@ -20,6 +22,12 @@ public class DataRepository implements DataSource {
         isLocal = local;
     }
 
+
+    @Override
+    public void createProfileTag(CreateProfileParameter parameter, DataCallback dataCallback) {
+        if (isLocal) mLocalDataSource.createProfileTag(parameter,dataCallback);
+        else mRemoteDataSource.createProfileTag(parameter,dataCallback);
+    }
 
     @Override
     public void getDefaultProfileTag(DataCallback dataCallback) {

@@ -20,7 +20,7 @@ import com.hula.myapplication.adapter.PreviewImagePagerAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.dao.BothLikeDao;
 import com.hula.myapplication.dao.EventAttendDao;
-import com.hula.myapplication.dao.SubProfileDao;
+import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.databinding.ActivityProfileDetailBinding;
 import com.hula.myapplication.databinding.FragmentMinePreviewBinding;
 
@@ -40,7 +40,7 @@ public class ProfileDetailActivity extends BaseActivity {
     private ProfileSettingAdapter interestAdapter;
     private EventAttendAdapter eventAdapter;
     private BothLikeAdapter bothLikeAdapter;
-    private List<SubProfileDao> interestDaos = new ArrayList<>();
+    private List<ProfileTagDao> interestDaos = new ArrayList<>();
     private List<EventAttendDao> eventDaos = new ArrayList<>();
     private List<BothLikeDao> bothLikeDaos = new ArrayList<>();
     private int id;
@@ -159,7 +159,7 @@ public class ProfileDetailActivity extends BaseActivity {
     private void initRecyclerInterest() {
         //TODO 测试数据
         for (int i = 0; i < 30; i++) {
-            interestDaos.add(new SubProfileDao());
+            interestDaos.add(new ProfileTagDao());
         }
         recyclerInterest.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL));
         interestAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, interestDaos, false);
