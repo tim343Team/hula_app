@@ -66,17 +66,18 @@ public class ServiceProfile {
         return result;
     }
 
-    public synchronized void updateUserInfo(@Nullable UserInfoData userInfoData) {
-        if (userInfoData != null) {
-            this.userInfoData = userInfoData;
-            sharedPrefsHelper.sharedPreferences.edit().putString(SharedPrefsHelper.USER_INFO_KEY, GsonUtils.toJson(userInfoData))
-                    .apply();
-            for (int i = 0; i < callBacks.size(); i++) {
-                callBacks.get(i).call(userInfoData);
-            }
-        } else {
-            this.userInfoData = null;
-            sharedPrefsHelper.sharedPreferences.edit().remove(SharedPrefsHelper.USER_INFO_KEY).apply();
+    public synchronized void cleanUserInfo(){
+        this.userInfoData = null;
+        sharedPrefsHelper.sharedPreferences.edit().remove(SharedPrefsHelper.USER_INFO_KEY).apply();
+    }
+
+
+    public synchronized void updateUserInfo(@NonNull UserInfoData userInfoData) {
+        this.userInfoData = userInfoData;
+        sharedPrefsHelper.sharedPreferences.edit().putString(SharedPrefsHelper.USER_INFO_KEY, GsonUtils.toJson(userInfoData))
+                .apply();
+        for (int i = 0; i < callBacks.size(); i++) {
+            callBacks.get(i).call(userInfoData);
         }
     }
 

@@ -166,5 +166,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="tv_confirm,tv_resend,textView11,edit_vc,tv_phone_hint,textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

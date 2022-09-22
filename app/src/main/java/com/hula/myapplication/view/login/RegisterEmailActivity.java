@@ -10,11 +10,13 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.PageDataHoldService;
 import com.hula.myapplication.base.HBaseActivity;
+import com.hula.myapplication.dao.CityDao;
 import com.hula.myapplication.dao.PronounDao;
 import com.hula.myapplication.databinding.ActivityRegisterEmailBinding;
 import com.hula.myapplication.util.HUtils;
 import com.hula.myapplication.util.SimTextWatcher;
 import com.hula.myapplication.view.HomeActivity;
+import com.hula.myapplication.view.home.SelectCityBottomDialog;
 import com.hula.myapplication.widget.HuCallBack1;
 import com.hula.myapplication.widget.dialog.BottomSelectDialog;
 
@@ -25,17 +27,20 @@ import java.util.List;
 
 public class RegisterEmailActivity extends HBaseActivity {
 
+
     static class RegisterEmailData {
         public PronounDao dao;
         public String email;
         public String name;
         public Date date;
+        public CityDao cityDao;
 
-        public RegisterEmailData(PronounDao dao, String email, String name, Date date) {
+        public RegisterEmailData(PronounDao dao, String email, String name, Date date, CityDao cityDao) {
             this.dao = dao;
             this.email = email;
             this.name = name;
             this.date = date;
+            this.cityDao = cityDao;
         }
     }
 
@@ -52,6 +57,7 @@ public class RegisterEmailActivity extends HBaseActivity {
 
     private int selectPronPosition = -1;
     private Date selectDate;
+    private CityDao selectCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +88,9 @@ public class RegisterEmailActivity extends HBaseActivity {
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterEmailData emailData = new RegisterEmailData(pronounDaoList.get(selectPronPosition), binding.editEmail.getText().toString(), binding.editName.getText().toString(), selectDate);
-                HService.getService(PageDataHoldService.class).add("RegisterEmailActivity",emailData);
-                if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterEmailActivity.this,2,false)){
+                RegisterEmailData emailData = new RegisterEmailData(pronounDaoList.get(selectPronPosition), binding.editEmail.getText().toString(), binding.editName.getText().toString(), selectDate, selectCity);
+                HService.getService(PageDataHoldService.class).add("RegisterEmailActivity", emailData);
+                if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterEmailActivity.this, 2, false)) {
                     HomeActivity.start(RegisterEmailActivity.this);
                 }
             }
@@ -143,8 +149,25 @@ public class RegisterEmailActivity extends HBaseActivity {
                         .display();
             }
         });
+        binding.tvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectCityBottomDialog dialog = new SelectCityBottomDialog();
+                dialog.huCallBack1 = new HuCallBack1<CityDao>() {
+                    @Override
+                    public void call(CityDao cityDao) {
+                        selectCity = cityDao;
+                        onSelectCity();
+
+                    }
+                };
+                dialog.show(getSupportFragmentManager(), "");
+            }
+        });
         checkSubmit();
     }
+
+
 
     private void checkSubmit() {
         boolean enable = HUtils.isEmail(binding.editEmail.getText().toString());
@@ -156,6 +179,9 @@ public class RegisterEmailActivity extends HBaseActivity {
         }
         if (enable) {
             enable = selectDate != null;
+        }
+        if (enable) {
+            enable = selectCity != null;
         }
         binding.tvConfirm.setEnabled(enable);
     }
@@ -170,6 +196,15 @@ public class RegisterEmailActivity extends HBaseActivity {
 
     }
 
+    private void onSelectCity() {
+        checkSubmit();
+        if (selectCity != null) {
+            binding.tvCity.setText(selectCity.getName());
+        } else {
+            binding.tvCity.setText("");
+        }
+    }
+
     private void onSelectPronPosition() {
         checkSubmit();
         if (selectPronPosition == -1) {
@@ -182,7 +217,7 @@ public class RegisterEmailActivity extends HBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (RegisterNextPageHelp.canFinish(1)){
+        if (RegisterNextPageHelp.canFinish(1)) {
             super.onBackPressed();
         }
     }

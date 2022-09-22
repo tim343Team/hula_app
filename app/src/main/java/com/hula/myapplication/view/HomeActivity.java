@@ -27,11 +27,17 @@ import tim.com.libnetwork.base.BaseTransFragmentActivity;
 
 public class HomeActivity extends BaseTransFragmentActivity {
 
-    public static void start(Context context){
-        Intent intent = new Intent(context, StartActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    public static void start(Context context,boolean newTask){
+        Intent intent = new Intent(context, HomeActivity.class);
+        if (newTask){
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
         context.startActivity(intent);
+    }
+
+    public static void start(Context context){
+        start(context,true);
     }
 
 

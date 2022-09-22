@@ -12,10 +12,11 @@ import java.util.*
 object HulaFirebaseStorage {
     private val storage = Firebase.storage("gs://eventbuddies-staging.appspot.com")
 
+    val basePath = "https://firebasestorage.googleapis.com/v0"
     val profilePath = "profile/"
     val myEventsPath = "my_events/"
     val myPhotosBasePath = "my-photos-"
-    val profilePicPrefix = "profile-poc"
+    val profilePicPrefix = "profile-pic-"
     val charsPath = "chats/"
     val imagesuffix = ".jpg"
 
@@ -33,14 +34,42 @@ object HulaFirebaseStorage {
         return update(getNewEventPhotosPath(index), FileInputStream(filePath))
     }
 
+    @JvmStatic
+    fun updateProfileImage(filePath: String): UploadTask {
+        return update(getProfileImagePath(""), FileInputStream(filePath))
+    }
 
+    @JvmStatic
+    fun getProfileImagePath(name: String): String {
+        val service = HService.getService(ServiceProfile::class.java)
+        var firstName = service.userInfo?.user?.firstName
+        if (firstName.isNullOrEmpty()){
+            firstName = name
+        }
+        return "${firstName}/$profilePath$profilePicPrefix${UUID.randomUUID()}$imagesuffix"
+    }
+
+
+    @JvmStatic
+    fun getMyPhotosPath(index: Int,name: String): String {
+        val service = HService.getService(ServiceProfile::class.java)
+        var firstName = service.userInfo?.user?.firstName
+        if (firstName.isNullOrEmpty()){
+            firstName = name
+        }
+        return "${firstName}/$profilePath$myPhotosBasePath$index-${UUID.randomUUID()}$imagesuffix"
+    }
+
+
+    @JvmStatic
     fun getNewEventPhotosPath(index: Int): String {
         return "${userDir()}/$myEventsPath${UUID.randomUUID()}/$index${imagesuffix}"
     }
 
+    @JvmStatic
     fun userDir(): String {
         val service = HService.getService(ServiceProfile::class.java)
-        return "${service.userInfo?.user?.firstName ?: "android"}_${service.userId}"
+        return "${service.userInfo?.user?.firstName ?: ""}_${service.userId}"
     }
 
 

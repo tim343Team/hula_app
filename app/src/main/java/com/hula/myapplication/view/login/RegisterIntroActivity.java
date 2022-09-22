@@ -9,19 +9,33 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.JsonUtils;
 import com.blankj.utilcode.util.NotificationUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hula.myapplication.R;
+import com.hula.myapplication.app.UrlFactory;
+import com.hula.myapplication.app.net.GsonWalkDogCallBack;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.PageDataHoldService;
+import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.RemoteData;
+import com.hula.myapplication.dao.SubCategoriesDao;
+import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivityRegisterIntroBinding;
 import com.hula.myapplication.view.HomeActivity;
 import com.hula.myapplication.widget.ColorItemDecoration;
+import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import tim.com.libnetwork.base.BaseActivity;
+import tim.com.libnetwork.network.okhttp.WonderfulOkhttpUtils;
 
 public class RegisterIntroActivity extends BaseActivity {
     private ActivityRegisterIntroBinding binding;
@@ -58,6 +72,11 @@ public class RegisterIntroActivity extends BaseActivity {
         binding.tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String s = binding.edit.getText().toString();
+                String s1 = binding.edit1.getText().toString();
+                String s2 = binding.edit2.getText().toString();
+                String s3 = binding.edit3.getText().toString();
+                HService.getService(PageDataHoldService.class).add("RegisterIntroActivity", new String[]{s, s1, s2, s3});
                 updateProfile();
             }
         });
@@ -101,12 +120,51 @@ public class RegisterIntroActivity extends BaseActivity {
         }
     }
 
-    private void updateProfile() {
 
+    private void updateProfile() {
+        try {
+            ToastUtil.showLoading("Update Photos");
+            RegisterNextPageHelp.updateImage(this, list -> {
+                ToastUtil.showLoading("Update profile");
+                WonderfulOkhttpUtils.postJson()
+                        .body(GsonUtils.toJson(RegisterNextPageHelp.register(list)))
+                        .addHeader("Content-Type","application/json")
+                        .url(UrlFactory.updateProfile())
+                        .build()
+                        .getCall()
+                        .bindLifecycle(this)
+                        .enqueue(new GsonWalkDogCallBack<RemoteData<UserInfoData>>() {
+                            @Override
+                            protected void onRes(RemoteData<UserInfoData> data) throws Exception {
+                                HService.getService(ServiceProfile.class).updateUserInfo(data.getNotNullData());
+                                next();
+                            }
+
+                            @Override
+                            protected void onFail(Exception e) {
+                                super.onFail(e);
+                                ToastUtil.hideLoading();
+                            }
+                        });
+
+            }, exception -> {
+                ToastUtil.hideLoading();
+                String message = exception.getMessage();
+                if (message == null) {
+                    message = "Update failure";
+                }
+                ToastUtil.showToast(message);
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void next() {
         if (RegisterNextPageHelp.replenishProfileOnReigster(RegisterIntroActivity.this, 5, false)) {
             if (RegisterNextPageHelp.getminPage() == 1) {
                 //可以返回到填写邮箱页的话，就是注册，这个时候应该填写邀请码
-                Intent intent = new Intent(RegisterIntroActivity.this,RegisterInviteCodeActivity.class);
+                Intent intent = new Intent(RegisterIntroActivity.this, RegisterInviteCodeActivity.class);
                 startActivity(intent);
                 return;
             }

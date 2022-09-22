@@ -1,41 +1,31 @@
 package com.hula.myapplication.view.login;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.NotificationUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.auth.UserInfo;
 import com.hula.myapplication.app.UrlFactory;
 import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.app.service.HService;
-import com.hula.myapplication.app.service.PageDataHoldService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.base.HBaseActivity;
 import com.hula.myapplication.dao.LoginRemoteData;
-import com.hula.myapplication.dao.RemoteData;
-import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivityLoginPhoneBinding;
 import com.hula.myapplication.sp.SharedPrefsHelper;
 import com.hula.myapplication.util.SimTextWatcher;
 import com.hula.myapplication.view.HomeActivity;
-import com.hula.myapplication.widget.VCEditText;
 import com.hula.myapplication.widget.htoast.ToastUtil;
 
 import java.util.HashMap;
@@ -69,7 +59,7 @@ public class LoginPhoneActivity extends HBaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 super.onTextChanged(s, start, before, count);
-                if (binding.editPhone.getText().length() != 10 || forceResendingToken == null) {
+                if (binding.editPhone.getText().length() != 10) {
                     return;
                 }
                 binding.tvConfirm.setEnabled(s.length() == 6);
@@ -91,6 +81,7 @@ public class LoginPhoneActivity extends HBaseActivity {
                         ToastUtil.hideLoading();
                         LoginPhoneActivity.this.verificationId = verificationId;
                         LoginPhoneActivity.this.forceResendingToken = forceResendingToken;
+                        binding.group.setVisibility(View.VISIBLE);
                     }
 
                     @Override

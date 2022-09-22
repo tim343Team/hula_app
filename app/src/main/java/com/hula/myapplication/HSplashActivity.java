@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -13,6 +14,7 @@ import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.ActivitySplashBinding;
 import com.hula.myapplication.view.HomeActivity;
+import com.hula.myapplication.view.login.RegisterNextPageHelp;
 import com.hula.myapplication.view.login.RegisterOrLoginActivity;
 import com.hula.myapplication.view.login.StartActivity;
 import com.hula.myapplication.widget.HuCallBack1;
@@ -26,15 +28,18 @@ public class HSplashActivity extends BaseActivity {
     private final Runnable startNext = new Runnable() {
         @Override
         public void run() {
+            handler.removeCallbacks(this);
             ServiceProfile service = HService.getService(ServiceProfile.class);
             UserInfoData userInfo = service.getUserInfo();
             if (userInfo == null) {
                 StartActivity.start(HSplashActivity.this);
-            } else {
-                Intent intent = new Intent(HSplashActivity.this, HomeActivity.class);
-                startActivity(intent);
+                return;
             }
-            handler.removeCallbacks(this);
+            if (userInfo.getUser() != null && TextUtils.isEmpty(userInfo.getUser().getEmail())) {
+                RegisterNextPageHelp.replenishProfileOnReigster(HSplashActivity.this,1,true);
+                return;
+            }
+            HomeActivity.start(HSplashActivity.this,false);
         }
     };
 

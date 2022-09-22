@@ -18,14 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:visibility="invisible"
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:text="Back"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -35,97 +35,128 @@
             android:src="@mipmap/icon_step_2" />
     </com.hula.myapplication.widget.HuLaActionBar>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="25dp"
-        android:text="Email" />
-
-    <com.hula.myapplication.widget.HuLaEditText
-        android:textColor="#8e73d3"
-        android:id="@+id/edit_email"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/select_edit_bg"
-        android:hint="email@example.com"
-        android:padding="20dp"
-        app:edit_hintStartDrawable="@mipmap/icon_email" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="12dp"
-        android:text="Name" />
-
-    <com.hula.myapplication.widget.HuLaEditText
-        android:textColor="#8e73d3"
-        android:id="@+id/edit_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/select_edit_bg"
-        android:hint="First name"
-        android:padding="20dp"
-        app:edit_hintStartDrawable="@mipmap/icon_persion_hint" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="25dp"
-        android:text="Pronoun" />
-
-    <com.hula.myapplication.widget.HuLaTextView
-        android:textColor="#8e73d3"
-        android:id="@+id/tv_pron"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/select_edit_bg"
-        android:hint="She/Her"
-        android:padding="20dp"
-        app:tv_hintStartDrawable="@mipmap/icon_persion_hint_1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="25dp"
-        android:text="Birthday" />
-
-    <com.hula.myapplication.widget.HuLaTextView
-        android:textColor="#8e73d3"
-        android:id="@+id/tv_bir"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="45dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/select_edit_bg"
-        android:hint="MM / DD / YYYY"
-        android:padding="20dp"
-        app:tv_hintStartDrawable="@mipmap/icon_rili" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/tv_confirm"
-        style="@style/defButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
-        android:paddingHorizontal="71dp"
-        android:text="Continue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="25dp"
+                android:text="Email" />
 
+            <com.hula.myapplication.widget.HuLaEditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="email@example.com"
+                android:padding="20dp"
+                android:textColor="#8e73d3"
+                app:edit_hintStartDrawable="@mipmap/icon_email" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="12dp"
+                android:text="Name" />
+
+            <com.hula.myapplication.widget.HuLaEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="First name"
+                android:padding="20dp"
+                android:textColor="#8e73d3"
+                app:edit_hintStartDrawable="@mipmap/icon_persion_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="25dp"
+                android:text="Pronoun" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:id="@+id/tv_pron"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="She/Her"
+                android:padding="20dp"
+                android:textColor="#8e73d3"
+                app:tv_hintStartDrawable="@mipmap/icon_persion_hint_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="25dp"
+                android:text="Birthday" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:id="@+id/tv_bir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="MM / DD / YYYY"
+                android:padding="20dp"
+                android:textColor="#8e73d3"
+                app:tv_hintStartDrawable="@mipmap/icon_rili" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="25dp"
+                android:text="City" />
+
+            <com.hula.myapplication.widget.HuLaTextView
+                android:id="@+id/tv_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/select_edit_bg"
+                android:hint="New York"
+                android:padding="20dp"
+                android:textColor="#8e73d3"
+                app:tv_hintStartDrawable="@mipmap/icon_location_smart_1" />
+
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                style="@style/defButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
+                android:paddingHorizontal="71dp"
+                android:text="Continue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

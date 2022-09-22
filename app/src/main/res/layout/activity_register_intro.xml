@@ -121,8 +121,10 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:hint="Example: See a concert at Brooklyn Mirage"
                     android:padding="5dp"
@@ -150,8 +152,10 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:hint="Example: Yacht Party at Hamptons"
                     android:padding="5dp"
@@ -179,8 +183,10 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:hint="Example: Cocktail Hop in West Village"
                     android:padding="5dp"
@@ -204,9 +210,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_marginHorizontal="32dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

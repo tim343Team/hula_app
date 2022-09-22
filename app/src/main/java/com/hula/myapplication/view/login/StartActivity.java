@@ -20,7 +20,7 @@ public class StartActivity extends HBaseActivity {
        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
        context.startActivity(intent);
-       HService.getService(ServiceProfile.class).updateUserInfo(null);
+       HService.getService(ServiceProfile.class).cleanUserInfo();
        SharedPrefsHelper.getInstance().saveToken("");
     }
 
