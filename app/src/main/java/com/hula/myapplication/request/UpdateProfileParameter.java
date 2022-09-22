@@ -31,6 +31,10 @@ public class UpdateProfileParameter {
 
     private String school_is_public;
 
+    private String liked_sub_categories;
+
+    private String liked_categories;
+
     public String getWork() {
         return work;
     }
@@ -149,5 +153,21 @@ public class UpdateProfileParameter {
 
     public void setSchool_is_public(String school_is_public) {
         this.school_is_public = school_is_public;
+    }
+
+    public String getLiked_sub_categories() {
+        return liked_sub_categories;
+    }
+
+    public void setLiked_sub_categories(String liked_sub_categories) {
+        this.liked_sub_categories = liked_sub_categories;
+    }
+
+    public String getLiked_categories() {
+        return liked_categories;
+    }
+
+    public void setLiked_categories(String liked_categories) {
+        this.liked_categories = liked_categories;
     }
 }

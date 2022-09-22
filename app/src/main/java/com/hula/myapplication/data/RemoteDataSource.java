@@ -226,10 +226,12 @@ public class RemoteDataSource implements DataSource {
                 .addParams("display_name",parameter.getDisplay_name())
                 .addParams("wish_list",parameter.getWish_list())
                 .addParams("school_id",parameter.getSchool_id()+"")
-                .addParams("default_profile_tags",parameter.getDefault_profile_tags())
+//                .addParams("default_profile_tags",parameter.getDefault_profile_tags())
                 .addParams("drink",parameter.getDrink())
                 .addParams("about",parameter.getAbout())
                 .addParams("school_is_public",parameter.getSchool_is_public())
+//                .addParams("liked_sub_categories",parameter.getLiked_sub_categories())
+//                .addParams("liked_categories",parameter.getLiked_categories())
                 .build()
                 .execute(new StringCallBack() {
                     @Override
