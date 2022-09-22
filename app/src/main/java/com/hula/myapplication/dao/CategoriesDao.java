@@ -2,36 +2,54 @@ package com.hula.myapplication.dao;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CategoriesDao{
+public class CategoriesDao implements Serializable {
 	private String name;
-	@SerializedName("created_at")
-	private String createdAt;
-	@SerializedName("small_icon")
-	private String smallIcon;
+	private String created_at;
+	private String small_icon;
 	private int id;
-	@SerializedName("bg_image")
-	private String bgImage;
+	private String bg_image;
 
 	public String getName(){
 		return name;
 	}
 
-	public String getCreatedAt(){
-		return createdAt;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getSmallIcon(){
-		return smallIcon;
+	public String getCreated_at() {
+		return created_at;
 	}
 
-	public int getId(){
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+
+	public String getSmall_icon() {
+		return small_icon;
+	}
+
+	public void setSmall_icon(String small_icon) {
+		this.small_icon = small_icon;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public String getBgImage(){
-		return bgImage;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getBg_image() {
+		return bg_image;
+	}
+
+	public void setBg_image(String bg_image) {
+		this.bg_image = bg_image;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class UserInfoData implements Serializable {
     private Object hasBlockedMe;
     private List<Object> my_photos;
     private Object location;
-    private Object interests;
+    private List<SubCategoriesDao> interests;
     private User user;
     private boolean drink_is_public;
     private int age;
@@ -164,10 +164,6 @@ public class UserInfoData implements Serializable {
 
     public Object getLocation() {
         return location;
-    }
-
-    public Object getInterests() {
-        return interests;
     }
 
     public User getUser() {
@@ -300,10 +296,6 @@ public class UserInfoData implements Serializable {
         this.location = location;
     }
 
-    public void setInterests(Object interests) {
-        this.interests = interests;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -380,5 +372,24 @@ public class UserInfoData implements Serializable {
 
     public void setWork_is_public(boolean work_is_public) {
         this.work_is_public = work_is_public;
+    }
+
+    public List<Object> getMy_photos() {
+        return my_photos;
+    }
+
+    public void setMy_photos(List<Object> my_photos) {
+        this.my_photos = my_photos;
+    }
+
+    public List<SubCategoriesDao> getInterests() {
+        if(interests==null){
+            interests=new ArrayList<>();
+        }
+        return interests;
+    }
+
+    public void setInterests(List<SubCategoriesDao> interests) {
+        this.interests = interests;
     }
 }
