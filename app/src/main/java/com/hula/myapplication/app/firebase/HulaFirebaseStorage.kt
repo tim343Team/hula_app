@@ -28,17 +28,41 @@ object HulaFirebaseStorage {
         return storageRef.putStream(inputStream)
     }
 
-
+    /**
+     * 上传event图片
+     */
     @JvmStatic
     fun updateEventPhotos(index: Int, filePath: String): UploadTask {
         return update(getNewEventPhotosPath(index), FileInputStream(filePath))
     }
 
+    /**
+     * 上传头像
+     */
     @JvmStatic
     fun updateProfileImage(filePath: String): UploadTask {
         return update(getProfileImagePath(""), FileInputStream(filePath))
     }
 
+    /**
+     * 上传我的图片
+     */
+    fun updateMyPhotos(index: Int,filePath: String):UploadTask{
+        return update(getMyPhotosPath(index,""),FileInputStream(filePath))
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// /////// ///////
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     @JvmStatic
     fun getProfileImagePath(name: String): String {
         val service = HService.getService(ServiceProfile::class.java)
