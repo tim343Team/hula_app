@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="昨天" />
+
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/shape_oval_fff"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/iv_right"
+        app:layout_constraintTop_toTopOf="@+id/iv_right"
+        tools:text="我的名字" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:minHeight="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_right">
+
+        <ProgressBar
+            android:id="@+id/progress_loading"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/iv_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="重发"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/layout_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_oval_fff"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/iv_left"
+        app:layout_constraintTop_toTopOf="@+id/iv_left"
+        tools:text="tina" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

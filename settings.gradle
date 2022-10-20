@@ -1,2 +1,4 @@
 rootProject.name = "Hula"
 include ':app'
+include ':chat-core'
+include ':chat-ui'
