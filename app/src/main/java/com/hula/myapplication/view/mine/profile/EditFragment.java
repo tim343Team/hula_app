@@ -323,6 +323,10 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                 break;
             }
         }
+        subCategoriesDaos.clear();
+        subCategoriesDaos.addAll(userInfoData.getInterests());
+        subCategoriesDaos.add(new SubCategoriesDao());
+        categoriesAdapter.notifyDataSetChanged();
     }
 
     private void onSelectDate() {
@@ -363,7 +367,6 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
     }
 
     private void initRecyclerViewCategorie() {
-        subCategoriesDaos.add(new SubCategoriesDao());
         recyclerCategorie.setLayoutManager(new FlowLayoutManager());
         categoriesAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, subCategoriesDaos);
         categoriesAdapter.bindToRecyclerView(recyclerCategorie);
@@ -385,6 +388,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 //                "display_name":"Name","wish_list":"l3","school_id":988,"default_profile_tags":"0",
 //                "drink":"Drink","about":"About me","school_is_public":"True"}
             StringBuffer wishListBuffer = new StringBuffer();
+            StringBuffer profileTagBuffer = new StringBuffer();
             if (!binding.editEvent1.toString().isEmpty()) {
                 wishListBuffer = wishListBuffer.append(binding.editEvent1.getText().toString()).append(",");
             }
@@ -394,9 +398,9 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
             if (!binding.editEvent3.toString().isEmpty()) {
                 wishListBuffer = wishListBuffer.append(binding.editEvent3.getText().toString()).append(",");
             }
-            String wishListString=wishListBuffer.toString();
-            if(wishListString.endsWith(",")){
-                wishListString=wishListString.substring(0,wishListString.length()-1);
+            String wishListString = wishListBuffer.toString();
+            if (wishListString.endsWith(",")) {
+                wishListString = wishListString.substring(0, wishListString.length() - 1);
             }
 
             ServiceProfile service = HService.getService(ServiceProfile.class);
@@ -413,7 +417,6 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
             parameter.setDisplay_name(userInfoData.getDisplay_name());
             parameter.setWish_list(wishListString);
             parameter.setSchool_id(userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0).getId() : 0);
-            parameter.setDefault_profile_tags("0");//TODO
             parameter.setDrink(userInfoData.getDrink());
             parameter.setAbout(userInfoData.getAbout());
             parameter.setSchool_is_public(userInfoData.isSchool_is_public() ? "True" : "False");
