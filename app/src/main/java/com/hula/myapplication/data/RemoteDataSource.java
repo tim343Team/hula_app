@@ -15,6 +15,7 @@ import com.hula.myapplication.app.UrlFactory;
 import com.hula.myapplication.app.net.GsonWalkDogCallBack;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.dao.PreferenceDao;
 import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.dao.RemoteData;
 import com.hula.myapplication.dao.SchoolDao;
@@ -37,6 +38,38 @@ public class RemoteDataSource implements DataSource {
 
     private RemoteDataSource() {
 
+    }
+
+    @Override
+    public void getUserPreference(String userId, DataCallback dataCallback) {
+        WonderfulOkhttpUtils.get().url(UrlFactory.getUserPreference())
+                .addParams("user_id",userId)
+                .build()
+                .execute(new StringCallBack() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+                        super.onError(request, e);
+                        WonderfulLogUtils.logi("获取用户preference:", e.getMessage());
+                        dataCallback.onDataNotAvailable(OKHTTP_ERROR, null);
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        WonderfulLogUtils.logi("获取用户preference:", response.toString());
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if (object.optInt("code") == 0) {
+                                PreferenceDao obj = gson.fromJson(object.getJSONObject("data").toString(), PreferenceDao.class);
+                                dataCallback.onDataLoaded(obj);
+                            } else {
+                                dataCallback.onDataNotAvailable(object.getInt("code"), object.optString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            dataCallback.onDataNotAvailable(JSON_ERROR, null);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -179,6 +212,7 @@ public class RemoteDataSource implements DataSource {
     public void getDefaultProfileTag(DataCallback dataCallback) {
         WonderfulOkhttpUtils.post().url(UrlFactory.getDefaultProfileTags())
 //        WonderfulOkhttpUtils.get().url(UrlFactory.getProfile()+"?user_id=6762")
+//        WonderfulOkhttpUtils.post().url(UrlFactory.getSubCategories())
                 .build()
                 .execute(new StringCallBack() {
                     @Override
@@ -230,8 +264,8 @@ public class RemoteDataSource implements DataSource {
                 .addParams("drink",parameter.getDrink())
                 .addParams("about",parameter.getAbout())
                 .addParams("school_is_public",parameter.getSchool_is_public())
-//                .addParams("liked_sub_categories",parameter.getLiked_sub_categories())
-//                .addParams("liked_categories",parameter.getLiked_categories())
+                .addParams("liked_sub_categories",parameter.getLiked_sub_categories())
+                .addParams("liked_categories",parameter.getLiked_categories())
                 .build()
                 .execute(new StringCallBack() {
                     @Override

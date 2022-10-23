@@ -28,6 +28,11 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
+    public void getUserPreference(String userId, DataCallback dataCallback) {
+
+    }
+
+    @Override
     public void addSchool(AddSchoolParameter parameter, DataCallback dataCallback) {
 
     }
