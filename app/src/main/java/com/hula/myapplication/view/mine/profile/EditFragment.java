@@ -19,6 +19,7 @@ import com.hula.myapplication.adapter.ProfileSettingAdapter;
 import com.hula.myapplication.app.Injection;
 import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.ServiceProfile;
+import com.hula.myapplication.bus_event.RefreshUserInfo;
 import com.hula.myapplication.bus_event.UpdateUserInfoEvent;
 import com.hula.myapplication.dao.ProfileTagDao;
 import com.hula.myapplication.dao.SubCategoriesDao;
@@ -32,6 +33,8 @@ import com.hula.myapplication.view.mine.profile.sub.EditNameActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditSchoolActivity;
 import com.hula.myapplication.view.mine.profile.sub.EditWorkActivity;
 import com.hula.myapplication.view.mine.profile.sub.ProfileBadgeActivity;
+import com.hula.myapplication.widget.HuCallBack1;
+import com.hula.myapplication.widget.htoast.ToastUtil;
 import com.library.flowlayout.FlowLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -140,6 +143,7 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
                     return;
                 }
                 tvEditLength.setText((160 - content.length()) + "");
+                userInfoData.setAbout(content);
             }
         });
         binding.editEvent1.addTextChangedListener(new TextWatcher() {
@@ -368,13 +372,16 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     private void initRecyclerViewCategorie() {
         recyclerCategorie.setLayoutManager(new FlowLayoutManager());
-        categoriesAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, subCategoriesDaos);
+        categoriesAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, subCategoriesDaos,true);
         categoriesAdapter.bindToRecyclerView(recyclerCategorie);
         categoriesAdapter.setEnableLoadMore(false);
         categoriesAdapter.AddListenerItem(new CategoriesSettingAdapter.AddListenerItem() {
             @Override
             public void click() {
-                ChooseInterActivity.actionStart(getmActivity());
+                if (userInfoData == null) {
+                    return;
+                }
+                ChooseInterActivity.actionStart(getmActivity(), userInfoData);
             }
         });
     }
@@ -389,6 +396,8 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 //                "drink":"Drink","about":"About me","school_is_public":"True"}
             StringBuffer wishListBuffer = new StringBuffer();
             StringBuffer profileTagBuffer = new StringBuffer();
+            StringBuffer subCategoryBuffer = new StringBuffer();
+            StringBuffer categoryBuffer = new StringBuffer();
             if (!binding.editEvent1.toString().isEmpty()) {
                 wishListBuffer = wishListBuffer.append(binding.editEvent1.getText().toString()).append(",");
             }
@@ -401,6 +410,18 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
             String wishListString = wishListBuffer.toString();
             if (wishListString.endsWith(",")) {
                 wishListString = wishListString.substring(0, wishListString.length() - 1);
+            }
+            for (SubCategoriesDao subCategoriesDao : userInfoData.getInterests()) {
+                categoryBuffer.append(subCategoriesDao.getCategory().getId()).append(",");
+                subCategoryBuffer.append(subCategoriesDao.getId()).append(",");
+            }
+            String subCategoryString = subCategoryBuffer.toString();
+            String categoryString = categoryBuffer.toString();
+            if (subCategoryString.endsWith(",")) {
+                subCategoryString = subCategoryString.substring(0, subCategoryString.length() - 1);
+            }
+            if (categoryString.endsWith(",")) {
+                categoryString = categoryString.substring(0, categoryString.length() - 1);
             }
 
             ServiceProfile service = HService.getService(ServiceProfile.class);
@@ -420,6 +441,8 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
             parameter.setDrink(userInfoData.getDrink());
             parameter.setAbout(userInfoData.getAbout());
             parameter.setSchool_is_public(userInfoData.isSchool_is_public() ? "True" : "False");
+            parameter.setLiked_categories(categoryString);
+            parameter.setLiked_sub_categories(subCategoryString);
             presenter.updateProfile(parameter);
         }
     }
@@ -442,7 +465,9 @@ public class EditFragment extends BaseLazyFragment implements ProfileContract.Pr
 
     @Override
     public void updateProfileSuccess(String toastMessage) {
-
+        //通知上层Activity更新userInfo
+        ToastUtil.showToast(getString(R.string.profile_update_success));
+        EventBus.getDefault().post(new RefreshUserInfo());
     }
 
     @Override

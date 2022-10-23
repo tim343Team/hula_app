@@ -32,6 +32,14 @@ public class CategoriesDaoAdapter extends BaseQuickAdapter<CategoriesDao, BaseVi
         this.selectCall = selectCall;
     }
 
+    public void addSelectDao(List<SubCategoriesDao> daos){
+        select.addAll(daos);
+    }
+
+    public List<SubCategoriesDao> getSelect() {
+        return select;
+    }
+
     public void setCategoriesDaoData(List<SubCategoriesDao> subCategoriesDao) {
         for (int i = 0; i < subCategoriesDao.size(); i++) {
             SubCategoriesDao subCategorie = subCategoriesDao.get(i);

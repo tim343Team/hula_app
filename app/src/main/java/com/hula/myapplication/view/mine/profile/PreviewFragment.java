@@ -12,11 +12,17 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.hula.myapplication.R;
+import com.hula.myapplication.adapter.CategoriesSettingAdapter;
 import com.hula.myapplication.adapter.EventAttendAdapter;
 import com.hula.myapplication.adapter.PreviewImagePagerAdapter;
 import com.hula.myapplication.adapter.ProfileSettingAdapter;
+import com.hula.myapplication.app.Injection;
+import com.hula.myapplication.app.service.HService;
+import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.dao.EventAttendDao;
 import com.hula.myapplication.dao.ProfileTagDao;
+import com.hula.myapplication.dao.SubCategoriesDao;
+import com.hula.myapplication.dao.UserInfoData;
 import com.hula.myapplication.databinding.FragmentMinePreviewBinding;
 import com.library.flowlayout.FlowLayoutManager;
 
@@ -32,10 +38,11 @@ public class PreviewFragment extends BaseLazyFragment {
     private RecyclerView recyclerInterest;
     private RecyclerView recyclerEvent;
     private PreviewImagePagerAdapter myPagerAdapter;
-    private ProfileSettingAdapter interestAdapter;
+    private CategoriesSettingAdapter interestAdapter;
     private EventAttendAdapter eventAdapter;
-    private List<ProfileTagDao>  interestDaos=new ArrayList<>();
-    private List<EventAttendDao>  eventDaos=new ArrayList<>();
+    private List<SubCategoriesDao> interestDaos = new ArrayList<>();
+    private List<EventAttendDao> eventDaos = new ArrayList<>();
+    private UserInfoData userInfoData;
 
     public static PreviewFragment getInstance() {
         PreviewFragment fragment = new PreviewFragment();
@@ -110,7 +117,6 @@ public class PreviewFragment extends BaseLazyFragment {
 
     @Override
     protected void loadData() {
-
     }
 
     @Override
@@ -123,7 +129,42 @@ public class PreviewFragment extends BaseLazyFragment {
 
     }
 
-    private void initDot(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        ServiceProfile service = HService.getService(ServiceProfile.class);
+        userInfoData = service.getUserInfo();
+        updateView();
+    }
+
+    private void updateView() {
+        if (userInfoData == null) {
+            return;
+        }
+        binding.tvGender.setText(userInfoData.getPronoun());
+        binding.tvBirthday.setText(userInfoData.getAge() + "");
+        binding.tvAddress.setText(userInfoData.getLocation());
+        binding.tvUniversity.setText(userInfoData.getMy_schools().size() > 0 ? userInfoData.getMy_schools().get(0).getName() : "");
+        binding.tvJob.setText(userInfoData.getWork());
+        binding.tvWine.setText(userInfoData.getDrink());
+        binding.tvInfo.setText(userInfoData.getAbout());
+        for (int i = 0; i < userInfoData.getWish_list().size(); i++) {
+            if (i == 0) {
+                binding.editEvent1.setText(userInfoData.getWish_list().get(i).getWish());
+            } else if (i == 1) {
+                binding.editEvent2.setText(userInfoData.getWish_list().get(i).getWish());
+            } else if (i == 2) {
+                binding.editEvent3.setText(userInfoData.getWish_list().get(i).getWish());
+            } else {
+                break;
+            }
+        }
+        interestDaos.clear();
+        interestDaos.addAll(userInfoData.getInterests());
+        interestAdapter.notifyDataSetChanged();
+    }
+
+    private void initDot() {
         for (int i = 0; i < myPagerAdapter.getBanners().length; i++) {
             ImageView imageView = new ImageView(getContext());
             //设置图片的宽高
@@ -155,20 +196,16 @@ public class PreviewFragment extends BaseLazyFragment {
     }
 
 
-    private void initRecyclerInterest(){
-        //TODO 测试数据
-        for(int i=0;i<30;i++){
-            interestDaos.add(new ProfileTagDao());
-        }
+    private void initRecyclerInterest() {
         recyclerInterest.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL));
-        interestAdapter = new ProfileSettingAdapter(R.layout.adapter_setting_profile, interestDaos,false);
+        interestAdapter = new CategoriesSettingAdapter(R.layout.adapter_setting_categorie, interestDaos, false);
         interestAdapter.bindToRecyclerView(recyclerInterest);
         interestAdapter.setEnableLoadMore(false);
     }
 
-    private void initRecyclerEvent(){
+    private void initRecyclerEvent() {
         //TODO 测试数据
-        for(int i=0;i<30;i++){
+        for (int i = 0; i < 30; i++) {
             eventDaos.add(new EventAttendDao());
         }
         recyclerEvent.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -177,7 +214,12 @@ public class PreviewFragment extends BaseLazyFragment {
         eventAdapter.setEnableLoadMore(false);
     }
 
-    private void setViewList(){
+    private void setViewList() {
 
+    }
+
+    public void updateUserInfo(UserInfoData userInfoData) {
+        this.userInfoData = userInfoData;
+        updateView();
     }
 }

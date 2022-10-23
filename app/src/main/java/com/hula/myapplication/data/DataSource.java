@@ -14,6 +14,8 @@ public interface DataSource {
         void onDataNotAvailable(Integer code, String toastMessage);
     }
 
+    void getUserPreference(String userId, DataCallback dataCallback);
+
     void addSchool(AddSchoolParameter parameter, DataCallback dataCallback);
 
     void getSchoolList(GetSchoolParameter parameter, DataCallback dataCallback);

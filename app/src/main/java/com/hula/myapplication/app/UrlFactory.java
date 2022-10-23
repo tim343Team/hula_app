@@ -10,10 +10,6 @@ public class UrlFactory {
         return host + "/user/get_sub_categories";
     }
 
-    public static String updateProfile() {
-        return host + "/user/update_profile";
-    }
-
     public static String getProfile() {
         return host + "/user/get_profile";
     }
@@ -83,5 +79,10 @@ public class UrlFactory {
     //更改设置profile
     public static String updateProfile() {
         return host + "/user/update_profile";
+    }
+
+    //获取用户preference
+    public static String getUserPreference() {
+        return host + "/user/get_user_preference";
     }
 }

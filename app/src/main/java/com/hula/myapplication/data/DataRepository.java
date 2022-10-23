@@ -27,6 +27,12 @@ public class DataRepository implements DataSource {
 
 
     @Override
+    public void getUserPreference(String userId, DataCallback dataCallback) {
+        if (isLocal) mLocalDataSource.getUserPreference(userId,dataCallback);
+        else mRemoteDataSource.getUserPreference(userId,dataCallback);
+    }
+
+    @Override
     public void addSchool(AddSchoolParameter parameter, DataCallback dataCallback) {
         if (isLocal) mLocalDataSource.addSchool(parameter,dataCallback);
         else mRemoteDataSource.addSchool(parameter,dataCallback);

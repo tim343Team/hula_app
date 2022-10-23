@@ -63,6 +63,7 @@
         android:layout_weight="1"/>
 
     <TextView
+        android:id="@+id/tv_save"
         android:layout_width="231dp"
         android:layout_height="44dp"
         android:layout_gravity="center_horizontal"

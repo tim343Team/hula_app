@@ -38,7 +38,7 @@ public class UserInfoData implements Serializable {
     private String dob;
     private Object hasBlockedMe;
     private List<Object> my_photos;
-    private Object location;
+    private String location;
     private List<SubCategoriesDao> interests;
     private User user;
     private boolean drink_is_public;
@@ -162,7 +162,7 @@ public class UserInfoData implements Serializable {
         return my_photos;
     }
 
-    public Object getLocation() {
+    public String getLocation() {
         return location;
     }
 
@@ -292,7 +292,7 @@ public class UserInfoData implements Serializable {
         this.my_photos = myPhotos;
     }
 
-    public void setLocation(Object location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
