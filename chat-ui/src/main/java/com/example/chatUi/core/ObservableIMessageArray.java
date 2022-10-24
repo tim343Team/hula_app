@@ -29,12 +29,16 @@ public class ObservableIMessageArray implements IMessageArrayChangeListener{
 
 
 
-    public void stopListener(BaseChangeEventListener listener) {
+    public void stopListener() {
         isListener = false;
     }
 
-    public void startListener(BaseChangeEventListener listener) {
+    public void startListener() {
         isListener = true;
+    }
+
+    public boolean isListener() {
+        return isListener;
     }
 
     @Override
