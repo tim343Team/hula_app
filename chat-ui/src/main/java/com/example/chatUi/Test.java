@@ -42,7 +42,7 @@ public class Test {
             }
 
             @Override
-            public void onMoved(int fromPosition, int toPosition) {
+            public void onMoved(int index, int size) {
 
             }
         });

@@ -15,4 +15,9 @@ public class TxtViewHolder extends IBaseViewHolder{
     protected View initContent(FrameLayout layoutContent) {
         return null;
     }
+
+    @Override
+    public void onBind(int position) {
+
+    }
 }
