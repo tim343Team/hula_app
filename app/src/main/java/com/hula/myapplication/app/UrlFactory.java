@@ -80,8 +80,4 @@ public class UrlFactory {
         return host + "/events/add_school";
     }
 
-    //更改设置profile
-    public static String updateProfile() {
-        return host + "/user/update_profile";
-    }
 }

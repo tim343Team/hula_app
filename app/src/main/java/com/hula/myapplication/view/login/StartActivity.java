@@ -10,6 +10,7 @@ import com.hula.myapplication.app.service.HService;
 import com.hula.myapplication.app.service.PageDataHoldService;
 import com.hula.myapplication.app.service.ServiceProfile;
 import com.hula.myapplication.base.HBaseActivity;
+import com.hula.myapplication.base.Notice;
 import com.hula.myapplication.databinding.ActivityStartBinding;
 import com.hula.myapplication.sp.SharedPrefsHelper;
 
@@ -33,9 +34,20 @@ public class StartActivity extends HBaseActivity {
         setContentView(binding.getRoot());
 
         binding.tvLogin.setOnClickListener(v -> {
-            HService.getService(PageDataHoldService.class).add("StartActivity.LoginOrRegister",true);
-            Intent intent = new Intent(this,RegisterOrLoginActivity.class);
-            startActivity(intent);
+            Notice.EventAlertConfig eventAlertConfig = new Notice.EventAlertConfig();
+            eventAlertConfig.setRunnable(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+            eventAlertConfig.setSubtitle("xxxxxxxxxxx");
+            eventAlertConfig.setTitle("xxxxxxxxx");
+            eventAlertConfig.setUrl("www.baidu.com");
+            Notice.showEventAlert(eventAlertConfig);
+//            HService.getService(PageDataHoldService.class).add("StartActivity.LoginOrRegister",true);
+//            Intent intent = new Intent(this,RegisterOrLoginActivity.class);
+//            startActivity(intent);
         });
 
         binding.tvRegister.setOnClickListener(v -> {
