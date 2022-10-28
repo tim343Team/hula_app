@@ -16,7 +16,7 @@ public class TopNoticeWindow extends MoveAbleWindow {
     private int top = -1;
     private final int[] moveXY = new int[]{0, 0};
     private ValueAnimator animator;
-    private DismissRun dismissRun = new DismissRun();
+    private final DismissRun dismissRun = new DismissRun();
 
     class DismissRun implements Runnable{
 

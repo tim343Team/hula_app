@@ -23,7 +23,8 @@ public class MoveAbleWindow extends PopupWindow {
         super(contentView.getContext());
         setClippingEnabled(false);
         setTouchable(true);
-        setFocusable(true);
+        setFocusable(false);
+        setOutsideTouchable(false);
         setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(contentView.getContext(), R.color.transparent)));
         MoveAbleView moveAbleView = new MoveAbleView(contentView.getContext());
         moveAbleView.addView(contentView);
