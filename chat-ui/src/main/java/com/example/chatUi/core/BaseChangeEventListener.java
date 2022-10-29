@@ -8,5 +8,5 @@ public interface BaseChangeEventListener {
 
     void onAdd(int index,int size);
 
-    void onMoved(int fromPosition, int toPosition);
+    void onMoved(int index, int size);
 }

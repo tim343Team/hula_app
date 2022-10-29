@@ -76,6 +76,7 @@ public class UrlFactory {
         return host + "/events/add_school";
     }
 
+<<<<<<< HEAD
     //更改设置profile
     public static String updateProfile() {
         return host + "/user/update_profile";
@@ -85,4 +86,6 @@ public class UrlFactory {
     public static String getUserPreference() {
         return host + "/user/get_user_preference";
     }
+=======
+>>>>>>> ca1e1f87e544195172f2111b4aca3235245d2b67
 }

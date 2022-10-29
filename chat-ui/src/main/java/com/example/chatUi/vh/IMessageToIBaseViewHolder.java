@@ -9,19 +9,16 @@ public class IMessageToIBaseViewHolder {
     public final static int TXT_TYPE = 0;
     public final static int IMGE_TYPE = 1;
 
-    public IBaseViewHolder cover(IMessage iMessage, ViewGroup viewGroup) {
-        int i = mIMessageToType(iMessage);
+    public IBaseViewHolder cover(int type, ViewGroup viewGroup) {
         FrameLayout frameLayout = new FrameLayout(viewGroup.getContext());
-        if (i == TXT_TYPE) {
+        if (type == TXT_TYPE) {
             return new TxtViewHolder(frameLayout);
         } else {
             return new ImageViewHolder(frameLayout);
         }
     }
 
-
-    private int mIMessageToType(IMessage iMessage) {
-        //todo chat
+    public int getType(IMessage iMessage){
         return TXT_TYPE;
     }
 }

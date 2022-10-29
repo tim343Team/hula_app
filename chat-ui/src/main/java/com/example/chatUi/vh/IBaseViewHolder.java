@@ -10,9 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatUi.IChatAdapter;
 import com.example.chatUi.R;
 
 public abstract class IBaseViewHolder extends RecyclerView.ViewHolder {
+    private IChatAdapter adapter;
     private TextView tvTime;
     private ImageView ivRight;
     private TextView tvRight;
@@ -45,5 +47,13 @@ public abstract class IBaseViewHolder extends RecyclerView.ViewHolder {
         layoutContent = itemView.findViewById(R.id.layout_content);
     }
 
+    public void setAdapter(IChatAdapter adapter) {
+        this.adapter = adapter;
+    }
 
+    public IChatAdapter getAdapter() {
+        return adapter;
+    }
+
+    public abstract void onBind(int position);
 }

@@ -30,6 +30,12 @@
         <item name="android:background">@drawable/select_button_bg</item>
     </style>
 
+    <!--ShapeableImageView 圆角5dp-->
+    <style name="RoundedStyle5">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
     <!--ShapeableImageView 圆角10dp-->
     <style name="RoundedStyle10">
         <item name="cornerFamily">rounded</item>
